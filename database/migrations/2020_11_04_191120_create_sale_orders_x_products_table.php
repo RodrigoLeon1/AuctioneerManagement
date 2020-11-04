@@ -13,12 +13,9 @@ class CreateSaleOrdersXProductsTable extends Migration {
      */
     public function up() {
         Schema::create('sale_orders_x_products', function (Blueprint $table) {                                
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('sale_order_id');
             $table->smallInteger('quantity');
             $table->smallInteger('quantity_tags');
-            $table->boolean('is_invoiced');
-            $table->timestamps();
+            $table->boolean('is_invoiced')->default(false);
 
             $table->foreignId('product_id')
                 ->constrained()
@@ -30,6 +27,7 @@ class CreateSaleOrdersXProductsTable extends Migration {
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
+            $table->timestamps();
         });
     }
 

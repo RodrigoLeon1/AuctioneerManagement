@@ -4,25 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersXRolesTable extends Migration {
-
+class CreateProductsPublicsTable extends Migration {
+    
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('users_x_roles', function (Blueprint $table) {            
-            $table->foreignId('user_id')
+        Schema::create('products_publics', function (Blueprint $table) {
+            $table->id();
+            $table->date('date_max')->nullable();
+            $table->float('price_max');
+            
+            $table->foreignId('product_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
-            $table->foreignId('role_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            
+
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('users_x_roles');
+        Schema::dropIfExists('products_publics');
     }
 }

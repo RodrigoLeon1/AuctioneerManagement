@@ -16,15 +16,15 @@ class CreateInvoicesTable extends Migration {
             $table->id();
             $table->enum('type_invoice', ['cliente', 'remitente']);     // remitente - ingles?
             $table->integer('commission');                              // entero? o flotante? ej -> 0.20
-            $table->float('');                                          // senia
-            $table->float('total');
-            $table->timestamps();
+            $table->float('partial_payment');                                       
+            $table->float('total');            
 
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
+            
+            $table->timestamps();
         });
     }
 

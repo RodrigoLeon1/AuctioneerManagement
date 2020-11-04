@@ -16,17 +16,20 @@ class CreateSaleOrdersTable extends Migration {
             $table->id();
             $table->date('date_set');
             $table->string('remito');               // ingles?
-            $table->string('order_number');
-            $table->timestamps();
+            $table->string('order_number');        
+            //Falta fecha de pago???
+            //$table->date('date_payment');
             
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 
-    /**
+    /**`
      * Reverse the migrations.
      *
      * @return void

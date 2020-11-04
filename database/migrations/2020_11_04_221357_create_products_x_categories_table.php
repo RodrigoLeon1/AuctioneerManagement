@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersXRolesTable extends Migration {
+class CreateProductsXCategoriesTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,17 +12,17 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('users_x_roles', function (Blueprint $table) {            
-            $table->foreignId('user_id')
+        Schema::create('products_x_categories', function (Blueprint $table) {
+            $table->foreignId('product_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
-            $table->foreignId('role_id')
+
+            $table->foreignId('category_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
+                
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('users_x_roles');
+        Schema::dropIfExists('products_x_categories');
     }
 }

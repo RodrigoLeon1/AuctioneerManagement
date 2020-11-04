@@ -4,25 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersXRolesTable extends Migration {
-
+class CreateEventsXUsersTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('users_x_roles', function (Blueprint $table) {            
+        Schema::create('events_x_users', function (Blueprint $table) {
+            $table->foreignId('event_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
-            $table->foreignId('role_id')
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            
+
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('users_x_roles');
+        Schema::dropIfExists('events_x_users');
     }
 }

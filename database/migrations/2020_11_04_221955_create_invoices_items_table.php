@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersXRolesTable extends Migration {
+class CreateInvoicesItemsTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,17 +12,22 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('users_x_roles', function (Blueprint $table) {            
-            $table->foreignId('user_id')
+        Schema::create('invoices_items', function (Blueprint $table) {
+            $table->id();        
+            $table->smallInteger('quantity');                                     
+            $table->float('price_unit');
+            $table->float('total');
+
+            $table->foreignId('product_id')  
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
-            $table->foreignId('role_id')
+
+            $table->foreignId('invoice_id')  
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            
+
             $table->timestamps();
         });
     }
@@ -33,6 +38,6 @@ class CreateUsersXRolesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('users_x_roles');
+        Schema::dropIfExists('invoices_items');
     }
 }
