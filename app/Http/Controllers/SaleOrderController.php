@@ -13,7 +13,7 @@ class SaleOrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('orden-ventas.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class SaleOrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('orden-ventas.create');
     }
 
     /**
@@ -80,5 +80,10 @@ class SaleOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function filter()
+    {
+        // return view('orden-ventas.');
     }
 }

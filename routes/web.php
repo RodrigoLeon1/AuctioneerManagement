@@ -19,9 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('usuarios', UserController::class);
-Route::resource('orden-ventas', SaleOrderController::class);
-Route::resource('proformas', InvoiceProformaController::class);
-Route::resource('liquidaciones', InvoiceController::class);
-Route::resource('categorias', CategoryController::class);
-Route::resource('productos', ProductController::class);
+Route::get('/', function () {
+    return view('layouts.dashboard');
+})->name('dashboard');
+
+Route::resource('usuarios', UserController::class)->names('usuarios');
+
+Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
+Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
+
+Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
+Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');
+Route::resource('categorias', CategoryController::class)->names('categorias');
+Route::resource('productos', ProductController::class)->names('productos');

@@ -1,0 +1,65 @@
+@extends('layouts.app')
+
+@section('title', ' - Listar ordenes de venta')
+
+@section('content')
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Listar ordenes de venta</h1>
+</div>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            A continuacion podra observar el listado de las ordenes de ventas creadas y acceder a la ficha de cada una.
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Remito</th>
+                        <th>Numero de orden</th>
+                        <th>Remitente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Remito</th>
+                        <th>Numero de orden</th>
+                        <th>Remitente</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>25/04/2020</td>
+                        <td>865465</td>
+                        <td>61</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            Ver orden
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>25/04/2020</td>
+                        <td>865465</td>
+                        <td>61</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            Ver orden
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@endsection()
