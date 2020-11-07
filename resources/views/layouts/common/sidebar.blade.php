@@ -26,7 +26,6 @@
         Remates
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ request()->routeIs('orden-ventas.*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-cash-register"></i>
@@ -42,7 +41,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item {{ request()->routeIs('proformas.*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
@@ -82,7 +80,6 @@
         Control
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
@@ -97,7 +94,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true" aria-controls="collapsePages2">
             <i class="fas fa-fw fa-folder"></i>
@@ -112,7 +108,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages3">
             <i class="fas fa-fw fa-folder"></i>
@@ -127,7 +122,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages4">
             <i class="fas fa-fw fa-folder"></i>
@@ -145,7 +139,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+    <!-- Sidebar Toggler -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
