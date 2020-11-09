@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SaleOrder;
 use Illuminate\Http\Request;
 
 class SaleOrderController extends Controller
@@ -13,7 +14,8 @@ class SaleOrderController extends Controller
      */
     public function index()
     {
-        return view('orden-ventas.index');
+        $orders = SaleOrder::all();
+        return view('orden-ventas.index', compact('orders'));
     }
 
     /**
@@ -34,7 +36,38 @@ class SaleOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        /**
+         * Check object
+         * Save SaleOrder object
+         * Save each product in db
+         * Redirect to index page
+         */
+
+        $order = new SaleOrder();
+        // $order->
+
+        // $order = SaleOrder::create([
+        //     'date_set' => '1',
+        //     'remito' => '1',
+        //     'order_number' => '1',
+        //     'user_id' => '1'
+        // ]);
+
+        // $order->products()->createMany([
+        //     [
+        //         'quantity' => 1,
+        //         'quantity_tags' => 1,
+        //     ],
+        //     [
+        //         'quantity_tags' => 1,
+        //     ],
+        // ]);
+
+        // $order->save();
+
+        dd($request->all());
+        // return redirect()->route('orden-ventas.index');
     }
 
     /**
@@ -45,7 +78,8 @@ class SaleOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        // $order = SaleOrder::
+        return view('orden-ventas.show', compact('order'));
     }
 
     /**

@@ -4,14 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsTable extends Migration {
-    
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up() {
+class CreateEventsTable extends Migration
+{
+
+    public function up()
+    {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('description');
@@ -19,15 +16,15 @@ class CreateEventsTable extends Migration {
             $table->string('meeting_id')->unique();
             $table->string('password')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down() {
-        Schema::dropIfExists('events');
+    public function down()
+    {
+        // Schema::dropIfExists('events');
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

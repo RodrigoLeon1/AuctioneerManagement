@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class InvoiceProforma extends Model
 {
     use HasFactory;
+
+    public function saleOrder()
+    {
+        return $this->belongsTo('App\Models\SaleOrder');
+    }
 }

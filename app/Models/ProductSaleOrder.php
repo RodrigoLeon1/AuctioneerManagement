@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SaleOrder extends Model
+class ProductSaleOrder extends Model
 {
     use HasFactory;
 
@@ -15,24 +15,15 @@ class SaleOrder extends Model
     ];
 
     protected $fillable = [
-        'date_set',
-        'remito',
-        'order_number',
-        'user_id'
+        'quantity',
+        'quantity_tags',
+        'is_invoiced',
+        'product_id',
+        'sale_order_id'
     ];
 
     protected $casts = [
         'updated_at' => 'datetime',
         'created_at' => 'datetime'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
-
-    public function products()
-    {
-        return $this->belongsToMany('App\Models\Product');
-    }
 }

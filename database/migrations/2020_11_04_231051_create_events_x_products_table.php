@@ -4,15 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsXProductsTable extends Migration {
-    
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up() {
-        Schema::create('events_x_products', function (Blueprint $table) {            
+class CreateEventsXProductsTable extends Migration
+{
+
+    public function up()
+    {
+        Schema::create('events_x_products', function (Blueprint $table) {
             $table->foreignId('event_id')
                 ->constrained()
                 ->onDelete('cascade')
@@ -27,12 +24,8 @@ class CreateEventsXProductsTable extends Migration {
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('events_x_products');
     }
 }

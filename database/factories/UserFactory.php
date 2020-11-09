@@ -8,11 +8,7 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
+
     protected $model = User::class;
 
     /**
@@ -26,6 +22,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'lastname' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
+            'address' => $this->faker->city,
             'postal_code' => $this->faker->countryCode,
             'city' => $this->faker->city,
             'phone' => $this->faker->phoneNumber,

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
+use App\Models\Product;
+use App\Models\SaleOrder;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,8 +18,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        dd('test');
+
+        // $user = User::find(1)->saleorders;
+        // dd($user);
+
+        // $order = SaleOrder::find(1)->products;
+        // dd($order);
+
+        // $invoice = Invoice::find(1)->user;
+        // dd($invoice);
+
+        // $product = Product::find(1)->categories;
+        // dd($product);
     }
 
     /**
