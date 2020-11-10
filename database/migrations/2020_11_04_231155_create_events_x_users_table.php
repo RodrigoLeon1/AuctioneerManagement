@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// Cambiar nombre a event_user
 class CreateEventsXUsersTable extends Migration
 {
 

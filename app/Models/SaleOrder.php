@@ -33,6 +33,12 @@ class SaleOrder extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product')
+            ->using('App\Models\ProductSaleOrder')
+            ->withPivot([
+                'quantity',
+                'quantity_tags',
+                'is_invoiced'
+            ]);
     }
 }

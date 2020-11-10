@@ -19,6 +19,7 @@ Route::resource('usuarios', UserController::class)->names('usuarios');
 
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
+Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');
 
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');

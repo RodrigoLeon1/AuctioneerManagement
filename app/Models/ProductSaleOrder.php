@@ -2,28 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ProductSaleOrder extends Model
+class ProductSaleOrder extends Pivot
 {
-    use HasFactory;
-
-    protected $dates = [
-        'updated_at',
-        'created_at',
-    ];
-
-    protected $fillable = [
-        'quantity',
-        'quantity_tags',
-        'is_invoiced',
-        'product_id',
-        'sale_order_id'
-    ];
-
-    protected $casts = [
-        'updated_at' => 'datetime',
-        'created_at' => 'datetime'
-    ];
 }

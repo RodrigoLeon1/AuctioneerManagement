@@ -27,7 +27,7 @@
                             <label for="date-order">Fecha</label>
                             <input type="date" class="form-control" id="date-order" name="date-order">
                         </div>
-                        @if($errors->has('date'))
+                        @if ($errors->has('date'))
                         <div class="invalid-feedback">
                             {{ $errors->first('date') }}
                         </div>

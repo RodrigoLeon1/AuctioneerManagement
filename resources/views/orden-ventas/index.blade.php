@@ -7,7 +7,6 @@
     <h1 class="h3 mb-0 text-gray-800">Listar ordenes de venta</h1>
 </div>
 
-<!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
@@ -16,7 +15,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Fecha</th>
@@ -36,30 +35,25 @@
                     </tr>
                 </tfoot>
                 <tbody>
+                    @foreach ($orders as $order)
                     <tr>
-                        <td>25/04/2020</td>
-                        <td>865465</td>
-                        <td>61</td>
-                        <td>Edinburgh</td>
+                        <td> {{ $order->date_set }} </td>
+                        <td> {{ $order->remito }} </td>
+                        <td> {{ $order->order_number }} </td>
+                        <td> {{ $order->user->name }} {{ $order->user->lastname }} </td>
                         <td>
-                            Ver orden
+                            <a href="{{ route('orden-ventas.show', $order->id) }}" class="btn btn-info btn-circle">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{{ route('orden-ventas.pdf', $order->id) }}" class="btn btn-success btn-circle">
+                                <i class="fas fa-file-pdf"></i>
+                            </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>25/04/2020</td>
-                        <td>865465</td>
-                        <td>61</td>
-                        <td>Edinburgh</td>
-                        <td>
-                            Ver orden
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
-
 @endsection()
