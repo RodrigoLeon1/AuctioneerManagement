@@ -11,7 +11,7 @@ class CreateRoleUserTable extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
 
-            
+
             $table->foreignId('user_id')
                 ->constrained()->references('id')->on('users')
                 ->onDelete('cascade')
@@ -31,6 +31,3 @@ class CreateRoleUserTable extends Migration
         Schema::dropIfExists('users_x_roles');
     }
 }
-
-
-

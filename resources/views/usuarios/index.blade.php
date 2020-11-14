@@ -16,7 +16,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuacion podra observar el listado de usuarios.
+            A continuación podrá observar el listado de usuarios.
         </h6>
     </div>
     <div class="card-body">
@@ -29,11 +29,10 @@
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Ciudad</th>
-                        <th>Codigo postal</th>
-                        <th>Direccion</th>
-                        <th>Numero de telefono</th>
+                        <th>Domicilio</th>
+                        <th>Teléfono</th>
                         <th>DNI</th>
-                        <th>Cuit</th>
+                        <th>CUIT</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -44,12 +43,11 @@
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Ciudad</th>
-                        <th>Codigo postal</th>
-                        <th>Direccion</th>
-                        <th>Numero de telefono</th>
+                        <th>Domicilio</th>
+                        <th>Teléfono</th>
                         <th>DNI</th>
-                        <th>Cuit</th>
-                        <th>Acciones&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                        <th>CUIT</th>
+                        <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -57,15 +55,14 @@
                     <tr>
                         <td>
                             @foreach ($user->roles as $role)
-                                {{ $role->description }}    
+                            {{ $role->description }}
                             @endforeach
-                            
+
                         </td>
                         <td> {{ $user->name }} </td>
                         <td> {{ $user->lastname }} </td>
                         <td> {{ $user->email }} </td>
                         <td> {{ $user->city }} </td>
-                        <td> {{ $user->postal_code }} </td>
                         <td> {{ $user->address }} </td>
                         <td> {{ $user->phone }} </td>
                         <td> {{ $user->dni }} </td>

@@ -26,7 +26,6 @@ class CreateProductsPublicsTable extends Migration
 
     public function down()
     {
-        // Schema::dropIfExists('products_publics');
         Schema::table('products_publics', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });

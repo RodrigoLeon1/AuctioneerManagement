@@ -35,7 +35,7 @@
             @forelse ($category->products as $product)
             <li>{{ $product->description }} - <a href="{{ route('productos.show', $product->id) }}">Más información</a></li>
             @empty
-            <li>No se encontro mercadería para la categoría seleccionada.</li>
+            <li>No se encontró mercadería para la categoría seleccionada.</li>
             @endforelse
         </ul>
 

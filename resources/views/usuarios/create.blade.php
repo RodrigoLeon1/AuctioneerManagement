@@ -22,36 +22,29 @@
                 <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off">
                     @csrf
                     <div class="form-row">
-
+                        <div class="form-check form-check-inline col-md-3">
+                            <label class="form-check-label">
+                                Seleccione el rol o roles del usuario
+                            </label>
+                        </div>
                         <div class="form-check form-check-inline col-md-2">
                             <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3">
                             <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
-                          </div>
+                        </div>
 
-                          <div class="form-check form-check-inline col-md-2">
+                        <div class="form-check form-check-inline col-md-2">
                             <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2">
                             <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
-                          </div>
+                        </div>
 
-                          <div class="form-check form-check-inline col-md-2">
+                        <div class="form-check form-check-inline col-md-2">
                             <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
                             <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
-                          </div>
+                        </div>
 
                     </div>
                     <br><br>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                        </div>
-                    </div>
-
-                    <div class=" form-row">
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
                             <input type="text" class="form-control" id="name" name="name">
@@ -61,7 +54,7 @@
                             <input type="text" class="form-control" id="lastname" name="lastname">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="phone">Numero de telefono</label>
+                            <label for="phone">Teléfono</label>
                             <input type="text" class="form-control" id="phone" name="phone">
                         </div>
                     </div>
@@ -72,7 +65,7 @@
                             <input type="text" class="form-control" id="city" name="city">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="postal_code">Codigo postal</label>
+                            <label for="postal_code">Código postal</label>
                             <input type="number" class="form-control" id="postal_code" name="postal_code">
                         </div>
                         <div class="form-group col-md-6">
@@ -80,20 +73,32 @@
                             <input type="text" class="form-control" id="address" name="address">
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dni">DNI</label>
                             <input type="text" class="form-control" id="dni" name="dni">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="cuit">Cuit</label>
+                            <label for="cuit">CUIT</label>
                             <input type="text" class="form-control" id="cuit" name="cuit">
                         </div>
                     </div>
 
+                    <div class=" card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
+                        <h6 class="m-0 font-weight-bold text-primary">Datos de accesso</h6>
+                    </div>
 
-                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Crear usuario</button>
                 </form>

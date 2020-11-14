@@ -9,13 +9,8 @@ class Role extends Model
 {
     use HasFactory;
 
-    public function users(){
+    public function users()
+    {
         return $this->belongToMany('App\Models\User')->withTimestamps();;
     }
 }
-
-
-//return $this->belongsToMany('App\Productversion')->withPivot('product_id', 'quantity', 'discount_percent', 'discount_amount')->withTimestamps();
-
-
-

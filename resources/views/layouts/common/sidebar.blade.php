@@ -80,7 +80,7 @@
         Control
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item {{ request()->routeIs('productos.*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span>Mercadería</span>
@@ -99,7 +99,7 @@
         </div>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true" aria-controls="collapsePages2">
             <i class="fas fa-fw fa-folder"></i>
             <span>Usuarios</span>
@@ -107,8 +107,9 @@
         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Seleccione su opción:</h6>
-                <a class="collapse-item" href="">Listar productos</a>
-                <a class="collapse-item" href="">Filtrar productos</a>
+                <a class="collapse-item" href="{{ route('usuarios.create') }}">Crear usuario</a>
+                <a class="collapse-item" href="{{ route('usuarios.index') }}">Listar usuarios</a>
+                <a class="collapse-item" href="{{ route('usuarios.filter') }}">Filtrar usuarios</a>
             </div>
         </div>
     </li>

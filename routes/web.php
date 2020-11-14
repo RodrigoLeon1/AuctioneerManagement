@@ -15,17 +15,9 @@ Route::get('/', function () {
     return view('layouts.dashboard');
 })->name('dashboard');
 
-<<<<<<< HEAD
-Route::resource('usuarios', UserController::class)->names('usuarios');;
-Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
-=======
 Route::resource('usuarios', UserController::class)->names('usuarios');
-Route::get('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
-Route::post('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
-Route::get('usuarios/{id}/editar', [UserController::class, 'edit'])->name('usuarios.edit');
-Route::get('usuarios/{id}/actualizar', [UserController::class, 'update'])->name('usuarios.update');
-
->>>>>>> 7695acec51a16fe995a08cdd7629027005abd2f0
+Route::get('usuarios/filtrar', [SaleOrderController::class, 'filter'])->name('usuarios.filter');
+Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');

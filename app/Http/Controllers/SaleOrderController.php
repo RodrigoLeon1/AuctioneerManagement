@@ -19,6 +19,8 @@ class SaleOrderController extends Controller
      * - NO DEJA QUITAR LOS ANTERIORES, SOLO APARECE EL ICONO DE '+'
      * 
      *  BORRADO LOGICO EN CATEGORIAS, PRODUCTOS
+     * 
+     * - AGREGAR LOGICA EN CUIT EN CONTROLLER ORDERSALE, NUEVO CAMPO AGREGADO EN FORM CREATE
      */
 
     public function index()

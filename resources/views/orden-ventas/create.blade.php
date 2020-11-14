@@ -22,187 +22,181 @@
 
             <div class="card-body">
 
-                <<<<<<< HEAD @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('orden-ventas.store') }}" autocomplete="off">
+                    @csrf
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6 {{ $errors->has('date') ? 'is-invalid' : '' }}">
+                            <label for="date-order">Fecha</label>
+                            <input type="date" class="form-control" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="remite-order">Remite</label>
+                            <input type="number" class="form-control" id="remite-order" name="remito" value="{{ old('remito') }}" require>
+                        </div>
                     </div>
-                    @endif
 
-                    =======
-                    >>>>>>> 7695acec51a16fe995a08cdd7629027005abd2f0
-                    <form method="POST" action="{{ route('orden-ventas.store') }}" autocomplete="off">
-                        @csrf
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6 {{ $errors->has('date') ? 'is-invalid' : '' }}">
-                                <label for="date-order">Fecha</label>
-                                <input type="date" class="form-control" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="remite-order">Remite</label>
-                                <input type="number" class="form-control" id="remite-order" name="remito" value="{{ old('remito') }}" require>
-                            </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="date-payment-order">Fecha de pago</label>
+                            <input type="date" class="form-control" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require>
                         </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="date-payment-order">Fecha de pago</label>
-                                <input type="date" class="form-control" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="id-order">Número de orden</label>
-                                <input type="number" class="form-control" id="id-order" name="order_number" value="{{ old('order_number') }}" require>
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label for="id-order">Número de orden</label>
+                            <input type="number" class="form-control" id="id-order" name="order_number" value="{{ old('order_number') }}" require>
                         </div>
+                    </div>
 
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Datos del usuario</h6>
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del usuario</h6>
+                    </div>
+
+                    <div class="form-row">
+
+                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
+
+                        <div class="form-group col-md-3">
+                            <label for="name-order">Nombre</label>
+                            <input type="text" class="form-control" id="name-order" name="name-order" value="{{ old('name-order') }}">
                         </div>
+                        <div class=" form-group col-md-3">
+                            <label for="lastname-order">Apellido</label>
+                            <input type="text" class="form-control" id="lastname-order" name="lastname-order" value="{{ old('lastname-order') }}">
+                        </div>
+                        <div class=" form-group col-md-6">
+                            <label for="phone-order">Teléfono</label>
+                            <input type="text" class="form-control" id="phone-order" name="phone-order" value="{{ old('phone-order') }}">
+                        </div>
+                    </div>
 
-                        <div class=" form-row">
-                            <<<<<<< HEAD <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
-
-                                =======
-                                >>>>>>> 7695acec51a16fe995a08cdd7629027005abd2f0
-                                <div class="form-group col-md-3">
-                                    <label for="name-order">Nombre</label>
-                                    <input type="text" class="form-control" id="name-order" name="name-order" value="{{ old('name-order') }}">
-                                </div>
-                                <<<<<<< HEAD <div class=" form-group col-md-3">
-                                    <label for="lastname-order">Apellido</label>
-                                    <input type="text" class="form-control" id="lastname-order" name="lastname-order" value="{{ old('lastname-order') }}">
+                    <div class="form-row">
+                        <div class=" form-group col-md-4">
+                            <label for="city-order">Ciudad</label>
+                            <input type="text" class="form-control" id="city-order" name="city-order" value="{{ old('city-order') }}">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="cp-order">Código postal</label>
+                            <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
                         </div>
                         <div class=" form-group col-md-4">
-                            =======
-                            <div class="form-group col-md-3">
-                                <label for="lastname-order">Apellido</label>
-                                <input type="text" class="form-control" id="lastname-order" name="lastname-order">
+                            <label for="address-order">Domicilio</label>
+                            <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class=" form-group col-md-6">
+                            <label for="dni-order">DNI</label>
+                            <input type="number" class="form-control" id="dni-order" name="dni-order" value="{{ old('dni-order') }}">
+                        </div>
+                        <div class=" form-group col-md-6">
+                            <label for="cuit-order">CUIT</label>
+                            <input type="number" class="form-control" id="cuit-order" name="cuit-order" value="{{ old('cuit-order') }}">
+                        </div>
+                    </div>
+
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
+                        <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería</h6>
+                    </div>
+
+                    @php
+                    if (!empty(old('productDescription'))) {
+                    $productsDescription = old('productDescription');
+                    $productsQuantity = old('productQuantity');
+                    $productsTasac = old('productTasac');
+                    $productsTags = old('productTags');
+                    foreach($productsDescription as $key => $product) {
+                    echo '
+                    <div data-role="dynamic-fields">
+                        <div class="form-row form-dinamic">
+                            <div class="form-group col-md-2">
+                                <label>Descripción</label>
+                                <input type="text" class="form-control" name="productDescription[]" value="' . $product . '">
                             </div>
-                            <div class="form-group col-md-4">
-                                >>>>>>> 7695acec51a16fe995a08cdd7629027005abd2f0
-                                <label for="address-order">Domicilio</label>
-                                <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
+                            <div class="form-group col-md-2">
+                                <label>Cantidad</label>
+                                <input type="number" class="form-control" name="productQuantity[]" value="' . $productsQuantity[$key] . '">
                             </div>
-                            <div class=" form-group col-md-2">
-                                <label for="phone-order">Teléfono</label>
-                                <input type="text" class="form-control" id="phone-order" name="phone-order" value="{{ old('phone-order') }}">
+                            <div class="form-group col-md-2">
+                                <label>Tasac</label>
+                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Etiquetas</label>
+                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Categoría</label>
+                                <select class="form-control" name="productCategory" id="productCategory">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <button class="btn btn-danger" data-role="remove" style="margin-top: 2rem;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-primary" data-role="add" style="margin-top: 2rem;">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    ';
+                    }
+                    }
+                    @endphp
 
-                        <div class=" form-row">
-                            <div class="form-group col-md-4">
-                                <label for="cp-order">Código postal</label>
-                                <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
+                    <div data-role="dynamic-fields">
+                        <div class="form-row form-dinamic">
+                            <div class="form-group col-md-2">
+                                <label>Descripción</label>
+                                <input type="text" class="form-control" name="productDescription[]">
                             </div>
-                            <div class=" form-group col-md-4">
-                                <label for="city-order">Ciudad</label>
-                                <input type="text" class="form-control" id="city-order" name="city-order" value="{{ old('city-order') }}">
+                            <div class="form-group col-md-2">
+                                <label>Cantidad</label>
+                                <input type="number" class="form-control" name="productQuantity[]">
                             </div>
-                            <div class=" form-group col-md-4">
-                                <label for="dni-order">DNI</label>
-                                <input type="number" class="form-control" id="dni-order" name="dni-order" value="{{ old('dni-order') }}">
+                            <div class="form-group col-md-2">
+                                <label>Tasac</label>
+                                <input type="number" class="form-control" name="productTasac[]">
                             </div>
-                        </div>
-
-                        <div class=" card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                            <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería</h6>
-                        </div>
-
-                        @php
-                        if (!empty(old('productDescription'))) {
-
-                        $productsDescription = old('productDescription');
-                        $productsQuantity = old('productQuantity');
-                        $productsTasac = old('productTasac');
-                        $productsTags = old('productTags');
-
-                        foreach($productsDescription as $key => $product) {
-                        echo '
-                        <div data-role="dynamic-fields">
-                            <div class="form-row form-dinamic">
-                                <div class="form-group col-md-2">
-                                    <label>Descripción</label>
-                                    <input type="text" class="form-control" name="productDescription[]" value="' . $product . '">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Cantidad</label>
-                                    <input type="number" class="form-control" name="productQuantity[]" value="' . $productsQuantity[$key] . '">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Tasac</label>
-                                    <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Etiquetas</label>
-                                    <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Categoria</label>
-                                    <select class="form-control" name="productCategory" id="productCategory">
-                                        @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->description }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <button class="btn btn-danger" data-role="remove" style="margin-top: 2rem;">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <!-- <button class="btn btn-primary" data-role="add" style="margin-top: 2rem;">
-                                        <i class="fas fa-plus"></i>
-                                    </button> -->
-                                </div>
+                            <div class="form-group col-md-2">
+                                <label>Etiquetas</label>
+                                <input type="number" class="form-control" name="productTags[]">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Categoría</label>
+                                <select class="form-control" name="productCategory[]" id="productCategory">
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->description }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <button class="btn btn-danger" data-role="remove" style="margin-top: 2rem;">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-primary" data-role="add" style="margin-top: 2rem;">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </div>
                         </div>
-                        ';
-                        }
+                    </div>
 
-                        }
-                        @endphp
-
-                        <div data-role="dynamic-fields">
-                            <div class="form-row form-dinamic">
-                                <div class="form-group col-md-2">
-                                    <label>Descripción</label>
-                                    <input type="text" class="form-control" name="productDescription[]">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Cantidad</label>
-                                    <input type="number" class="form-control" name="productQuantity[]">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Tasac</label>
-                                    <input type="number" class="form-control" name="productTasac[]">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Etiquetas</label>
-                                    <input type="number" class="form-control" name="productTags[]">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Categoria</label>
-                                    <select class="form-control" name="productCategory[]" id="productCategory">
-                                        @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->description }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <button class="btn btn-danger" data-role="remove" style="margin-top: 2rem;">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button class="btn btn-primary" data-role="add" style="margin-top: 2rem;">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary mt-3">Crear orden de venta</button>
-                    </form>
+                    <button type="submit" class="btn btn-primary mt-3">Crear orden de venta</button>
+                </form>
 
             </div>
         </div>
@@ -266,7 +260,6 @@
         $(function() {
             $('#name-order').autocomplete({
                 source: function(request, response) {
-
                     $.getJSON('http://127.0.0.1:8000/api/usuarios?term=' + request.term, function(data) {
                         var array = $.map(data, function(row) {
                             return {
@@ -282,7 +275,6 @@
                                 dni: row.dni,
                             }
                         })
-
                         response($.ui.autocomplete.filter(array, request.term));
                     })
                 },
