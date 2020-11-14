@@ -17,6 +17,7 @@ class SaleOrder extends Model
     protected $fillable = [
         'date_set',
         'remito',
+        'date_payment',
         'order_number',
         'user_id'
     ];
@@ -34,11 +35,7 @@ class SaleOrder extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product')
-            ->using('App\Models\ProductSaleOrder')
-            ->withPivot([
-                'quantity',
-                'quantity_tags',
-                'is_invoiced'
-            ]);
+            ->withPivot('quantity', 'quantity_tags', 'is_invoiced')
+            ->withTimestamps();
     }
 }

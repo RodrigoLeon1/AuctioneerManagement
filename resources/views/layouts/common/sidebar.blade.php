@@ -33,7 +33,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="{{ route('orden-ventas.create') }}">Crear orden de venta</a>
                 <a class="collapse-item" href="{{ route('orden-ventas.index') }}">Listar ordenes</a>
                 <a class="collapse-item" href="{{ route('orden-ventas.filter') }}">Filtrar ordenes</a>
@@ -48,7 +48,7 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="{{ route('proformas.create') }}">Crear proforma</a>
                 <a class="collapse-item" href="{{ route('proformas.index') }}">Listar proformas</a>
                 <a class="collapse-item" href="{{ route('proformas.create') }}">Filtrar proformas</a>
@@ -63,8 +63,8 @@
         </a>
         <div id="collapseInvoices" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
-                <a class="collapse-item" href="{{ route('liquidaciones.create') }}">Crear liquidacion cliente</a>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
+                <a class="collapse-item" href="{{ route('liquidaciones.create') }}">Crear liquidación cliente</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.create') }}">Crear liquidacion remitente</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.index') }}">Listar liquidaciones</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.create') }}">Filtrar liquidaciones</a>
@@ -83,13 +83,18 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Mercaderia</span>
+            <span>Mercadería</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
-                <a class="collapse-item" href="">Listar mercaderia</a>
-                <a class="collapse-item" href="">Filtrar mercaderia</a>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
+                <a class="collapse-item" href="{{ route('productos.index') }}">Listar mercadería</a>
+                <a class="collapse-item" href="">Filtrar mercadería</a>
+
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Categorías:</h6>
+                <a class="collapse-item" href="{{ route('categorias.create') }}">Crear categoría</a>
+                <a class="collapse-item" href="{{ route('categorias.index') }}">Listar categorías</a>
             </div>
         </div>
     </li>
@@ -101,7 +106,7 @@
         </a>
         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="">Listar productos</a>
                 <a class="collapse-item" href="">Filtrar productos</a>
             </div>
@@ -115,7 +120,7 @@
         </a>
         <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="">Listar productos</a>
                 <a class="collapse-item" href="">Filtrar productos</a>
             </div>
@@ -125,11 +130,11 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages4" aria-expanded="true" aria-controls="collapsePages4">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Productos publicos</span>
+            <span>Productos públicos</span>
         </a>
         <div id="collapsePages4" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Seleccione su opcion:</h6>
+                <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="">Listar productos</a>
                 <a class="collapse-item" href="">Filtrar productos</a>
             </div>

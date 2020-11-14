@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Invoice;
-use App\Models\Product;
-use App\Models\SaleOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -98,5 +95,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAutocompleteData(Request $request)
+    {
+        if ($request->has('term')) {
+            return User::where('name', 'like', '%' . $request->input('term') . '%')->get();
+        }
     }
 }

@@ -6,12 +6,12 @@
 
 @isset ($order)
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Informacion sobre orden de venta #{{ $order->id }} </h1>
+    <h1 class="h3 mb-0 text-gray-800">Información sobre orden de venta #{{ $order->id }} </h1>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuacion podra observar la informacion completa de la orden de venta.
+            A continuación podrá observar la información completa de la orden de venta.
         </h6>
     </div>
     <div class="card-body">
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticOrderNumber" class="col-sm-2 col-form-label">Numero de orden</label>
+            <label for="staticOrderNumber" class="col-sm-2 col-form-label">Número de orden</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticOrderNumber" value="{{ $order->order_number }}">
             </div>
@@ -62,27 +62,27 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticAddress" class="col-sm-2 col-form-label">Direccion</label>
+            <label for="staticAddress" class="col-sm-2 col-form-label">Dirección</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ ucfirst($order->user->address) }}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticPhone" class="col-sm-2 col-form-label">Telefono</label>
+            <label for="staticPhone" class="col-sm-2 col-form-label">Teléfono</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ $order->user->phone ?? 'No disponible' }}">
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticCp" class="col-sm-2 col-form-label">Codigo postal</label>
+            <label for="staticCp" class="col-sm-2 col-form-label">Código postal</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $order->user->postal_code }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $order->user->postal_code ?? 'No disponible' }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="staticCity" class="col-sm-2 col-form-label">Ciudad</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($order->user->city) }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($order->user->city) ?? 'No disponible' }}">
             </div>
         </div>
         <div class="form-group row">
@@ -103,25 +103,33 @@
         <hr>
 
         <h4>
-            <strong>Mercaderia</strong>
+            <strong>Mercadería</strong>
         </h4>
         <div class="form-row">
             @foreach ($order->products as $product)
             <div class="form-group col-md-3">
-                <label for="staticProductName">Descripcion</label>
+                <label for="staticProductName">Descripción</label>
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="staticProductQuantity">Cantidad</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="staticProductTasac">Tasac</label>
                 <input type="text" readonly class="form-control" id="staticProductTasac" value="">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="staticProductTags">Etiquetas</label>
                 <input type="text" readonly class="form-control" id="staticProductTags" value="{{ $product->pivot->quantity_tags }}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="staticProductCategory">Categoría</label>
+                @forelse ($product->categories as $category)
+                <input type="text" readonly class="form-control" id="staticProductCategory" value="{{ $category->description }}">
+                @empty
+                <input type="text" readonly class="form-control" id="staticProductCategory" value="Sin categoría">
+                @endforelse
             </div>
             @endforeach
         </div>
@@ -134,6 +142,7 @@
         <a href="{{ route('orden-ventas.pdf', $order->id) }}" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
+
     </div>
 </div>
 @else

@@ -11,8 +11,17 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'description'
+    ];
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category');
+    }
+
+    public function saleorder()
+    {
+        return $this->belongsToMany('App\Models\SaleOrder');
     }
 }

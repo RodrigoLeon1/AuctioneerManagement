@@ -2,50 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category as RequestsCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('categorias.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(RequestsCategory $request)
     {
-        //
+        Category::create([
+            'description' => $request->input('description')
+        ]);
+
+        return redirect()->route('categorias.index', ['success' => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        return view('categorias.show', compact('category'));
     }
 
     /**

@@ -12,8 +12,8 @@ class CreateSaleOrdersTable extends Migration
         Schema::create('sale_orders', function (Blueprint $table) {
             $table->id();
             $table->date('date_set');
-            $table->string('remito');               // ingles?
             $table->date('date_payment');
+            $table->string('remito');
             $table->string('order_number');
 
             $table->foreignId('user_id')

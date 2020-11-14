@@ -4,13 +4,19 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listar ordenes de venta</h1>
+    <h1 class="h3 mb-0 text-gray-800">Listar órdenes de venta</h1>
 </div>
+
+@if (app('request')->input('success') == 1)
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Su orden de venta ha sido creada de manera exitosa.</h4>
+</div>
+@endif
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuacion podra observar el listado de las ordenes de ventas creadas y acceder a la ficha de cada una.
+            A continuación podrá observar el listado de las órdenes de ventas creadas y acceder a la ficha de cada una.
         </h6>
     </div>
     <div class="card-body">
@@ -20,7 +26,7 @@
                     <tr>
                         <th>Fecha</th>
                         <th>Remito</th>
-                        <th>Numero de orden</th>
+                        <th>Número de orden</th>
                         <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>
@@ -29,7 +35,7 @@
                     <tr>
                         <th>Fecha</th>
                         <th>Remito</th>
-                        <th>Numero de orden</th>
+                        <th>Número de orden</th>
                         <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>

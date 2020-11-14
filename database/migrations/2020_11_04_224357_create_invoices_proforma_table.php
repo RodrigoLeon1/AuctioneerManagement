@@ -19,7 +19,11 @@ class CreateInvoicesProformaTable extends Migration
             $table->float('partial_payment');
             $table->float('total');
 
-            // id comprador?????
+            // ID comprador ?
+            // $table->foreignId('user_id')
+            //     ->constrained()
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');
 
             $table->foreignId('sale_order_id')
                 ->constrained()

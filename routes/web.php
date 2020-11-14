@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('layouts.dashboard');
 })->name('dashboard');
 
-Route::resource('usuarios', UserController::class)->names('usuarios');
+Route::resource('usuarios', UserController::class)->names('usuarios');;
+Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');

@@ -10,8 +10,8 @@ class CreateProductSaleOrderTable extends Migration
     public function up()
     {
         Schema::create('product_sale_order', function (Blueprint $table) {
-            $table->smallInteger('quantity');
-            $table->smallInteger('quantity_tags');
+            $table->smallInteger('quantity')->nullable();
+            $table->smallInteger('quantity_tags')->nullable();
             $table->boolean('is_invoiced')->default(false);
 
             $table->foreignId('product_id')
