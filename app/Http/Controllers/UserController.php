@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,19 +15,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-
-        // $user = User::find(1)->saleorders;
-        // dd($user);
-
-        // $order = SaleOrder::find(1)->products;
-        // dd($order);
-
-        // $invoice = Invoice::find(1)->user;
-        // dd($invoice);
-
-        // $product = Product::find(1)->categories;
-        // dd($product);
+    {   
+        $users = User::all();
+        return view('usuarios.index', compact('users'));
     }
 
     /**
@@ -36,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuarios.create');
     }
 
     /**
@@ -47,7 +38,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $password = $request->input('password');
+        $password = Hash::make('secret');
+        $user = User::create([
+            'name' => $request->input('name'),
+            'lastname' => $request->input('lastname'),
+            'email' => $request->input('email'),
+            'password' => $password,
+            'address' => $request->input('address'),
+            'postal_code' => $request->input('postal_code'),
+            'city' => $request->input('city'),
+            'phone' => $request->input('phone'),
+            'dni' => $request->input('dni'),
+            'cuit' => $request->input('cuit')
+        ]);
+
+        if($request->input('customer-role') != null){
+            $user_role = $user->roles()->attach($request->input('customer-role'));
+        }
+        if($request->input('provider-role') != null){
+            $user_role = $user->roles()->attach($request->input('provider-role'));
+        }
+        if($request->input('admin-role') != null){
+            $user_role = $user->roles()->attach($request->input('admin-role'));
+        }
+        
+        return redirect()->route('usuarios.index', ['success' => true]);
+    }
+
+    public function search()
+    {
+        
+        //$user = User::where();
     }
 
     /**
@@ -56,11 +78,42 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
-        dd('user by id');
+        
+        $users = null;
+        if(!empty($_POST)){
+            if($_POST['type_search'] != null){
+                if($_POST['type_search'] == 'name'){
+                    if(($_POST['name'] != null) xor ($_POST['lastname'] != null)){
+                        $users = User::where('name', $_POST['name'])
+                        ->orWhere('lastname', $_POST['lastname'])
+                        ->get();
+                    }elseif(($_POST['name'] != null) && ($_POST['lastname'] != null)){
+                        
+                        $users = User::where('name', $_POST['name'])
+                        ->where('lastname', $_POST['lastname'])
+                        ->get();
+                    }
+                    
+                    
+                }else if($_POST['type_search'] == 'dni'){
+                    $users = User::where('dni', $_POST['search'])->get();
+                }else if($_POST['type_search'] == 'cuit'){
+                    $users = User::where('cuit', $_POST['search'])->get();
+                }
+                
+            }
+        }
+        if(empty($users[0])){
+            $users = null;
+        }
+        
+        return view('usuarios.show', compact('users'));
     }
+
+
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -70,8 +123,23 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
-        dd('form to edit users');
+        $user = User::where('id', $id)->get();
+        $check_customer = false;
+        $check_provider = false;
+        $check_admin = false;
+        foreach($user[0]->roles as $role){
+            if($role->id == 3){
+                $check_customer = true;
+            }
+            if($role->id == 2){
+                $check_provider = true;
+            }
+            if($role->id == 1){
+                $check_admin = true;
+            }
+        }
+
+        return view('usuarios.edit', compact('user', 'check_customer', 'check_provider', 'check_admin', 'id'));
     }
 
     /**
@@ -83,7 +151,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $error=null;
+        if($request->input('password') != $request->input('password-repeat')){
+            $error = "Las contraseñas ingresadas no son iguales";
+        }
+        if($error != null){
+            $user = User::where('id', $id)
+            ->update(['name' => $request->input('name')],
+            ['lastname' => $request->input('lastname')],
+            ['email' => $request->input('email ')],
+            ['phone' => $request->input('phone')],
+            ['city' => $request->input('city')],
+            ['postal_code' => $request->input('postal_code')],
+            ['address' => $request->input('address')],
+            ['dni' => $request->input('dni')],
+            ['cuit' => $request->input('cuit')]
+        
+        );
+        }
+
+        return $this->edit($id);
     }
 
     /**
@@ -94,7 +181,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     public function getAutocompleteData(Request $request)
