@@ -19,6 +19,7 @@ Route::resource('usuarios', UserController::class)->names('usuarios');
 Route::get('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
 Route::post('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
 Route::get('usuarios/{id}/editar', [UserController::class, 'edit'])->name('usuarios.edit');
+Route::get('usuarios/{id}/actualizar', [UserController::class, 'update'])->name('usuarios.update');
 
 
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');

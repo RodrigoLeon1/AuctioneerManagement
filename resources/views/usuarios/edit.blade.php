@@ -19,7 +19,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off">
+                <form method="GET" action="{{ route('usuarios.update', $id) }}" autocomplete="off">
                     @csrf
                     <div class="form-row">
                         <div class="form-check form-check-inline col-md-2">

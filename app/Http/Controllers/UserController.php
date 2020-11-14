@@ -142,7 +142,7 @@ class UserController extends Controller
             }
         }
 
-        return view('usuarios.edit', compact('user', 'check_customer', 'check_provider', 'check_admin'));
+        return view('usuarios.edit', compact('user', 'check_customer', 'check_provider', 'check_admin', 'id'));
     }
 
     /**
@@ -154,7 +154,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $error=null;
+        if($request->input('password') != $request->input('password-repeat')){
+            $error = "Las contraseñas ingresadas no son iguales";
+        }
+        if($error != null){
+            $user = User::where('id', $id)
+            ->update(['name' => $request->input('name')],
+            ['lastname' => $request->input('lastname')],
+            ['email' => $request->input('email ')],
+            ['phone' => $request->input('phone')],
+            ['city' => $request->input('city')],
+            ['postal_code' => $request->input('postal_code')],
+            ['address' => $request->input('address')],
+            ['dni' => $request->input('dni')],
+            ['cuit' => $request->input('cuit')]
+        
+        );
+        }
+
+        return $this->edit($id);
     }
 
     /**
@@ -165,6 +184,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }
