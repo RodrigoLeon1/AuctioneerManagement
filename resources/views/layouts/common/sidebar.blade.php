@@ -102,8 +102,9 @@
         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Seleccione su opcion:</h6>
-                <a class="collapse-item" href="">Listar productos</a>
-                <a class="collapse-item" href="">Filtrar productos</a>
+                <a class="collapse-item" href="{{ route('usuarios.create') }}">Crear usuario</a>
+                <a class="collapse-item" href="{{ route('usuarios.index') }}">Listar usuarios</a>
+                <a class="collapse-item" href="{{ route('usuarios.filter') }}">Filtrar usuario</a>
             </div>
         </div>
     </li>

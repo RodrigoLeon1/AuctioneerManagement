@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Crear usuario</h1>
+    <h1 class="h3 mb-0 text-gray-800">Modificar usuario</h1>
 </div>
 
 <!-- Content Row -->
@@ -14,7 +14,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear al usuario</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Modifique los campos que desee cambiar para el usuario</h6>
             </div>
 
             <div class="card-body">
@@ -22,19 +22,33 @@
                 <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off">
                     @csrf
                     <div class="form-row">
-
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3">
+                            @if ($check_customer == true)
+                                <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3" checked>    
+                            @else
+                                <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3">    
+                            @endif
+                            
                             <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
                           </div>
 
                           <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2">
+                              @if ($check_provider == true)
+                                <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2" checked>      
+                              @else
+                                <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2">
+                              @endif
+                            
                             <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
                           </div>
 
                           <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
+                              @if ($check_admin == true)
+                                <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1" checked>      
+                              @else
+                                <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
+                              @endif
+                            
                             <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
                           </div>
 
@@ -43,55 +57,64 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" value="{{ $user[0]->email }}">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                        </div>
-                    </div>
-
-                    <div class=" form-row">
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name" value="{{ $user[0]->name }}">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="lastname">Apellido</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname">
+                            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $user[0]->lastname }}">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="phone">Numero de telefono</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
-                        </div>
+                        
                     </div>
 
-                    <div class="form-row">
+                    <div class=" form-row">
+                        <div class="form-group col-md-6">
+                            <label for="phone">Numero de telefono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone }}">
+                        </div>
                         <div class="form-group col-md-4">
                             <label for="city">Ciudad</label>
-                            <input type="text" class="form-control" id="city" name="city">
+                            <input type="text" class="form-control" id="city" name="city" value="{{ $user[0]->city }}">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="postal_code">Codigo postal</label>
-                            <input type="number" class="form-control" id="postal_code" name="postal_code">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="address">Domicilio</label>
-                            <input type="text" class="form-control" id="address" name="address">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="dni">DNI</label>
-                            <input type="text" class="form-control" id="dni" name="dni">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="cuit">Cuit</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit">
+                            <input type="number" class="form-control" id="postal_code" name="postal_code" value="{{ $user[0]->postal_code }}">
                         </div>
                     </div>
 
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-4">
+                            <label for="address">Domicilio</label>
+                            <input type="text" class="form-control" id="address" name="address" value="{{ $user[0]->address }}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="dni">DNI</label>
+                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $user[0]->dni }}">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="cuit">Cuit</label>
+                            <input type="text" class="form-control" id="cuit" name="cuit" value="{{ $user[0]->cuit }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="password-repeat">Repetir contraseña</label>
+                                <input type="password" class="form-control" id="password-repeat" name="password-repeat">
+                            </div>
+
+                    </div>
+
+                    
 
                     
 
@@ -103,6 +126,8 @@
     </div>
 
 </div>
+
+
 
 <style>
     [data-role="dynamic-fields"]>.form-dinamic+.form-dinamic {
@@ -119,6 +144,11 @@
 
     [data-role="dynamic-fields"]>.form-dinamic:last-child [data-role="remove"] {
         display: none;
+    }
+
+    .passwords-container{
+        display: flex;
+        transition: all 10s ease;
     }
 </style>
 
@@ -150,6 +180,8 @@
             );
         });
     });
+
+    
 </script>
 
 @endsection()

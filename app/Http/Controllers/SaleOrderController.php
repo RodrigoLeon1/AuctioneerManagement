@@ -29,12 +29,15 @@ class SaleOrderController extends Controller
          * Redirect to index page
          */
 
-        // $order = SaleOrder::create([
-        //     'date_set' => '1',
-        //     'remito' => '1',
-        //     'order_number' => '1',
-        //     'user_id' => '1'
-        // ]);
+        // dd($request->all());
+
+        $order = SaleOrder::create([
+            'date_set' => $request->input('date-order'),
+            'remito' => $request->input('remite-order'),
+            'date_payment' => $request->input('date-payment-order'),
+            'order_number' => $request->input('id-order'),
+            'user_id' => '1'
+        ]);
 
         // $order->products()->createMany([
         //     [
@@ -48,7 +51,6 @@ class SaleOrderController extends Controller
 
         // $order->save();
 
-        dd($request->all());
         return redirect()->route('orden-ventas.index', ['success' => true]);
     }
 

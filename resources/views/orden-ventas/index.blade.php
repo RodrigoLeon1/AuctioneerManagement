@@ -7,6 +7,12 @@
     <h1 class="h3 mb-0 text-gray-800">Listar ordenes de venta</h1>
 </div>
 
+@if (app('request')->input('success') == 1)
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Su orden de venta ha sido creada de manera exitosa.</h4>
+</div>
+@endif
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">

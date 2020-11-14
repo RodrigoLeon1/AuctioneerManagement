@@ -12,14 +12,14 @@
 
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
+
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la orden de venta</h6>
             </div>
-            <!-- Card Body -->
+
             <div class="card-body">
 
-                <form method="POST" action="{{ route('orden-ventas.store') }}">
+                <form method="POST" action="{{ route('orden-ventas.store') }}" autocomplete="off">
                     @csrf
                     <div class="form-row">
 
@@ -39,9 +39,13 @@
                         </div>
                     </div>
                     <div class=" form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="name-order">Nombre</label>
                             <input type="text" class="form-control" id="name-order" name="name-order">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="lastname-order">Apellido</label>
+                            <input type="text" class="form-control" id="lastname-order" name="lastname-order">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="address-order">Domicilio</label>
@@ -88,8 +92,8 @@
                     <div data-role="dynamic-fields">
                         <div class="form-row form-dinamic">
                             <div class="form-group col-md-3">
-                                <label for="date-payment-order">Descripcion</label>
-                                <input type="date" class="form-control" id="date-payment-order" name="date-payment-order">
+                                <label for="">Descripcion</label>
+                                <input type="text" class="form-control" id="" name="">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="">Cantidad</label>

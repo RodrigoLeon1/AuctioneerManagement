@@ -76,13 +76,13 @@
         <div class="form-group row">
             <label for="staticCp" class="col-sm-2 col-form-label">Codigo postal</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $order->user->postal_code }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $order->user->postal_code ?? 'No disponible' }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="staticCity" class="col-sm-2 col-form-label">Ciudad</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($order->user->city) }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($order->user->city) ?? 'No disponible' }}">
             </div>
         </div>
         <div class="form-group row">
@@ -134,6 +134,7 @@
         <a href="{{ route('orden-ventas.pdf', $order->id) }}" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
+
     </div>
 </div>
 @else

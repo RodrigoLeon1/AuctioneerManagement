@@ -16,6 +16,10 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('usuarios', UserController::class)->names('usuarios');
+Route::get('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
+Route::post('usuarios/filtrar', [UserController::class, 'show'])->name('usuarios.filter');
+Route::get('usuarios/{id}/editar', [UserController::class, 'edit'])->name('usuarios.edit');
+
 
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');

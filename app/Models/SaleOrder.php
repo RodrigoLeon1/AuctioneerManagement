@@ -17,6 +17,7 @@ class SaleOrder extends Model
     protected $fillable = [
         'date_set',
         'remito',
+        'date_payment',
         'order_number',
         'user_id'
     ];
