@@ -63,41 +63,41 @@
 
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $user[0]->name }}">
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ $user[0]->name }}">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="lastname">Apellido</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ $user[0]->lastname }}">
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ $user[0]->lastname }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{ $user[0]->phone }}">
+                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ $user[0]->phone }}">
                         </div>
                     </div>
 
                     <div class=" form-row">
                         <div class="form-group col-md-4">
                             <label for="city">Ciudad</label>
-                            <input type="text" class="form-control" id="city" name="city" value="{{ $user[0]->city }}">
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ $user[0]->city }}">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="postal_code">Código postal</label>
-                            <input type="number" class="form-control" id="postal_code" name="postal_code" value="{{ $user[0]->postal_code }}">
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ $user[0]->postal_code }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="address">Domicilio</label>
-                            <input type="text" class="form-control" id="address" name="address" value="{{ $user[0]->address }}">
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ $user[0]->address }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dni">DNI</label>
-                            <input type="text" class="form-control" id="dni" name="dni" value="{{ $user[0]->dni }}">
+                            <input type="text" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ $user[0]->dni }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="cuit">CUIT</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit" value="{{ $user[0]->cuit }}">
+                            <input type="text" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ $user[0]->cuit }}">
                         </div>
                     </div>
 
@@ -107,15 +107,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ $user[0]->email }}">
+                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" value="{{ $user[0]->email }}">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" name="password">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="password-repeat">Repetir contraseña</label>
-                            <input type="password" class="form-control" id="password-repeat" name="password-repeat">
+                            <input type="password" class="form-control {{ $errors->has('password-repeat') ? 'is-invalid' : '' }}" id="password-repeat" name="password-repeat">
                         </div>
 
                     </div>

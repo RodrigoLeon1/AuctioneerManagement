@@ -47,41 +47,41 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="lastname">Apellido</label>
-                            <input type="text" class="form-control" id="lastname" name="lastname">
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="city">Ciudad</label>
-                            <input type="text" class="form-control" id="city" name="city">
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="postal_code">Código postal</label>
-                            <input type="number" class="form-control" id="postal_code" name="postal_code">
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="address">Domicilio</label>
-                            <input type="text" class="form-control" id="address" name="address">
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dni">DNI</label>
-                            <input type="text" class="form-control" id="dni" name="dni">
+                            <input type="text" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="cuit">CUIT</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit">
+                            <input type="text" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit">
                         </div>
                     </div>
 
@@ -92,11 +92,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password">
+                            <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" name="password">
                         </div>
                     </div>
 

@@ -6,12 +6,15 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Añadir un objeto de tipo User Request para validar los campos de los formularios
+ */
 class UserController extends Controller
 {
 
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate('10');
         return view('usuarios.index', compact('users'));
     }
 
@@ -47,7 +50,9 @@ class UserController extends Controller
             $user_role = $user->roles()->attach($request->input('admin-role'));
         }
 
-        return redirect()->route('usuarios.index', ['success' => true]);
+        return redirect()
+            ->route('usuarios.index')
+            ->with('success-store', 'El usuario ha sido creada de manera exitosa.');
     }
 
     public function search()
@@ -137,14 +142,14 @@ class UserController extends Controller
         return $this->edit($id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()
+            ->route('usuarios.index')
+            ->with('success-destroy', 'Usuario eliminado con éxito.');
     }
 
     public function getAutocompleteData(Request $request)

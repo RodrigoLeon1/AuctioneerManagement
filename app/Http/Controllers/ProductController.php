@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate('10');
         return view('productos.index', compact('products'));
     }
 
@@ -20,37 +21,34 @@ class ProductController extends Controller
         return view('productos.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('productos.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Añadir un Product Request
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update(
+            ['description' => $request->input('description')]
+        );
+        $product->categories()->sync($request->input('category'));
+
+        return redirect()
+            ->back()
+            ->with('success-update', 'Mercadería modificada de manera exitosa.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect()
+            ->route('productos.index')
+            ->with('success-destroy', 'Mercadería eliminada con éxito.');
     }
 }

@@ -17,15 +17,11 @@ class SaleOrderController extends Controller
      * AL TENER UN ERROR, SE "ROMPE"
      * - CREAR UN INPUT DEMAS
      * - NO DEJA QUITAR LOS ANTERIORES, SOLO APARECE EL ICONO DE '+'
-     * 
-     *  BORRADO LOGICO EN CATEGORIAS, PRODUCTOS
-     * 
-     * - AGREGAR LOGICA EN CUIT EN CONTROLLER ORDERSALE, NUEVO CAMPO AGREGADO EN FORM CREATE
      */
 
     public function index()
     {
-        $orders = SaleOrder::all();
+        $orders = SaleOrder::paginate('10');
         return view('orden-ventas.index', compact('orders'));
     }
 
@@ -54,6 +50,7 @@ class SaleOrderController extends Controller
                     'postal_code' => $request->input('cp-order'),
                     'city' => $request->input('city-order'),
                     'dni' => $request->input('dni-order'),
+                    'cuit' => $request->input('cuit-order'),
                 ]);
             }
 
@@ -83,12 +80,16 @@ class SaleOrderController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             DB::rollback();
-            return redirect()->route('create.index');
+            return redirect()
+                ->route('orden-ventas.create')
+                ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
         }
 
-        return redirect()->route('orden-ventas.index', ['success' => true]);
+        return redirect()
+            ->route('orden-ventas.index')
+            ->with('success-store', 'Su orden de venta ha sido creada de manera exitosa.');
     }
 
     public function show($id)

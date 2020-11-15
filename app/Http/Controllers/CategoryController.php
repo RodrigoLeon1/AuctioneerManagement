@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Category as RequestsCategory;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate('10');
         return view('categorias.index', compact('categories'));
     }
 
@@ -26,7 +25,9 @@ class CategoryController extends Controller
             'description' => $request->input('description')
         ]);
 
-        return redirect()->route('categorias.index', ['success' => true]);
+        return redirect()
+            ->route('categorias.index')
+            ->with('success-store', 'Su categoría ha sido creada de manera exitosa.');
     }
 
     public function show($id)
@@ -35,37 +36,31 @@ class CategoryController extends Controller
         return view('categorias.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('categorias.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(RequestsCategory $request, $id)
     {
-        //
+
+        Category::where('id', $id)->update(
+            ['description' => $request->input('description')]
+        );
+
+        return redirect()
+            ->back()
+            ->with('success-update', 'Categoría modificada de manera exitosa.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()
+            ->route('categorias.index')
+            ->with('success-destroy', 'Categoría eliminada con éxito.');
     }
 }

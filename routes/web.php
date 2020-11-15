@@ -26,4 +26,4 @@ Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');
 Route::resource('categorias', CategoryController::class)->names('categorias');
-Route::resource('productos', ProductController::class)->names('productos');
+Route::resource('mercaderias', ProductController::class)->names('productos');

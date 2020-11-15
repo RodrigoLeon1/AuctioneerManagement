@@ -39,6 +39,23 @@
             @endforelse
         </ul>
 
+        <hr>
+
+        <h4>
+            <strong>Acciones</strong>
+        </h4>
+        <a href="{{ route('categorias.edit', $category->id) }}" class="btn btn-warning btn-circle">
+            <i class="fas fa-edit"></i>
+        </a>
+
+        <form action="{{ route('categorias.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger btn-circle">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+
     </div>
 </div>
 @else

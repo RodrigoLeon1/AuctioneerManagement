@@ -2,13 +2,20 @@
 
 @section('title', ' - Crear orden de venta')
 
-
 @section('content')
 <link href="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}" rel="stylesheet" type="text/css">
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Crear orden de venta</h1>
 </div>
+
+@if (session('error-store'))
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">
+        {{ session('error-store') }}
+    </h4>
+</div>
+@endif
 
 <!-- Content Row -->
 <div class="row">
@@ -36,24 +43,24 @@
                     @csrf
 
                     <div class="form-row">
-                        <div class="form-group col-md-6 {{ $errors->has('date') ? 'is-invalid' : '' }}">
+                        <div class="form-group col-md-6">
                             <label for="date-order">Fecha</label>
-                            <input type="date" class="form-control" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
+                            <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="remite-order">Remite</label>
-                            <input type="number" class="form-control" id="remite-order" name="remito" value="{{ old('remito') }}" require>
+                            <input type="number" class="form-control {{ $errors->has('remito') ? 'is-invalid' : '' }}" id="remite-order" name="remito" value="{{ old('remito') }}" require>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="date-payment-order">Fecha de pago</label>
-                            <input type="date" class="form-control" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require>
+                            <input type="date" class="form-control {{ $errors->has('date_payment') ? 'is-invalid' : '' }}" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="id-order">Número de orden</label>
-                            <input type="number" class="form-control" id="id-order" name="order_number" value="{{ old('order_number') }}" require>
+                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="id-order" name="order_number" value="{{ old('order_number') }}" require>
                         </div>
                     </div>
 

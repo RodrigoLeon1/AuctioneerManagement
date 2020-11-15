@@ -7,9 +7,19 @@
     <h1 class="h3 mb-0 text-gray-800">Listar categorías</h1>
 </div>
 
-@if (app('request')->input('success') == 1)
+@if (session('success-store'))
 <div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Su categoría ha sido creada de manera exitosa.</h4>
+    <h4 class="alert-heading">
+        {{ session('success-store') }}
+    </h4>
+</div>
+@endif
+
+@if (session('success-destroy'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-destroy') }}
+    </h4>
 </div>
 @endif
 
@@ -45,14 +55,24 @@
                             <a href="{{ route('categorias.show', $category->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
                             </a>
-                            <a href="#" class="btn btn-danger btn-circle">
-                                <i class="fas fa-trash"></i>
+
+                            <a href="{{ route('categorias.edit', $category->id) }}" class="btn btn-warning btn-circle">
+                                <i class="fas fa-edit"></i>
                             </a>
+
+                            <form action="{{ route('categorias.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-circle">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            {{ $categories->links() }}
         </div>
     </div>
 </div>

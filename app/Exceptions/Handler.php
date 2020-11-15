@@ -32,6 +32,8 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        // $this->renderable(function (\Exception $e, $request) {
+        //     return response()->view('layouts.errors.404', [], 404);
+        // });
     }
 }

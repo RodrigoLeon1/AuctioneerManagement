@@ -7,9 +7,19 @@
     <h1 class="h3 mb-0 text-gray-800">Listar usuarios</h1>
 </div>
 
-@if (app('request')->input('success') == 1)
+@if (session('success-store'))
 <div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">El usuario ha sido creada de manera exitosa.</h4>
+    <h4 class="alert-heading">
+        {{ session('success-store') }}
+    </h4>
+</div>
+@endif
+
+@if (session('success-destroy'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-destroy') }}
+    </h4>
 </div>
 @endif
 
@@ -68,7 +78,7 @@
                         <td> {{ $user->dni }} </td>
                         <td> {{ $user->cuit }} </td>
                         <td>
-                            <a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-info btn-circle">
+                            <a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-warning btn-circle">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a href="" class="btn btn-danger btn-circle">
@@ -79,6 +89,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $users->links() }}
         </div>
     </div>
 </div>

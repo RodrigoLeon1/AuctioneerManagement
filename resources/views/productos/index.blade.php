@@ -1,16 +1,24 @@
 @extends('layouts.app')
 
-@section('title', ' - Listar mercadería')
+@section('title', ' - Listar mercaderías')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listar mercadería</h1>
+    <h1 class="h3 mb-0 text-gray-800">Listar mercaderías</h1>
 </div>
+
+@if (session('success-destroy'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-destroy') }}
+    </h4>
+</div>
+@endif
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuación podrá observar el listado de la mercadería y acceder a la orden de venta en la que fue generada.
+            A continuación podrá observar el listado de las mercaderías y acceder a la orden de venta en la que fue generada.
         </h6>
     </div>
     <div class="card-body">
@@ -46,6 +54,9 @@
                             <a href="{{ route('productos.show', $product->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
                             </a>
+                            <a href="{{ route('productos.edit', $product->id) }}" class="btn btn-warning btn-circle">
+                                <i class="fas fa-edit"></i>
+                            </a>
                             <a href="#" class="btn btn-danger btn-circle">
                                 <i class="fas fa-trash"></i>
                             </a>
@@ -54,6 +65,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $products->links() }}
         </div>
     </div>
 </div>

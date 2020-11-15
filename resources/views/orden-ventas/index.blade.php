@@ -7,9 +7,11 @@
     <h1 class="h3 mb-0 text-gray-800">Listar órdenes de venta</h1>
 </div>
 
-@if (app('request')->input('success') == 1)
+@if (session('success-store'))
 <div class="alert alert-success" role="alert">
-    <h4 class="alert-heading">Su orden de venta ha sido creada de manera exitosa.</h4>
+    <h4 class="alert-heading">
+        {{ session('success-store') }}
+    </h4>
 </div>
 @endif
 
@@ -59,6 +61,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $orders->links() }}
         </div>
     </div>
 </div>
