@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SaleOrder;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SaleOrderController extends Controller
@@ -98,10 +99,41 @@ class SaleOrderController extends Controller
         return view('orden-ventas.show', compact('order'));
     }
 
-    public function filter($id)
+    public function filter(Request $request)
     {
-        dd($id);
-        // return view('orden-ventas.');
+
+        // dd($request->all());
+
+        $orders = [];
+
+        if ($request->input('date_start') && $request->input('date_end')) {
+
+            $from = date($request->input('date_start'));
+            $to = date($request->input('date_end'));
+
+            if ($request->input('name') != null || $request->input('lastname')) {
+                // $orders = DB::table('sale_orders')
+                //     ->join('users', 'sale_orders.user_id', '=', 'user_id')
+                //     ->whereBetween('sale_orders.date_set', [$from, $to])
+                //     ->where('users.name', 'like', 'T%')
+                //     ->orWhere('users.lastname', 'like', 'T%')
+                //     ->get();
+
+                $orders = SaleOrder::with(['user'])
+                    ->where('user.name', 'like', 'T%')
+                    ->get();
+
+                echo ' 1 ';
+                dd($orders);
+            } else {
+                $orders = SaleOrder::whereBetween('date_set', [$from, $to])->get();
+
+                echo ' 2 ';
+                dd($orders);
+            }
+        }
+
+        return view('orden-ventas.filter', compact('orders'));
     }
 
     public function pdf(SaleOrder $order)

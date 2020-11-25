@@ -19,9 +19,9 @@ Route::resource('usuarios', UserController::class)->names('usuarios');
 Route::get('usuarios/filtrar', [SaleOrderController::class, 'filter'])->name('usuarios.filter');
 Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 
-Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
 Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');
+Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');

@@ -18,12 +18,13 @@ class CreateInvoicesProformaTable extends Migration
             $table->integer('commission');
             $table->float('partial_payment');
             $table->float('total');
+            $table->boolean('is_invoiced')->default(false);
 
-            // ID comprador ?
-            // $table->foreignId('user_id')
-            //     ->constrained()
-            //     ->onDelete('cascade')
-            //     ->onUpdate('cascade');
+            // ID comprador
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreignId('sale_order_id')
                 ->constrained()
