@@ -47,7 +47,7 @@
         <hr>
 
         <h4>
-            <strong>Datos del usuario</strong>
+            <strong>Datos del remitente</strong>
         </h4>
         <div class="form-group row">
             <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>

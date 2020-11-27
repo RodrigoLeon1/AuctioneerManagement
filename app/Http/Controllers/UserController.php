@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User as RequestsUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * Añadir un objeto de tipo User Request para validar los campos de los formularios
- */
 class UserController extends Controller
 {
 
@@ -23,10 +21,11 @@ class UserController extends Controller
         return view('usuarios.create');
     }
 
-    public function store(Request $request)
+    public function store(RequestsUser $request)
     {
         $password = $request->input('password');
         $password = Hash::make('secret');
+
         $user = User::create([
             'name' => $request->input('name'),
             'lastname' => $request->input('lastname'),
@@ -64,6 +63,14 @@ class UserController extends Controller
     {
         return view('usuarios.filter');
     }
+
+    /*
+    public function show($id)
+    {
+        $user = User::find($id);
+        return view('usuarios.showid', compact('user'));
+    }
+    */
 
     public function show()
     {
@@ -117,7 +124,7 @@ class UserController extends Controller
         return view('usuarios.edit', compact('user', 'check_customer', 'check_provider', 'check_admin', 'id'));
     }
 
-    public function update(Request $request, $id)
+    public function update(RequestsUser $request, $id)
     {
         $error = null;
         if ($request->input('password') != $request->input('password-repeat')) {
@@ -135,7 +142,6 @@ class UserController extends Controller
                     ['address' => $request->input('address')],
                     ['dni' => $request->input('dni')],
                     ['cuit' => $request->input('cuit')]
-
                 );
         }
 

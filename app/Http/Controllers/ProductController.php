@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Product as RequestsProduct;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -28,8 +29,7 @@ class ProductController extends Controller
         return view('productos.edit', compact('product', 'categories'));
     }
 
-    // Añadir un Product Request
-    public function update(Request $request, $id)
+    public function update(RequestsProduct $request, $id)
     {
         $product = Product::find($id);
         $product->update(

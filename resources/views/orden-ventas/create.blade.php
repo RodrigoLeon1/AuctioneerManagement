@@ -48,8 +48,8 @@
                             <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="remite-order">Remite</label>
-                            <input type="number" class="form-control {{ $errors->has('remito') ? 'is-invalid' : '' }}" id="remite-order" name="remito" value="{{ old('remito') }}" require>
+                            <label for="remite-order">Remito</label>
+                            <input type="number" class="form-control {{ $errors->has('remito') ? 'is-invalid' : '' }}" id="remite-order" name="remito" value="{{ old('remito') }}" min=1 require>
                         </div>
                     </div>
 
@@ -60,12 +60,12 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="id-order">Número de orden</label>
-                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="id-order" name="order_number" value="{{ old('order_number') }}" require>
+                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="id-order" name="order_number" value="{{ old('order_number') }}" min=1 require>
                         </div>
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos del usuario</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del remitente</h6>
                     </div>
 
                     <div class="form-row">
@@ -95,7 +95,7 @@
                             <label for="cp-order">Código postal</label>
                             <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
                         </div>
-                        <div class=" form-group col-md-4">
+                        <div class=" form-group col-md-6">
                             <label for="address-order">Domicilio</label>
                             <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
                         </div>
@@ -132,15 +132,15 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Cantidad</label>
-                                <input type="number" class="form-control" name="productQuantity[]" value="' . $productsQuantity[$key] . '">
+                                <input type="number" class="form-control" name="productQuantity[]" value="' . $productsQuantity[$key] . '" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Tasac</label>
-                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '">
+                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Etiquetas</label>
-                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '">
+                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Categoría</label>
@@ -173,15 +173,15 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Cantidad</label>
-                                <input type="number" class="form-control" name="productQuantity[]">
+                                <input type="number" class="form-control" name="productQuantity[]" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Tasac</label>
-                                <input type="number" class="form-control" name="productTasac[]">
+                                <input type="number" class="form-control" name="productTasac[]" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Etiquetas</label>
-                                <input type="number" class="form-control" name="productTags[]">
+                                <input type="number" class="form-control" name="productTags[]" min=1>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Categoría</label>
@@ -271,7 +271,7 @@
                         var array = $.map(data, function(row) {
                             return {
                                 value: row.name,
-                                label: row.name,
+                                label: row.name + ' ' + row.lastname,
                                 id: row.id,
                                 name: row.name,
                                 lastname: row.lastname,

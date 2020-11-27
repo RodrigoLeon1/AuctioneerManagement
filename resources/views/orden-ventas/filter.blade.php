@@ -14,7 +14,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Seleccione el tipo de filtro para encontrar la orden de venta, los campos son opcionales. No es necesario completar todos, solo aquellos que necesite.</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Seleccione el tipo de filtro para encontrar la orden de venta.</h6>
             </div>
 
             <div class="card-body">
@@ -31,7 +31,7 @@
                             <input type="date" class="form-control" id="date-end" name="date_end" require>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <!-- <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="name">Nombre remitente</label>
                             <input type="text" class="form-control" id="name" name="name" require>
@@ -40,7 +40,7 @@
                             <label for="lastname">Apellido remitente</label>
                             <input type="text" class="form-control" id="lastname" name="lastname" require>
                         </div>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
 

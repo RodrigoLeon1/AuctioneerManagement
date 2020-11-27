@@ -17,6 +17,12 @@
 </div>
 @endif
 
+@php
+foreach ($product->saleorder as $order) {
+$quantity = $order->pivot->quantity;
+}
+@endphp
+
 <!-- Content Row -->
 <div class="row">
 
@@ -39,21 +45,24 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('proformas.store') }}" autocomplete="off">
+                <form method="POST" action="{{ route('proformas.store') }}" autocomplete="off" id="form-proforma">
                     @csrf
+
+                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="date_remate">Fecha de remate</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" require>
+                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="date_remate_delivery">Fecha de entrega</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate_delivery') ? 'is-invalid' : '' }}" id="date_remate_delivery" name="date_remate_delivery" value="{{ old('date_remate_delivery') }}" require>
+                            <input type="date" class="form-control {{ $errors->has('date_remate_delivery') ? 'is-invalid' : '' }}" id="date_remate_delivery" name="date_remate_delivery" value="{{ old('date_remate_delivery') }}" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="order_number">Numero de orden</label>
-                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="order_number" name="order_number" value="{{ old('order_number') }}" require>
+                            <label for="order_number">Número de orden</label>
+                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="order_number" name="order_number" value="{{ $order->order_number }}" readonly>
                         </div>
                     </div>
 
@@ -63,45 +72,48 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="">Codigo</label>
-                            <input type="number" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="product_id">Código</label>
+                            <input type="number" class="form-control {{ $errors->has('product_id') ? 'is-invalid' : '' }}" id="product_id" name="product_id" value="{{ $product->id }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Descripción</label>
-                            <input type="text" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="product_description">Descripción</label>
+                            <input type="text" class="form-control {{ $errors->has('product_description') ? 'is-invalid' : '' }}" id="product_description" name="product_description" value="{{ $product->description }}" readonly>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="">Cantidad</label>
-                            <input type="number" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="quantity">Cantidad</label>
+                            <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" required max={{ $quantity }} min=1>
+                            <small id="quantity" class="form-text text-muted">
+                                La mercadería <strong>{{ $product->description }}</strong> tiene una cantidad de <strong>{{ $quantity }} unidades</strong> para vender.
+                            </small>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Precio por unidad</label>
-                            <input type="text" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="price_unit">Precio por unidad</label>
+                            <input type="number" class="form-control {{ $errors->has('price_unit') ? 'is-invalid' : '' }}" id="price_unit" name="price_unit" value="{{ old('price_unit') }}" min=1 step=".01" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="">Importe</label>
-                            <input type="number" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="partial_total">Importe</label>
+                            <input type="number" class="form-control {{ $errors->has('partial_total') ? 'is-invalid' : '' }}" id="partial_total" name="partial_total" value="{{ old('partial_total') }}" min=1 step=".01" readonly>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="">Comision</label>
-                            <input type="text" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                        <div class="form-group col-md-6">
+                            <label for="commission">Comisión</label>
+                            <input type="number" class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" id="commission" name="commission" value="{{ old('commission') }}" min=1 step=".01" readonly>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="">Seña</label>
-                            <input type="number" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="partial_payment">Seña</label>
+                            <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=1 step=".01" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Importe total</label>
-                            <input type="text" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+                            <label for="total">Importe total</label>
+                            <input type="text" class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" id="total" name="total" value="{{ old('total') }}" min=1 step=".01" readonly>
                         </div>
                     </div>
 
@@ -110,9 +122,46 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="">Nombre</label>
-                            <input type="number" class="form-control {{ $errors->has('') ? 'is-invalid' : '' }}" id="date-order" name="" value="{{ old('') }}" require>
+
+                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
+
+                        <div class="form-group col-md-3">
+                            <label for="name-order">Nombre</label>
+                            <input type="text" class="form-control" id="name-order" name="name-order" value="{{ old('name-order') }}">
+                        </div>
+                        <div class=" form-group col-md-3">
+                            <label for="lastname-order">Apellido</label>
+                            <input type="text" class="form-control" id="lastname-order" name="lastname-order" value="{{ old('lastname-order') }}">
+                        </div>
+                        <div class=" form-group col-md-6">
+                            <label for="phone-order">Teléfono</label>
+                            <input type="text" class="form-control" id="phone-order" name="phone-order" value="{{ old('phone-order') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class=" form-group col-md-4">
+                            <label for="city-order">Ciudad</label>
+                            <input type="text" class="form-control" id="city-order" name="city-order" value="{{ old('city-order') }}">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="cp-order">Código postal</label>
+                            <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
+                        </div>
+                        <div class=" form-group col-md-6">
+                            <label for="address-order">Domicilio</label>
+                            <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class=" form-group col-md-6">
+                            <label for="dni-order">DNI</label>
+                            <input type="number" class="form-control" id="dni-order" name="dni-order" value="{{ old('dni-order') }}">
+                        </div>
+                        <div class=" form-group col-md-6">
+                            <label for="cuit-order">CUIT</label>
+                            <input type="number" class="form-control" id="cuit-order" name="cuit-order" value="{{ old('cuit-order') }}">
                         </div>
                     </div>
 
@@ -124,5 +173,81 @@
     </div>
 
 </div>
+
+<script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
+<script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+
+<script>
+    const proformaForm = document.querySelector('#form-proforma')
+    const quantity = document.querySelector('#quantity')
+    const priceUnit = document.querySelector('#price_unit')
+    const partialTotal = document.querySelector('#partial_total')
+    const commission = document.querySelector('#commission')
+    const partial_payment = document.querySelector('#partial_payment')
+    const total = document.querySelector('#total')
+
+    quantity.addEventListener('blur', () => {
+        renderTotal()
+    })
+    priceUnit.addEventListener('blur', () => {
+        renderTotal()
+    })
+    partialTotal.addEventListener('blur', () => {
+        renderTotal()
+    })
+    commission.addEventListener('blur', () => {
+        renderTotal()
+    })
+    partial_payment.addEventListener('blur', () => {
+        renderTotal()
+    })
+
+    function renderTotal() {
+        partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
+        commission.value = parseFloat(partialTotal.value) * 0.10
+
+        if (quantity.value && priceUnit.value) {
+            total.value = parseFloat(partialTotal.value) + parseFloat(commission.value) - parseFloat(partial_payment.value)
+        }
+    }
+
+    // User inputs autocomplete
+    $(function() {
+        $('#name-order').autocomplete({
+            source: function(request, response) {
+                $.getJSON('http://127.0.0.1:8000/api/usuarios?term=' + request.term, function(data) {
+                    var array = $.map(data, function(row) {
+                        return {
+                            value: row.name,
+                            label: row.name + ' ' + row.lastname,
+                            id: row.id,
+                            name: row.name,
+                            lastname: row.lastname,
+                            address: row.address,
+                            postal_code: row.postal_code,
+                            city: row.city,
+                            phone: row.phone,
+                            dni: row.dni,
+                        }
+                    })
+                    response($.ui.autocomplete.filter(array, request.term));
+                })
+            },
+            minLength: 1,
+            delay: 100,
+            select: function(event, ui) {
+                $('#id-user').val(ui.item.id)
+                $('#name-order').val(ui.item.name)
+                $('#lastname-order').val(ui.item.lastname)
+                $('#address-order').val(ui.item.address)
+                $('#cp-order').val(ui.item.postal_code)
+                $('#city-order').val(ui.item.city)
+                $('#phone-order').val(ui.item.phone)
+                $('#dni-order').val(ui.item.dni)
+            }
+        })
+    })
+</script>
 
 @endsection()

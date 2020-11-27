@@ -34,50 +34,39 @@
             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Rol</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Nombre completo</th>
                         <th>Email</th>
-                        <th>Ciudad</th>
                         <th>Domicilio</th>
+                        <th>Ciudad</th>
                         <th>Teléfono</th>
                         <th>DNI</th>
-                        <th>CUIT</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Rol</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
+                        <th>Nombre completo</th>
                         <th>Email</th>
-                        <th>Ciudad</th>
                         <th>Domicilio</th>
+                        <th>Ciudad</th>
                         <th>Teléfono</th>
                         <th>DNI</th>
-                        <th>CUIT</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>
-                            @foreach ($user->roles as $role)
-                            {{ $role->description }}
-                            @endforeach
-
-                        </td>
-                        <td> {{ $user->name }} </td>
-                        <td> {{ $user->lastname }} </td>
+                        <td> {{ $user->name }} {{ $user->lastname }} </td>
                         <td> {{ $user->email }} </td>
-                        <td> {{ $user->city }} </td>
                         <td> {{ $user->address }} </td>
+                        <td> {{ $user->city }} </td>
                         <td> {{ $user->phone }} </td>
                         <td> {{ $user->dni }} </td>
-                        <td> {{ $user->cuit }} </td>
                         <td>
+                            <a href="{{ route('usuarios.showById', $user->id) }}" class="btn btn-info btn-circle">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
                             <a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-warning btn-circle">
                                 <i class="fas fa-edit"></i>
                             </a>

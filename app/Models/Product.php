@@ -22,6 +22,8 @@ class Product extends Model
 
     public function saleorder()
     {
-        return $this->belongsToMany('App\Models\SaleOrder');
+        return $this->belongsToMany('App\Models\SaleOrder')
+            ->withPivot('quantity', 'quantity_tags')
+            ->withTimestamps();
     }
 }

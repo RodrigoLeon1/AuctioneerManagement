@@ -16,14 +16,18 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::resource('usuarios', UserController::class)->names('usuarios');
-Route::get('usuarios/filtrar', [SaleOrderController::class, 'filter'])->name('usuarios.filter');
+Route::get('usuarios/{id}/info', [UserController::class, 'showById'])->name('usuarios.showById');
+Route::get('usuarios/filtrar', [UserController::class, 'filter'])->name('usuarios.filter');
 Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
 Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');
 Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 
+Route::get('proformas/{id}/pdf', [InvoiceProformaController::class, 'pdf'])->name('proformas.pdf');
+Route::get('proformas/pre-crear', [InvoiceProformaController::class, 'preCreate'])->name('proformas.pre-create');
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
+
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');
 Route::resource('categorias', CategoryController::class)->names('categorias');
 Route::resource('mercaderias', ProductController::class)->names('productos');

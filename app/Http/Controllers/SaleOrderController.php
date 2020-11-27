@@ -18,6 +18,8 @@ class SaleOrderController extends Controller
      * AL TENER UN ERROR, SE "ROMPE"
      * - CREAR UN INPUT DEMAS
      * - NO DEJA QUITAR LOS ANTERIORES, SOLO APARECE EL ICONO DE '+'
+     * 
+     *  - Chequear los Form Request, modificar validaciones para campos int/float...
      */
 
     public function index()
@@ -101,9 +103,6 @@ class SaleOrderController extends Controller
 
     public function filter(Request $request)
     {
-
-        // dd($request->all());
-
         $orders = [];
 
         if ($request->input('date_start') && $request->input('date_end')) {
@@ -111,26 +110,7 @@ class SaleOrderController extends Controller
             $from = date($request->input('date_start'));
             $to = date($request->input('date_end'));
 
-            if ($request->input('name') != null || $request->input('lastname')) {
-                // $orders = DB::table('sale_orders')
-                //     ->join('users', 'sale_orders.user_id', '=', 'user_id')
-                //     ->whereBetween('sale_orders.date_set', [$from, $to])
-                //     ->where('users.name', 'like', 'T%')
-                //     ->orWhere('users.lastname', 'like', 'T%')
-                //     ->get();
-
-                $orders = SaleOrder::with(['user'])
-                    ->where('user.name', 'like', 'T%')
-                    ->get();
-
-                echo ' 1 ';
-                dd($orders);
-            } else {
-                $orders = SaleOrder::whereBetween('date_set', [$from, $to])->get();
-
-                echo ' 2 ';
-                dd($orders);
-            }
+            $orders = SaleOrder::whereBetween('date_set', [$from, $to])->get();
         }
 
         return view('orden-ventas.filter', compact('orders'));

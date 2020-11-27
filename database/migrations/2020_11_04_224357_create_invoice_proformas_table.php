@@ -4,15 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvoicesProformaTable extends Migration
+class CreateInvoiceProformasTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('invoices_proforma', function (Blueprint $table) {
+        Schema::create('invoice_proformas', function (Blueprint $table) {
             $table->id();
             $table->date('date_remate');
             $table->date('date_delivery');
+            $table->integer('quantity');
             $table->float('price_unit');
             $table->float('partial_total');
             $table->integer('commission');
@@ -20,7 +21,6 @@ class CreateInvoicesProformaTable extends Migration
             $table->float('total');
             $table->boolean('is_invoiced')->default(false);
 
-            // ID comprador
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade')
