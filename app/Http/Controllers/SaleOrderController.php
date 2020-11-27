@@ -10,16 +10,20 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use PDF;
+
 class SaleOrderController extends Controller
 {
 
-    /**
-     * VERIFICAR PAGINA 'CREATE', LOS CAMPOS DINAMICOS DEL FORM DE PRODUCTOS
-     * AL TENER UN ERROR, SE "ROMPE"
-     * - CREAR UN INPUT DEMAS
-     * - NO DEJA QUITAR LOS ANTERIORES, SOLO APARECE EL ICONO DE '+'
+    /**               
+     *  - Corregir inputs de mercaderia dinamicos en el SaleOrder 
+     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )
      * 
      *  - Chequear los Form Request, modificar validaciones para campos int/float...
+     *  - Estilos PDF Orde de venta, proforma, liquidaciones
+     * 
+     *  - Proformas, una vez creada una proforma sobre X producto, no dejar que vuelvan a crear otra?
+     *  - Proformas, si la mercaderia solo tenia 5 unidades, y se venden todas, quitar opcion de crear proforma para este?
      */
 
     public function index()
@@ -36,7 +40,6 @@ class SaleOrderController extends Controller
 
     public function store(RequestsSaleOrder $request)
     {
-
         DB::beginTransaction();
 
         try {
@@ -83,7 +86,6 @@ class SaleOrderController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            // dd($e);
             DB::rollback();
             return redirect()
                 ->route('orden-ventas.create')
@@ -104,6 +106,8 @@ class SaleOrderController extends Controller
     public function filter(Request $request)
     {
         $orders = [];
+        $from = null;
+        $to = null;
 
         if ($request->input('date_start') && $request->input('date_end')) {
 
@@ -113,12 +117,14 @@ class SaleOrderController extends Controller
             $orders = SaleOrder::whereBetween('date_set', [$from, $to])->get();
         }
 
-        return view('orden-ventas.filter', compact('orders'));
+        return view('orden-ventas.filter', compact(['orders', 'from', 'to']));
     }
 
-    public function pdf(SaleOrder $order)
+    public function pdf($id)
     {
-        dd($order);
-        // return view('orden-ventas.');
+        $order = SaleOrder::find($id);
+        $title = 'orden-venta-' . $id . '.pdf';
+        $pdf = PDF::loadView('orden-ventas.pdf', compact('order'));
+        return $pdf->stream($title);
     }
 }

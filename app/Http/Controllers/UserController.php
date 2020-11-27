@@ -54,53 +54,35 @@ class UserController extends Controller
             ->with('success-store', 'El usuario ha sido creada de manera exitosa.');
     }
 
-    public function search()
-    {
-        //$user = User::where();
-    }
-
-    public function filter()
-    {
-        return view('usuarios.filter');
-    }
-
-    /*
     public function show($id)
     {
         $user = User::find($id);
-        return view('usuarios.showid', compact('user'));
+        return view('usuarios.show', compact('user'));
     }
-    */
 
-    public function show()
+    public function filter(Request $request)
     {
+        $users = [];
 
-        $users = null;
-        if (!empty($_POST)) {
-            if ($_POST['type_search'] != null) {
-                if ($_POST['type_search'] == 'name') {
-                    if (($_POST['name'] != null) xor ($_POST['lastname'] != null)) {
-                        $users = User::where('name', $_POST['name'])
-                            ->orWhere('lastname', $_POST['lastname'])
-                            ->get();
-                    } elseif (($_POST['name'] != null) && ($_POST['lastname'] != null)) {
-
-                        $users = User::where('name', $_POST['name'])
-                            ->where('lastname', $_POST['lastname'])
-                            ->get();
-                    }
-                } else if ($_POST['type_search'] == 'dni') {
-                    $users = User::where('dni', $_POST['search'])->get();
-                } else if ($_POST['type_search'] == 'cuit') {
-                    $users = User::where('cuit', $_POST['search'])->get();
+        if ($request->has('type_search')) {
+            if ($request->input('type_search') == 'name') {
+                if ($request->input('name') !== null xor $request->input('lastname') !== null) {
+                    $users = User::where('name', $request->input('name'))
+                        ->orWhere('lastname', $request->input('lastname'))
+                        ->get();
+                } elseif ($request->input('name') && $request->input('lastname')) {
+                    $users = User::where('name', $request->input('name'))
+                        ->where('lastname', $request->input('lastname'))
+                        ->get();
                 }
+            } else if ($request->input('type_search') == 'dni') {
+                $users = User::where('dni', $request->input('search'))->get();
+            } else if ($request->input('type_search') == 'cuit') {
+                $users = User::where('cuit', $request->input('search'))->get();
             }
         }
-        if (empty($users[0])) {
-            $users = null;
-        }
 
-        return view('usuarios.show', compact('users'));
+        return view('usuarios.filter', compact('users'));
     }
 
     public function edit($id)
@@ -109,6 +91,7 @@ class UserController extends Controller
         $check_customer = false;
         $check_provider = false;
         $check_admin = false;
+
         foreach ($user[0]->roles as $role) {
             if ($role->id == 3) {
                 $check_customer = true;
@@ -127,9 +110,11 @@ class UserController extends Controller
     public function update(RequestsUser $request, $id)
     {
         $error = null;
+
         if ($request->input('password') != $request->input('password-repeat')) {
             $error = "Las contraseñas ingresadas no son iguales";
         }
+
         if ($error != null) {
             $user = User::where('id', $id)
                 ->update(
@@ -161,7 +146,9 @@ class UserController extends Controller
     public function getAutocompleteData(Request $request)
     {
         if ($request->has('term')) {
-            return User::where('name', 'like', '%' . $request->input('term') . '%')->get();
+            return User::where('name', 'like', '%' . $request->input('term') . '%')
+                ->orWhere('lastname', 'like', '%' . $request->input('term') . '%')
+                ->get();
         }
     }
 }

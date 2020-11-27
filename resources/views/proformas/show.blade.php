@@ -115,7 +115,7 @@
         <h4>
             <strong>Obtener proforma en PDF</strong>
         </h4>
-        <a href="{{ route('proformas.pdf', $invoice->id) }}" class="btn btn-success btn-circle">
+        <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
 

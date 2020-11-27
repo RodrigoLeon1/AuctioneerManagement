@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', ' - Crear orden de venta')
+@section('title', ' - Editar usuario')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Modificar usuario</h1>
+    <h1 class="h3 mb-0 text-gray-800">Editar usuario</h1>
 </div>
 
 <!-- Content Row -->
@@ -14,7 +14,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Modifique los campos que desee cambiar para el usuario</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edité los campos que desee cambiar para el usuario</h6>
             </div>
 
             <div class="card-body">

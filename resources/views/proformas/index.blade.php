@@ -53,7 +53,7 @@
                             <a href="{{ route('proformas.show', $invoice->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
                             </a>
-                            <a href="{{ route('proformas.pdf', $invoice->id) }}" class="btn btn-success btn-circle">
+                            <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>
                             </a>
                         </td>

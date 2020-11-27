@@ -44,7 +44,6 @@ class CategoryController extends Controller
 
     public function update(RequestsCategory $request, $id)
     {
-
         Category::where('id', $id)->update(
             ['description' => $request->input('description')]
         );

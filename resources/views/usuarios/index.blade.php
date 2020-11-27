@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Listar ordenes de venta')
+@section('title', ' - Listar usuarios')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -64,7 +64,7 @@
                         <td> {{ $user->phone }} </td>
                         <td> {{ $user->dni }} </td>
                         <td>
-                            <a href="{{ route('usuarios.showById', $user->id) }}" class="btn btn-info btn-circle">
+                            <a href="{{ route('usuarios.show', $user->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
                             </a>
                             <a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-warning btn-circle">

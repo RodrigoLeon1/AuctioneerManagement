@@ -25,7 +25,7 @@
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    A continuacion podra observar aquellas ordenes de venta, que tienen mercaderia para
+                    A continuacion podra observar aquellas ordenes de venta, que tienen mercadería para .............
                 </h6>
             </div>
 
@@ -65,12 +65,13 @@
                                     </li>
                                 </ul>
                                 <p class="mt-3">
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        Seleccionar mercaderia
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse{{ $order->id }}" aria-expanded="false" aria-controls="collapse{{ $order->id }}">
+                                        Seleccionar mercadería
                                     </button>
                                 </p>
-                                <div class="collapse" id="collapseExample">
+                                <div class="collapse" id="collapse{{ $order->id }}">
                                     <div class="card card-body">
+                                        <span class="mb-2">Clickee en la mercadería deseada</span>
                                         <ul>
                                             @foreach ($order->products as $product)
                                             <li class="mb-3">

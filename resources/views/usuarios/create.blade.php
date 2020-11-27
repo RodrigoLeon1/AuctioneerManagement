@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Crear orden de venta')
+@section('title', ' - Crear usuario')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">

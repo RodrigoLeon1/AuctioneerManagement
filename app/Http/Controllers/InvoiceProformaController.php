@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\SaleOrder;
 use Illuminate\Http\Request;
 
+use PDF;
+
 class InvoiceProformaController extends Controller
 {
 
@@ -26,19 +28,20 @@ class InvoiceProformaController extends Controller
 
     public function create(Request $request)
     {
-        if (!$request->has('orden') || !$request->has('mercaderia')) {
-            dd('error');
-        }
-
         $order = SaleOrder::find($request->input('orden'));
         $product = Product::find($request->input('mercaderia'));
+
+        if ($order === null || $product === null) {
+            return redirect()
+                ->route('proformas.pre-create')
+                ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+        }
 
         return view('proformas.create', compact(['order', 'product']));
     }
 
     public function store(RequestsInvoiceProforma $request)
     {
-
         $user = User::find($request->input('id-user'));
 
         // Refactor...
@@ -80,7 +83,28 @@ class InvoiceProformaController extends Controller
         return view('proformas.show', compact('invoice'));
     }
 
+    public function filter(Request $request)
+    {
+        $invoices = [];
+        $from = null;
+        $to = null;
+
+        if ($request->input('date_start') && $request->input('date_end')) {
+
+            $from = date($request->input('date_start'));
+            $to = date($request->input('date_end'));
+
+            $invoices = InvoiceProforma::whereBetween('date_remate', [$from, $to])->get();
+        }
+
+        return view('proformas.filter', compact(['invoices', 'from', 'to']));
+    }
+
     public function pdf($id)
     {
+        $invoice = InvoiceProforma::find($id);
+        $title = 'proforma-' . $id . '.pdf';
+        $pdf = PDF::loadView('proformas.pdf', compact('invoice'));
+        return $pdf->stream($title);
     }
 }

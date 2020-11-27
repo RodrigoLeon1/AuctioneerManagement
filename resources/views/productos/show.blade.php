@@ -50,6 +50,15 @@
             <a href="{{ route('orden-ventas.show', $saleorder->id) }}">Información completa</a>
         </p>
         @endforeach
+
+        <hr>
+        <a href="{{ route('productos.edit', $product->id) }}" class="btn btn-warning btn-circle">
+            <i class="fas fa-edit"></i>
+        </a>
+        <a href="#" class="btn btn-danger btn-circle">
+            <i class="fas fa-trash"></i>
+        </a>
+
     </div>
 </div>
 @else

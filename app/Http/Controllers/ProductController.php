@@ -51,4 +51,20 @@ class ProductController extends Controller
             ->route('productos.index')
             ->with('success-destroy', 'Mercadería eliminada con éxito.');
     }
+
+    public function filter(Request $request)
+    {
+        $products = [];
+        $categories = Category::all();
+
+        if ($request->input('description') && $request->input('category')) {
+            $products = Product::has('categories', '=', $request->input('category'))
+                ->where('description', 'like', '%' . $request->input('description') . '%')
+                ->get();
+        } else {
+            $products = Product::has('categories', '=', $request->input('category'))->get();
+        }
+
+        return view('productos.filter', compact(['products', 'categories']));
+    }
 }

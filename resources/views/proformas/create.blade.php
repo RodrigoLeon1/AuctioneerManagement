@@ -109,7 +109,7 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="partial_payment">Seña</label>
-                            <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=1 step=".01" required>
+                            <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=0 step=".01" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="total">Importe total</label>

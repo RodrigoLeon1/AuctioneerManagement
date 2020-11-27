@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Listar ordenes de venta')
+@section('title', ' - Listar orden de venta')
 
 @section('content')
 
@@ -139,7 +139,7 @@
         <h4>
             <strong>Obtener factura en PDF</strong>
         </h4>
-        <a href="{{ route('orden-ventas.pdf', $order->id) }}" class="btn btn-success btn-circle">
+        <a href="{{ route('orden-ventas.pdf', $order->id) }}" target="_blank" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
 
