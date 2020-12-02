@@ -112,16 +112,16 @@
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
             <div class="form-group col-md-2">
-                <label for="staticProductQuantity">Cantidad</label>
+                <label for="staticProductQuantity">Cantidad total</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="staticProductQuantityRemaining">Cantidad disponible para vender</label>
+                <input type="text" readonly class="form-control" id="staticProductQuantityRemaining" value="{{ $product->pivot->quantity_remaining }}">
             </div>
             <div class="form-group col-md-2">
                 <label for="staticProductTasac">Tasac</label>
                 <input type="text" readonly class="form-control" id="staticProductTasac" value="">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="staticProductTags">Etiquetas</label>
-                <input type="text" readonly class="form-control" id="staticProductTags" value="{{ $product->pivot->quantity_tags }}">
             </div>
             <div class="form-group col-md-2">
                 <label for="staticProductCategory">Categoría</label>

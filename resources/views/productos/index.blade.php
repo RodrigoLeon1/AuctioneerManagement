@@ -41,7 +41,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($products as $product)
+                    @forelse ($products as $product)
                     <tr>
                         <td> {{ $product->created_at }} </td>
                         <td> {{ $product->description }} </td>
@@ -62,7 +62,11 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="4">No se encontraron mercaderías registradas.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $products->links() }}

@@ -11,7 +11,10 @@ class CreateProductSaleOrderTable extends Migration
     {
         Schema::create('product_sale_order', function (Blueprint $table) {
             $table->smallInteger('quantity')->nullable();
+            $table->smallInteger('quantity_sold')->nullable();
+            $table->smallInteger('quantity_remaining')->nullable();
             $table->smallInteger('quantity_tags')->nullable();
+            $table->boolean('has_proforma')->default(false);
 
             $table->foreignId('product_id')
                 ->constrained()

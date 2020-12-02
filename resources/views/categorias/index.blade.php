@@ -47,7 +47,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($categories as $category)
+                    @forelse ($categories as $category)
                     <tr>
                         <td> {{ $category->created_at }} </td>
                         <td> {{ $category->description }} </td>
@@ -69,7 +69,11 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="4">No se encontraron categorías registradas.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $categories->links() }}

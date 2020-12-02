@@ -43,10 +43,10 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach($invoices as $invoice)
+                    @forelse($invoices as $invoice)
                     <tr>
                         <td>{{ $invoice->date_remate }}</td>
-                        <td>{{ $invoice->total }}</td>
+                        <td> ${{ $invoice->total }}</td>
                         <td>{{ $invoice->product->description }}</td>
                         <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
                         <td>
@@ -58,7 +58,11 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5">No se encontraron proformas registradas.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
 

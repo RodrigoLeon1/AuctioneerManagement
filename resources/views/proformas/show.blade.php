@@ -54,6 +54,7 @@
                 <input type="text" readonly class="form-control-plaintext" id="description" value="{{ $invoice->product->description }}">
             </div>
         </div>
+        <hr>
         <div class="form-group row">
             <label for="quantity" class="col-sm-2 col-form-label">Cantidad</label>
             <div class="col-sm-10">
@@ -63,31 +64,32 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Precio por unidad</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="{{ $invoice->price_unit }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->price_unit }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Importe</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="{{ $invoice->partial_total }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->partial_total }}">
             </div>
         </div>
+        <hr>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Comisión</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="{{ $invoice->commission }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->commission }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Seña</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="{{ $invoice->partial_payment }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->partial_payment }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Importe total</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="{{ $invoice->total }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->total }}">
             </div>
         </div>
 

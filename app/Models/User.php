@@ -17,7 +17,7 @@ class User extends Authenticatable
         // 'email_verified_at',
         'created_at',
         'updated_at',
-        // 'deleted_at',
+        'deleted_at',
     ];
 
     protected $fillable = [
@@ -42,7 +42,7 @@ class User extends Authenticatable
         // 'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        // 'deleted_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     public function roles()

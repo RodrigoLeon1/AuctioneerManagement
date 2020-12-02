@@ -26,6 +26,11 @@ class SaleOrderController extends Controller
      *  - Proformas, si la mercaderia solo tenia 5 unidades, y se venden todas, quitar opcion de crear proforma para este?
      */
 
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
+
     public function index()
     {
         $orders = SaleOrder::paginate('10');
@@ -80,6 +85,8 @@ class SaleOrderController extends Controller
                 $order->products()->attach($order->id, [
                     'product_id' => $product->id,
                     'quantity' => $request->input('productQuantity')[$i],
+                    'quantity_sold' => 0,
+                    'quantity_remaining' => $request->input('productQuantity')[$i],
                     'quantity_tags' => $request->input('productTags')[$i]
                 ]);
             }

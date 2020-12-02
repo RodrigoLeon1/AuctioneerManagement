@@ -55,7 +55,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($users as $user)
+                    @forelse ($users as $user)
                     <tr>
                         <td> {{ $user->name }} {{ $user->lastname }} </td>
                         <td> {{ $user->email }} </td>
@@ -75,7 +75,11 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="4">No se encontraron usuarios registrados.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $users->links() }}

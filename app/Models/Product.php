@@ -23,7 +23,7 @@ class Product extends Model
     public function saleorder()
     {
         return $this->belongsToMany('App\Models\SaleOrder')
-            ->withPivot('quantity', 'quantity_tags')
+            ->withPivot('quantity', 'quantity_sold', 'quantity_remaining', 'quantity_tags', 'has_proforma')
             ->withTimestamps();
     }
 }

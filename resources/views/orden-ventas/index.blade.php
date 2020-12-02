@@ -43,7 +43,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach ($orders as $order)
+                    @forelse ($orders as $order)
                     <tr>
                         <td> {{ $order->date_set }} </td>
                         <td> {{ $order->remito }} </td>
@@ -58,7 +58,11 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5">No se encontraron órdenes de ventas registradas.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
             {{ $orders->links() }}

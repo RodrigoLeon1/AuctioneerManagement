@@ -19,6 +19,7 @@
 
 @php
 foreach ($product->saleorder as $order) {
+$orderHc = $order->pivot;
 $quantity = $order->pivot->quantity;
 }
 @endphp
@@ -84,9 +85,9 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="quantity">Cantidad</label>
-                            <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" required max={{ $quantity }} min=1>
+                            <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" required max={{ $orderHc->quantity_remaining }} min=1>
                             <small id="quantity" class="form-text text-muted">
-                                La mercadería <strong>{{ $product->description }}</strong> tiene una cantidad de <strong>{{ $quantity }} unidades</strong> para vender.
+                                La mercadería <strong>{{ $product->description }}</strong> tiene una cantidad de <strong>{{ $orderHc->quantity_remaining }} unidades</strong> para vender.
                             </small>
                         </div>
                         <div class="form-group col-md-6">

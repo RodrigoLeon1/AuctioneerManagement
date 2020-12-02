@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User as RequestsUser;
 use App\Models\User;
+use App\Notifications\UserInviteNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -23,14 +30,11 @@ class UserController extends Controller
 
     public function store(RequestsUser $request)
     {
-        $password = $request->input('password');
-        $password = Hash::make('secret');
-
         $user = User::create([
             'name' => $request->input('name'),
             'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
-            'password' => $password,
+            'password' => Hash::make($request->input('password')),
             'address' => $request->input('address'),
             'postal_code' => $request->input('postal_code'),
             'city' => $request->input('city'),
@@ -48,6 +52,10 @@ class UserController extends Controller
         if ($request->input('admin-role') != null) {
             $user_role = $user->roles()->attach($request->input('admin-role'));
         }
+
+        // Notificacion via email para que el usuario pueda elegir su contraña, una vez registrado
+        // $url = URL::signedRoute('invitacion', $user);
+        // $user->notify(new UserInviteNotification($url));
 
         return redirect()
             ->route('usuarios.index')
@@ -141,6 +149,17 @@ class UserController extends Controller
         return redirect()
             ->route('usuarios.index')
             ->with('success-destroy', 'Usuario eliminado con éxito.');
+    }
+
+    // Fix...
+    public function invitation(User $user)
+    {
+        if (!request()->hasValidSignature() || $user->password != 'secret') {
+            abort(401);
+        }
+
+        auth()->login($user);
+        return redirect()->route('dashboard');
     }
 
     public function getAutocompleteData(Request $request)

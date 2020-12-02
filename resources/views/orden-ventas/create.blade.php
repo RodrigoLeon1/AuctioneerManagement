@@ -136,11 +136,11 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Tasac</label>
-                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '" min=1>
+                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '" min=0>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Etiquetas</label>
-                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '" min=1>
+                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '" min=0>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Categoría</label>
@@ -177,11 +177,11 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Tasac</label>
-                                <input type="number" class="form-control" name="productTasac[]" min=1>
+                                <input type="number" class="form-control" name="productTasac[]" min=0>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Etiquetas</label>
-                                <input type="number" class="form-control" name="productTags[]" min=1>
+                                <input type="number" class="form-control" name="productTags[]" min=0>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Categoría</label>

@@ -25,7 +25,7 @@
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    A continuacion podra observar aquellas ordenes de venta, que tienen mercadería para .............
+                    A continuación podrá observar aquellas órdenes de venta, que tienen mercadería disponible para vender.
                 </h6>
             </div>
 
@@ -71,17 +71,28 @@
                                 </p>
                                 <div class="collapse" id="collapse{{ $order->id }}">
                                     <div class="card card-body">
-                                        <span class="mb-2">Clickee en la mercadería deseada</span>
+                                        <span class="mb-2">Clickee en la mercadería deseada:</span>
                                         <ul>
                                             @foreach ($order->products as $product)
+                                            @if ( !$product->pivot->quantity_remaining )
                                             <li class="mb-3">
-                                                <a href="{{ route('proformas.create', ['orden' => $order->id, 'mercaderia' => $product->id]) }}" class="btn btn-secondary btn-icon-split">
+                                                <a class="btn btn-warning btn-icon-split">
+                                                    <span class="text">'{{ $product->description }}' no tiene unidades disponibles para vender.</span>
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            @else
+                                            <li class="mb-3">
+                                                <a href="{{ route('proformas.create', ['orden' => $order->id, 'mercaderia' => $product->id]) }}" class="btn btn-success btn-icon-split">
                                                     <span class="text">{{ $product->description }}</span>
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </span>
                                                 </a>
                                             </li>
+                                            @endif
                                             @endforeach
                                         </ul>
                                     </div>

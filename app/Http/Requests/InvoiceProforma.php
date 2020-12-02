@@ -17,11 +17,11 @@ class InvoiceProforma extends FormRequest
         return [
             'date_remate' => 'required|date|after_or_equal:start_date',
             'date_remate_delivery' => 'required|date|after_or_equal:start_date',
-            'price_unit' => 'required|integer',
-            'partial_total' => 'required|integer',
-            'commission' => 'required|integer',
-            'partial_payment' => 'required|integer',
-            'total' => 'required|integer',
+            'price_unit' => 'required|numeric',
+            'partial_total' => 'required|numeric',
+            'commission' => 'required|numeric',
+            'partial_payment' => 'required|numeric',
+            'total' => 'required|numeric',
         ];
     }
 }

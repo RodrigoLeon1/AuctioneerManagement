@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Route;
 
 // Route::redirect('/', '/acceder');
 
+Auth::routes(['register' => false]);
+
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+
+Route::get('invitacion/{user}', [UserController::class, 'invitation'])->name('usuarios.invitation');
 
 Route::get('usuarios/filtrar', [UserController::class, 'filter'])->name('usuarios.filter');
 Route::get('usuarios/{id}/info', [UserController::class, 'show'])->name('usuarios.show');
 Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 Route::resource('usuarios', UserController::class)->names('usuarios');
+
+
 
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
 Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');

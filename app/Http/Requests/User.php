@@ -17,14 +17,14 @@ class User extends FormRequest
         return [
             'name' => 'required|string',
             'lastname' => 'required|string',
-            'email' => 'required|integer|unique:users,email',
-            'password' => 'required|string',
+            'email' => 'email|string|unique:users,email',
+            'password' => 'string|min:8',
             'address' => 'required|string',
             'postal_code' => 'required|string',
             'city' => 'required|string',
-            'phone' => 'required|string|unique:users,phone',
-            'dni' => 'required|string|unique:users,dni',
-            'cuit' => 'required|string|unique:users,cuit',
+            'phone' => 'string|unique:users,phone',
+            'dni' => 'string|unique:users,dni',
+            'cuit' => 'string|unique:users,cuit',
         ];
     }
 }

@@ -8,11 +8,17 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\SaleOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use PDF;
 
 class InvoiceProformaController extends Controller
 {
+
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -71,6 +77,17 @@ class InvoiceProformaController extends Controller
             'sale_order_id' => $request->input('order_id'),
             'product_id' => $request->input('product_id')
         ]);
+
+        $product = Product::find($request->input('product_id'));
+        $quantity = $product->saleorder[0]->pivot->quantity;
+
+        DB::table('product_sale_order')
+            ->where('sale_order_id', $request->input('order_id'))
+            ->where('product_id', $request->input('product_id'))
+            ->update([
+                'quantity_sold' => $product->saleorder[0]->pivot->quantity_sold + $request->input('quantity'),
+                'quantity_remaining' => $product->saleorder[0]->pivot->quantity_remaining - $request->input('quantity')
+            ]);
 
         return redirect()
             ->route('proformas.index')

@@ -35,7 +35,7 @@ class SaleOrder extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product')
-            ->withPivot('quantity', 'quantity_tags')
+            ->withPivot('quantity', 'quantity_sold', 'quantity_remaining', 'quantity_tags', 'has_proforma')
             ->withTimestamps();
     }
 }
