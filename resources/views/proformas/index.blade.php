@@ -15,6 +15,14 @@
 </div>
 @endif
 
+@if (session('success-destroy'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-destroy') }}
+    </h4>
+</div>
+@endif
+
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
@@ -29,6 +37,7 @@
                         <th>Fecha remate</th>
                         <th>Importe total</th>
                         <th>Mercadería</th>
+                        <th>Cantidad</th>
                         <th>Comprador</th>
                         <th>Acciones</th>
                     </tr>
@@ -38,6 +47,7 @@
                         <th>Fecha remate</th>
                         <th>Importe total</th>
                         <th>Mercadería</th>
+                        <th>Cantidad</th>
                         <th>Comprador</th>
                         <th>Acciones</th>
                     </tr>
@@ -48,6 +58,7 @@
                         <td>{{ $invoice->date_remate }}</td>
                         <td> ${{ $invoice->total }}</td>
                         <td>{{ $invoice->product->description }}</td>
+                        <td>{{ $invoice->quantity }}</td>
                         <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
                         <td>
                             <a href="{{ route('proformas.show', $invoice->id) }}" class="btn btn-info btn-circle">
@@ -56,6 +67,13 @@
                             <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>
                             </a>
+                            <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-circle">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @empty

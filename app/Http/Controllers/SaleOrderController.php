@@ -19,11 +19,7 @@ class SaleOrderController extends Controller
      *  - Corregir inputs de mercaderia dinamicos en el SaleOrder 
      *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )
      * 
-     *  - Chequear los Form Request, modificar validaciones para campos int/float...
-     *  - Estilos PDF Orde de venta, proforma, liquidaciones
-     * 
-     *  - Proformas, una vez creada una proforma sobre X producto, no dejar que vuelvan a crear otra?
-     *  - Proformas, si la mercaderia solo tenia 5 unidades, y se venden todas, quitar opcion de crear proforma para este?
+     *  - Estilos PDF Orden de venta, proforma, liquidaciones     
      */
 
     public function __construct()

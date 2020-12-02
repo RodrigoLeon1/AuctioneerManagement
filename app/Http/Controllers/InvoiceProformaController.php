@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceProforma as RequestsInvoiceProforma;
+use App\Models\Invoice;
 use App\Models\InvoiceProforma;
 use App\Models\Product;
 use App\Models\User;
@@ -41,6 +42,10 @@ class InvoiceProformaController extends Controller
             return redirect()
                 ->route('proformas.pre-create')
                 ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+        }
+
+        if ($product->saleorder[0]->pivot->quantity_remaining == 0) {
+            return redirect()->route('proformas.pre-create');
         }
 
         return view('proformas.create', compact(['order', 'product']));
@@ -98,6 +103,38 @@ class InvoiceProformaController extends Controller
     {
         $invoice = InvoiceProforma::find($id);
         return view('proformas.show', compact('invoice'));
+    }
+
+    public function destroy($id)
+    {
+        try {
+
+            $invoice = InvoiceProforma::find($id);
+
+            // Update quantities on product_sale_order once the object is deleted
+            $product = Product::find($invoice->product_id);
+
+            DB::table('product_sale_order')
+                ->where('sale_order_id', $invoice->sale_order_id)
+                ->where('product_id', $invoice->product_id)
+                ->update([
+                    'quantity_sold' => $product->saleorder[0]->pivot->quantity_sold - $invoice->quantity,
+                    'quantity_remaining' => $product->saleorder[0]->pivot->quantity_remaining + $invoice->quantity
+                ]);
+
+            $invoice->delete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()
+                ->route('proformas.index')
+                ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+        }
+
+        return redirect()
+            ->route('proformas.index')
+            ->with('success-destroy', 'Proforma eliminada con éxito.');
     }
 
     public function filter(Request $request)

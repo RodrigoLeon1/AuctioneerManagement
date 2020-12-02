@@ -114,7 +114,7 @@
         </div>
     </li>
 
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages3">
             <i class="fas fa-fw fa-folder"></i>
             <span>Eventos virtuales</span>
@@ -140,7 +140,7 @@
                 <a class="collapse-item" href="">Filtrar productos</a>
             </div>
         </div>
-    </li>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

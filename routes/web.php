@@ -30,10 +30,8 @@ Route::get('proformas/pre-crear', [InvoiceProformaController::class, 'preCreate'
 Route::get('proformas/filtrar', [InvoiceProformaController::class, 'filter'])->name('proformas.filter');
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
 
+Route::get('liquidaciones/{user}/buscar', [InvoiceController::class, 'filter'])->name('liquidaciones.filter');
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');
-Route::get('liquidaciones/{user}/buscar', [InvoiceController::class, 'filter'])->name('liquidaciones.filter');
-Route::get('liquidaciones/{user}/buscar', [InvoiceController::class, 'filter'])->name('liquidaciones.filter');
-Route::post('liquidaciones/formulario', [InvoiceController::class, 'create'])->name('liquidaciones.create');
 
 Route::resource('categorias', CategoryController::class)->names('categorias');
 

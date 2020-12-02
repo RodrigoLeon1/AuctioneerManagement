@@ -14,7 +14,6 @@ class CreateProductSaleOrderTable extends Migration
             $table->smallInteger('quantity_sold')->nullable();
             $table->smallInteger('quantity_remaining')->nullable();
             $table->smallInteger('quantity_tags')->nullable();
-            $table->boolean('has_proforma')->default(false);
 
             $table->foreignId('product_id')
                 ->constrained()

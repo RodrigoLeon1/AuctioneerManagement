@@ -114,12 +114,16 @@
         </div>
 
         <hr>
-        <h4>
-            <strong>Obtener proforma en PDF</strong>
-        </h4>
         <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
+        <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;">
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger btn-circle">
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
 
     </div>
 </div>

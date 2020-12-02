@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
@@ -9,23 +10,20 @@ use App\Models\InvoiceProforma;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $invoices = Invoice::all();
+        return view('liquidaciones.index', compact('invoices'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
+
+        $user = null;
+        $role = null;
+        $products = [];
+
         if (!empty($_POST)) {
             if ($_POST['type_search'] != null) {
 
@@ -38,7 +36,6 @@ class InvoiceController extends Controller
                 }
             }
         }
-
 
         if ($user != null) {
             $products = array();
@@ -85,8 +82,6 @@ class InvoiceController extends Controller
             array_push($products, $product4);
             array_push($products, $product5);
         }
-
-
 
         return view('liquidaciones.create', compact('user', 'products', 'role'));
     }
