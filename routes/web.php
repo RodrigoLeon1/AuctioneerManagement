@@ -10,9 +10,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::redirect('/', '/acceder');
-
-Auth::routes(['register' => false]);
+// Auth::routes(['register' => false]);
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
@@ -22,8 +20,6 @@ Route::get('usuarios/filtrar', [UserController::class, 'filter'])->name('usuario
 Route::get('usuarios/{id}/info', [UserController::class, 'show'])->name('usuarios.show');
 Route::get('api/usuarios', [UserController::class, 'getAutocompleteData']);
 Route::resource('usuarios', UserController::class)->names('usuarios');
-
-
 
 Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
 Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');
@@ -35,6 +31,10 @@ Route::get('proformas/filtrar', [InvoiceProformaController::class, 'filter'])->n
 Route::resource('proformas', InvoiceProformaController::class)->names('proformas');
 
 Route::resource('liquidaciones', InvoiceController::class)->names('liquidaciones');
+Route::get('liquidaciones/{user}/buscar', [InvoiceController::class, 'filter'])->name('liquidaciones.filter');
+Route::get('liquidaciones/{user}/buscar', [InvoiceController::class, 'filter'])->name('liquidaciones.filter');
+Route::post('liquidaciones/formulario', [InvoiceController::class, 'create'])->name('liquidaciones.create');
+
 Route::resource('categorias', CategoryController::class)->names('categorias');
 
 Route::get('mercaderias/filtrar', [ProductController::class, 'filter'])->name('productos.filter');

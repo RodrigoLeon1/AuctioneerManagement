@@ -136,6 +136,44 @@ class UserController extends Controller
                     ['dni' => $request->input('dni')],
                     ['cuit' => $request->input('cuit')]
                 );
+
+            if ($request->password != null) {
+                $pass = $request->password;
+                $pass = Hash::make('secret');
+                $user->password = $pass;
+            }
+
+            if ($request->input('customer-checked') == false) {
+                if ($request->input('customer-role') != null) {
+                    $user_role = $user->roles()->attach($request->input('customer-role'));
+                }
+            } else {
+                if ($request->input('customer-role') == null) {
+                    $user_role = $user->roles()->detach(3);
+                }
+            }
+
+            if ($request->input('provider-checked') == false) {
+                if ($request->input('provider-role') != null) {
+                    $user_role = $user->roles()->attach($request->input('provider-role'));
+                }
+            } else {
+                if ($request->input('provider-role') == null) {
+                    $user_role = $user->roles()->detach(2);
+                }
+            }
+
+            if ($request->input('admin-checked') == false) {
+                if ($request->input('admin-role') != null) {
+                    $user_role = $user->roles()->attach($request->input('admin-role'));
+                }
+            } else {
+                if ($request->input('admin-role') == null) {
+                    $user_role = $user->roles()->detach(2);
+                }
+            }
+
+            $user->save();
         }
 
         return $this->edit($id);
@@ -158,7 +196,7 @@ class UserController extends Controller
             abort(401);
         }
 
-        auth()->login($user);
+        // auth()->login($user);
         return redirect()->route('dashboard');
     }
 
