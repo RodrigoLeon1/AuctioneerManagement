@@ -74,8 +74,9 @@
             <strong>Órdenes de ventas asociadas al usuario</strong>
         </h4>
         <ul>
+
             @forelse ($user->saleorders as $order)
-            <li>{{ $order->date_set }} - <a href="{{ route('orden-ventas.show', $order->id) }}">Más información</a></li>
+            <li>{{ date('d/m/Y', strtotime($order->date_set)) }} - <a href="{{ route('orden-ventas.show', $order->id) }}">Más información</a></li>
             @empty
             <li>No se encontraron órdenes de venta asociadas al usuario.</li>
             @endforelse

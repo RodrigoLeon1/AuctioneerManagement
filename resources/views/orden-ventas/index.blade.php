@@ -45,7 +45,7 @@
                 <tbody>
                     @forelse ($orders as $order)
                     <tr>
-                        <td> {{ $order->date_set }} </td>
+                        <td> {{ date("d/m/Y", strtotime($order->date_set)) }}</td>
                         <td> {{ $order->remito }} </td>
                         <td> {{ $order->order_number }} </td>
                         <td> {{ $order->user->name }} {{ $order->user->lastname }} </td>

@@ -55,7 +55,7 @@
                 <tbody>
                     @forelse($invoices as $invoice)
                     <tr>
-                        <td>{{ $invoice->date_remate }}</td>
+                        <td>{{ date('d/m/Y', strtotime($invoice->date_remate)) }}</td>
                         <td> ${{ $invoice->total }}</td>
                         <td>{{ $invoice->product->description }}</td>
                         <td>{{ $invoice->quantity }}</td>

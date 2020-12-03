@@ -22,19 +22,19 @@
         <div class="form-group row">
             <label for="remate" class="col-sm-2 col-form-label">Fecha de remate</label>
             <div class="col-sm-10">
-                <input type="date" readonly class="form-control-plaintext" id="remate" value="{{ $invoice->date_remate }}">
+                <input type="text" readonly class="form-control-plaintext" id="remate" value="{{ date('d/m/Y', strtotime($invoice->date_remate)) }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="entrega" class="col-sm-2 col-form-label">Fecha de entrega</label>
             <div class="col-sm-10">
-                <input type="date" readonly class="form-control-plaintext" id="entrega" value="{{ $invoice->date_delivery }}">
+                <input type="text" readonly class="form-control-plaintext" id="entrega" value="{{ date('d/m/Y', strtotime($invoice->date_delivery)) }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="orden" class="col-sm-2 col-form-label">Número de orden</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="orden" value="{{ $invoice->sale_order }}">
+                <input type="text" readonly class="form-control-plaintext" id="orden" value="{{ $invoice->saleorder->order_number }}">
             </div>
         </div>
 

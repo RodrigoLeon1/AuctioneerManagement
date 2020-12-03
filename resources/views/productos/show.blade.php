@@ -22,7 +22,7 @@
         <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Fecha de creación</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ $product->created_at }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ date('d/m/Y', strtotime($product->created_at)) }}">
             </div>
         </div>
         <div class="form-group row">

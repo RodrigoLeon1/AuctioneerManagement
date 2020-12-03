@@ -43,7 +43,7 @@
                 <tbody>
                     @forelse ($products as $product)
                     <tr>
-                        <td> {{ $product->created_at }} </td>
+                        <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                         <td> {{ $product->description }} </td>
                         <td>
                             @foreach ($product->categories as $category)

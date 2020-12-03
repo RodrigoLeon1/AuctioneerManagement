@@ -53,7 +53,7 @@ class UserController extends Controller
             $user_role = $user->roles()->attach($request->input('admin-role'));
         }
 
-        // Notificacion via email para que el usuario pueda elegir su contraña, una vez registrado
+        // Notificacion via email para que el usuario pueda elegir su contraseña, una vez registrado
         // $url = URL::signedRoute('invitacion', $user);
         // $user->notify(new UserInviteNotification($url));
 

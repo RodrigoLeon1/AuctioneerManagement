@@ -17,9 +17,7 @@ class SaleOrderController extends Controller
 
     /**               
      *  - Corregir inputs de mercaderia dinamicos en el SaleOrder 
-     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )
-     * 
-     *  - Estilos PDF Orden de venta, proforma, liquidaciones     
+     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )     
      */
 
     public function __construct()

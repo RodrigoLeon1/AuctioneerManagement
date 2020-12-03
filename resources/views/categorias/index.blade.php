@@ -49,7 +49,7 @@
                 <tbody>
                     @forelse ($categories as $category)
                     <tr>
-                        <td> {{ $category->created_at }} </td>
+                        <td> {{ date('d/m/Y', strtotime($category->created_at)) }} </td>
                         <td> {{ $category->description }} </td>
                         <td>
                             <a href="{{ route('categorias.show', $category->id) }}" class="btn btn-info btn-circle">

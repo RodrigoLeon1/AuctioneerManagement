@@ -22,7 +22,7 @@
         <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Fecha</label>
             <div class="col-sm-10">
-                <input type="date" readonly class="form-control-plaintext" id="staticDate" value="{{ $order->date_set }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ date('d/m/Y', strtotime($order->date_set)) }}">
             </div>
         </div>
         <div class="form-group row">
@@ -34,7 +34,7 @@
         <div class="form-group row">
             <label for="staticDatePayment" class="col-sm-2 col-form-label">Fecha de pago</label>
             <div class="col-sm-10">
-                <input type="date" readonly class="form-control-plaintext" id="staticDatePayment" value="{{ $order->date_payment }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticDatePayment" value="{{ date('d/m/Y', strtotime($order->date_payment)) }}">
             </div>
         </div>
         <div class="form-group row">
