@@ -31,7 +31,7 @@ $quantity = $order->pivot->quantity;
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la proforma</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la proforma.</h6>
             </div>
 
             <div class="card-body">
@@ -68,7 +68,7 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos de la mercadería</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos de la mercadería.</h6>
                     </div>
 
                     <div class="form-row">
@@ -119,7 +119,7 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos del comprador</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del comprador.</h6>
                     </div>
 
                     <div class="form-row">

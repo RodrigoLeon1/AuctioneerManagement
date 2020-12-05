@@ -9,6 +9,14 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'type_invoice',
+        'partial_payment',
+        'commission',
+        'total',
+        'user_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');
@@ -17,5 +25,8 @@ class Invoice extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product');
+        return $this->belongsToMany('App\Models\Product')
+            ->withPivot('quantity', 'price_unit', 'total')
+            ->withTimestamps();
     }
 }

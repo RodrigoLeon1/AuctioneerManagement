@@ -24,7 +24,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la orden de venta</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la orden de venta.</h6>
             </div>
 
             <div class="card-body">
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos del remitente</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del remitente.</h6>
                     </div>
 
                     <div class="form-row">

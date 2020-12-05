@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Buscar {{ $user }}</h1>
+    <h1 class="h3 mb-0 text-gray-800">Buscar </h1>
 </div>
 
 <!-- Content Row -->
@@ -14,43 +14,29 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Seleccione el tipo de filtro para encontrar al {{ $user }}</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación.</h6>
             </div>
 
             <div class="card-body">
-
-                <form method="POST" action="{{ route('liquidaciones.create')}}" autocomplete="off">
-                    @csrf
+                <form action="{{ route('liquidaciones.create')}}" autocomplete="off">
 
                     <div class="form-row justify-content-center">
-
                         <div class=" col-md-2">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search" value="dni" onclick="show_dni();">
-                                <label class="form-check-label" for="type_search">
+                                <input class="form-check-input radio-dni" id="type_search_dni" type="radio" name="type_search" id="type_search" value="dni" onclick="show_dni();">
+                                <label class="form-check-label" for="type_search_dni">
                                     DNI
                                 </label>
                             </div>
                         </div>
-
                         <div class=" col-md-2">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search" value="cuit" onclick="show_cuit();">
-                                <label class="form-check-label" for="type_search">
+                                <input class="form-check-input radio-cuit" id="type_search_cuit" type="radio" name="type_search" id="type_search" value="cuit" onclick="show_cuit();">
+                                <label class="form-check-label" for="type_search_cuit">
                                     CUIT
                                 </label>
                             </div>
                         </div>
-
-                        <div class=" col-md-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search" value="id" onclick="show_user_id();">
-                                <label class="form-check-label" for="type_search">
-                                    Identificador
-                                </label>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="form-row" id="dc-search" style="margin-top: 2rem;">
@@ -62,18 +48,12 @@
                             <button class="btn btn-primary form-control" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-
-
-                    <input type="hidden" name="user" value="{{$user}}" />
                 </form>
             </div>
+
         </div>
-
     </div>
-
 </div>
-
-
 
 
 <style>
@@ -163,8 +143,6 @@
             );
         });
     });
-
-
 
     function toggle(elemento) {
         if (elemento.value == "a") {
