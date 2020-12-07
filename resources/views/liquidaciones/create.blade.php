@@ -25,7 +25,6 @@
 
                     <div class="form-row">
                         <input type="hidden" name="user-id" value="{{ $user->id }}">
-                        <input type="hidden" name="user-type" id="user-role" value="{{ $role }}">
                         <div class="form-group col-md-3">
                             <label for="name-order">Nombre</label>
                             <input type="text" class="form-control" id="name-user" name="name-user" value="{{ $user->name }}" readonly>
@@ -99,6 +98,7 @@
                                         @foreach ($proformas as $proforma)
                                         <tr>
 
+                                            <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
                                             <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
 
@@ -216,14 +216,13 @@
         }
         document.getElementById("modal-product-items").innerHTML = inputs;
         document.getElementById("modal-total").innerHTML = "$" + subtotal;
-        if (role == 3) {
-            // document.getElementById("modal-commission").innerHTML = subtotal * 0.2;
-            // document.getElementById("modal-total").innerHTML = "$" + subtotal + (subtotal * 0.2);
-        } else {
-            // document.getElementById("modal-commission").innerHTML = subtotal * 0.1;
-            // document.getElementById("modal-total").innerHTML = "$" + (subtotal + (subtotal * 0.1));
-        }
-
+        // if (role == 3) {
+        //     document.getElementById("modal-commission").innerHTML = subtotal * 0.2;
+        //     document.getElementById("modal-total").innerHTML = "$" + subtotal + (subtotal * 0.2);
+        // } else {
+        //     document.getElementById("modal-commission").innerHTML = subtotal * 0.1;
+        //     document.getElementById("modal-total").innerHTML = "$" + (subtotal + (subtotal * 0.1));
+        // }
     }
 </script>
 @endsection()

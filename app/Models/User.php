@@ -24,7 +24,6 @@ class User extends Authenticatable
         'name',
         'lastname',
         'email',
-        'password',
         'address',
         'postal_code',
         'city',
@@ -60,8 +59,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Invoice');
     }
 
-    public function getIsAdmin()
+    public function isAdmin()
     {
         return $this->roles()->where('id', 1)->exists();
+    }
+
+    public function isCliente()
+    {
+        return $this->roles()->where('id', 2)->exists();
+    }
+
+    public function isRemitente()
+    {
+        return $this->roles()->where('id', 3)->exists();
     }
 }

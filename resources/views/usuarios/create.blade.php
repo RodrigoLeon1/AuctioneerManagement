@@ -31,29 +31,27 @@
 
                 <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off">
                     @csrf
-                    <div class="form-row">
+                    <div class="form-row mb-5">
                         <div class="form-check form-check-inline col-md-3">
                             <label class="form-check-label">
                                 Seleccione el rol o roles del usuario
                             </label>
                         </div>
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3">
+                            <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
+                            <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
+                        </div>
+                        <div class="form-check form-check-inline col-md-2">
+                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="2">
                             <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
                         </div>
 
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2">
+                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="3">
                             <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
                         </div>
-
-                        <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
-                            <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
-                        </div>
-
                     </div>
-                    <br><br>
+
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
@@ -100,13 +98,9 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="email">Email</label>
                             <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" value="{{ old('email') }}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" name="password">
                         </div>
                     </div>
 

@@ -29,26 +29,6 @@
                         </div>
 
                         <div class="form-check form-check-inline col-md-2">
-                            @if ($check_customer == true)
-                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3" checked>
-                            @else
-                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="3">
-                            @endif
-
-                            <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
-                        </div>
-
-                        <div class="form-check form-check-inline col-md-2">
-                            @if ($check_provider == true)
-                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2" checked>
-                            @else
-                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="2">
-                            @endif
-
-                            <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
-                        </div>
-
-                        <div class="form-check form-check-inline col-md-2">
                             @if ($check_admin == true)
                             <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1" checked>
                             @else
@@ -57,6 +37,27 @@
 
                             <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
                         </div>
+
+                        <div class="form-check form-check-inline col-md-2">
+                            @if ($check_customer == true)
+                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="2" checked>
+                            @else
+                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="2">
+                            @endif
+
+                            <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
+                        </div>
+
+                        <div class="form-check form-check-inline col-md-2">
+                            @if ($check_provider == true)
+                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="3" checked>
+                            @else
+                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="3">
+                            @endif
+
+                            <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
+                        </div>
+
                     </div>
 
                     <div class="form-row">

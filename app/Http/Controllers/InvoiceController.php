@@ -7,7 +7,6 @@ use App\Models\InvoiceProforma;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
-use Exception;
 use Illuminate\Support\Facades\DB;
 
 use PDF;
@@ -44,12 +43,17 @@ class InvoiceController extends Controller
                 ->with('error-search', 'El DNI/CUIT ingresado no se encuentra asociado a un usuario. Vuelva a intentar.');
         }
 
-        // Get user role, 'cliente' or 'remitente'
-        $role = null;
+        $proformas = InvoiceProforma::where('user_id', $user->id)
+            ->where('is_invoiced', false)
+            ->get();
 
-        $proformas = InvoiceProforma::where('user_id', $user->id)->get();
+        if (sizeof($proformas) == 0) {
+            return redirect()
+                ->back()
+                ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
+        }
 
-        return view('liquidaciones.create', compact('user', 'role', 'proformas'));
+        return view('liquidaciones.create', compact('user', 'proformas'));
     }
 
     public function store(Request $request)
@@ -58,44 +62,53 @@ class InvoiceController extends Controller
 
         try {
 
-            $user = User::find($request->input('user-id'));
+            $user = User::findOrFail($request->input('user-id'));
+            $priceTotal = 0;
 
-            if ($user == null) {
-                throw new Exception();
-            }
-
-            // Get user role, 'cliente' or 'remitente'... fix
-            if ($request->input('user-role') == 3) {
-                $role = 'cliente';
-                $commission = 20;
+            // Get user role
+            if ($user->isRemitente()) {
+                $role = 'remitente';    // Commission 10%                
             } else {
-                $role = 'remitente';
-                $commission = 10;
+                $role = 'cliente';      // Commission 20%                
             }
 
+            // Create the invoice
             $invoice = Invoice::create([
                 'type_invoice' => $role,
-                'partial_payment' => 0,
-                'commission' => 0,
-                'total' => 0,
                 'user_id' => $user->id
             ]);
 
             // Create and save each product of the invoice
             for ($i = 0; $i < sizeof($request->input('productsIds')); $i++) {
 
+                $proforma = InvoiceProforma::findOrFail($request->input('proformasIds')[$i]);
                 $product = Product::findOrFail($request->input('productsIds')[$i]);
+
                 $invoice->products()->attach($invoice->id, [
-                    'quantity' => 1,
-                    'price_unit' => 2,
-                    'total' => 3,
+                    'quantity' => $request->input('productsQuantities')[$i],
+                    'price_unit' => $proforma->price_unit,
+                    'total' => $proforma->total,
                     'product_id' => $product->id,
                     'invoice_id' => $invoice->id
                 ]);
 
-                // Update the product's attribute 'is invoiced' so it can't be added again...
+                // Update the proforma's attribute 'is invoiced' so it can't be added again...                
+                DB::table('invoice_proformas')
+                    ->where('id', $proforma->id)
+                    ->update([
+                        'is_invoiced' => true
+                    ]);
 
+                $priceTotal += $proforma->total;
             }
+
+            $commission = ($role == 'remitente') ? ($priceTotal * 0.1) : ($priceTotal * 0.2);
+
+            Invoice::where('id', $invoice->id)
+                ->update([
+                    'commission' => $commission,
+                    'total' => $priceTotal + $commission
+                ]);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -107,8 +120,8 @@ class InvoiceController extends Controller
         }
 
         return redirect()
-            ->route('liquidaciones.filter')
-            ->with('success-index', 'Su orden de venta ha sido creada de manera exitosa.');
+            ->route('liquidaciones.pre-create')
+            ->with('success-store', 'Su liquidación ha sido creada de manera exitosa.');
     }
 
     public function show($id)
@@ -121,7 +134,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::find($id);
         $title = 'liquidacion-' . $id . '.pdf';
-        $pdf = PDF::loadView('liquidacion.pdf', compact('invoice'));
+        $pdf = PDF::loadView('liquidaciones.pdf', compact('invoice'));
         return $pdf->stream($title);
     }
 }

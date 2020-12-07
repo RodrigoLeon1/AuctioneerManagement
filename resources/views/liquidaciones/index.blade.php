@@ -27,25 +27,53 @@
                 <thead>
                     <tr>
                         <th>Fecha</th>
-                        <th>Remito</th>
-                        <th>Número de orden</th>
-                        <th>Remitente</th>
+                        <th>Tipo de liquidación</th>
+                        <th>Usuario</th>
+                        <th>Importe final</th>
+                        <th>Mercadería</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Fecha</th>
-                        <th>Remito</th>
-                        <th>Número de orden</th>
-                        <th>Remitente</th>
+                        <th>Tipo de liquidación</th>
+                        <th>Usuario</th>
+                        <th>Importe final</th>
+                        <th>Mercadería</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @forelse ($invoices as $invoice)
                     <tr>
-
+                        <td>{{ date('d/m/Y', strtotime($invoice->created_at)) }}</td>
+                        <td>{{ ucfirst($invoice->type_invoice) }}</td>
+                        <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
+                        <td>${{ $invoice->total }}</td>
+                        <td>
+                            <ul>
+                                @foreach ($invoice->products as $product)
+                                <li>
+                                    {{ $product->description }} ( {{ $product->pivot->quantity}} unidades )
+                                </li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            <a href="{{ route('liquidaciones.show', $invoice->id) }}" class="btn btn-info btn-circle">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{{ route('liquidaciones.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
+                                <i class="fas fa-file-pdf"></i>
+                            </a>
+                            <!-- <form action="{{ route('liquidaciones.destroy', $invoice->id) }}" method="POST" style="display: inline-block;">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-circle">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form> -->
+                        </td>
                     </tr>
                     @empty
                     <tr>

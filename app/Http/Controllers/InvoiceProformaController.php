@@ -29,7 +29,7 @@ class InvoiceProformaController extends Controller
 
     public function preCreate()
     {
-        $orders = SaleOrder::all();
+        $orders = SaleOrder::paginate(5);
         return view('proformas.pre-create', compact('orders'));
     }
 
@@ -84,7 +84,6 @@ class InvoiceProformaController extends Controller
         ]);
 
         $product = Product::find($request->input('product_id'));
-        $quantity = $product->saleorder[0]->pivot->quantity;
 
         DB::table('product_sale_order')
             ->where('sale_order_id', $request->input('order_id'))

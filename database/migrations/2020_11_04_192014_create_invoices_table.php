@@ -12,9 +12,9 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->enum('type_invoice', ['cliente', 'remitente']);
-            $table->integer('commission');                              // entero? o flotante? ej -> 0.20
-            $table->float('partial_payment');
-            $table->float('total');
+            $table->integer('commission')->default(0);
+            $table->float('partial_payment')->default(0);
+            $table->float('total')->default(0);
 
             $table->foreignId('user_id')
                 ->constrained()

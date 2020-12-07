@@ -89,7 +89,7 @@
         </h4>
         <ul>
             @forelse ($user->invoices as $invoice)
-            <li>{{ $invoice->date_set }} - <a href="{{ route('orden-ventas.show', $invoice->id) }}">Más información</a></li>
+            <li>{{ date('d/m/Y', strtotime($invoice->created_at)) }} - <a href="{{ route('liquidaciones.show', $invoice->id) }}">Más información</a></li>
             @empty
             <li>No se encontraron liquidaciones asociadas al usuario.</li>
             @endforelse

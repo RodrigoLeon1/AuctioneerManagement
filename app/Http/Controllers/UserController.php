@@ -34,7 +34,6 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
             'address' => $request->input('address'),
             'postal_code' => $request->input('postal_code'),
             'city' => $request->input('city'),
@@ -44,14 +43,16 @@ class UserController extends Controller
         ]);
 
         if ($request->input('customer-role') != null) {
-            $user_role = $user->roles()->attach($request->input('customer-role'));
+            $user->roles()->attach($request->input('customer-role'));
         }
         if ($request->input('provider-role') != null) {
-            $user_role = $user->roles()->attach($request->input('provider-role'));
+            $user->roles()->attach($request->input('provider-role'));
         }
         if ($request->input('admin-role') != null) {
-            $user_role = $user->roles()->attach($request->input('admin-role'));
+            $user->roles()->attach($request->input('admin-role'));
         }
+
+        $user->save();
 
         // Notificacion via email para que el usuario pueda elegir su contraseña, una vez registrado
         // $url = URL::signedRoute('invitacion', $user);
@@ -145,31 +146,31 @@ class UserController extends Controller
 
             if ($request->input('customer-checked') == false) {
                 if ($request->input('customer-role') != null) {
-                    $user_role = $user->roles()->attach($request->input('customer-role'));
+                    $user->roles()->attach($request->input('customer-role'));
                 }
             } else {
                 if ($request->input('customer-role') == null) {
-                    $user_role = $user->roles()->detach(3);
+                    $user->roles()->detach(3);
                 }
             }
 
             if ($request->input('provider-checked') == false) {
                 if ($request->input('provider-role') != null) {
-                    $user_role = $user->roles()->attach($request->input('provider-role'));
+                    $user->roles()->attach($request->input('provider-role'));
                 }
             } else {
                 if ($request->input('provider-role') == null) {
-                    $user_role = $user->roles()->detach(2);
+                    $user->roles()->detach(2);
                 }
             }
 
             if ($request->input('admin-checked') == false) {
                 if ($request->input('admin-role') != null) {
-                    $user_role = $user->roles()->attach($request->input('admin-role'));
+                    $user->roles()->attach($request->input('admin-role'));
                 }
             } else {
                 if ($request->input('admin-role') == null) {
-                    $user_role = $user->roles()->detach(2);
+                    $user->roles()->detach(2);
                 }
             }
 

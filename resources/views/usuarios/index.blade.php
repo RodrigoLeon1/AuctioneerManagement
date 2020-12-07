@@ -35,7 +35,6 @@
                 <thead>
                     <tr>
                         <th>Nombre completo</th>
-                        <th>Email</th>
                         <th>Domicilio</th>
                         <th>Ciudad</th>
                         <th>Teléfono</th>
@@ -46,7 +45,6 @@
                 <tfoot>
                     <tr>
                         <th>Nombre completo</th>
-                        <th>Email</th>
                         <th>Domicilio</th>
                         <th>Ciudad</th>
                         <th>Teléfono</th>
@@ -58,7 +56,6 @@
                     @forelse ($users as $user)
                     <tr>
                         <td> {{ $user->name }} {{ $user->lastname }} </td>
-                        <td> {{ $user->email }} </td>
                         <td> {{ $user->address }} </td>
                         <td> {{ $user->city }} </td>
                         <td> {{ $user->phone }} </td>

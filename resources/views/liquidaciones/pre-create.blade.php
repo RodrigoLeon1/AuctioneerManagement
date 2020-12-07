@@ -4,8 +4,24 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Buscar </h1>
+    <h1 class="h3 mb-0 text-gray-800">Crear liquidación</h1>
 </div>
+
+@if (session('success-store'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-store') }}
+    </h4>
+</div>
+@endif
+
+@if (session('error-search'))
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">
+        {{ session('error-search') }}
+    </h4>
+</div>
+@endif
 
 <!-- Content Row -->
 <div class="row">
