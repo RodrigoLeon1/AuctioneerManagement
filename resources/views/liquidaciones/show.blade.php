@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Tipo de </label>
+            <label for="staticDate" class="col-sm-2 col-form-label">Tipo de liquidación</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ ucfirst($invoice->type_invoice) }}">
             </div>

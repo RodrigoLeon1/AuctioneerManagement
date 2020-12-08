@@ -30,6 +30,12 @@
         </h6>
     </div>
     <div class="card-body">
+        <a href="{{ route('categorias.create') }}" class="btn btn-success btn-icon-split mb-4">
+            <span class="text">Crear categoría</span>
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
         <div class="table-responsive">
             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                 <thead>

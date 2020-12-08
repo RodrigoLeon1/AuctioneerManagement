@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvoiceProforma as RequestsInvoiceProforma;
-use App\Models\Invoice;
 use App\Models\InvoiceProforma;
 use App\Models\Product;
 use App\Models\User;

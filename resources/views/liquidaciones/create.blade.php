@@ -77,6 +77,7 @@
                                         <th>Descripción</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
+                                        <th>Importe</th>
                                         <th>Comisión</th>
                                         <th>Importe total</th>
                                         <th>Seleccionar</th>
@@ -87,6 +88,7 @@
                                         <th>Descripción</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
+                                        <th>Importe</th>
                                         <th>Comisión</th>
                                         <th>Importe total</th>
                                         <th>Seleccionar</th>
@@ -105,6 +107,7 @@
                                             <td>{{ $proforma->product->description }}</td>
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ $proforma->price_unit }}</td>
+                                            <td>${{ $proforma->partial_total }}</td>
                                             <td>${{ $proforma->commission }}</td>
                                             <td>${{ $proforma->total }}</td>
                                             <td>

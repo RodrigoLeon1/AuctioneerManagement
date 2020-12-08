@@ -101,7 +101,8 @@
                         </div>
                         @empty
                         <strong>
-                            No se encontraron ordenes de ventas
+                            No se encontraron ordenes de ventas registradas.
+                            Click <a href="{{ route('orden-ventas.create') }}">'aqui'</a> para crear una Orden de venta.
                         </strong>
                         @endforelse
                     </div>

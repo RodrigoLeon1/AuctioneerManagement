@@ -38,7 +38,7 @@
     <div>
         <div class="logo-container">
             <div class="logo-container__info">
-                ### REMATES ISI ### <br>
+                ### REMATES ISE ### <br>
                 Rodriguez Peña 6342 <br>
                 7600 - Mar del Plata
             </div>
