@@ -74,7 +74,6 @@
             <strong>Órdenes de ventas asociadas al usuario</strong>
         </h4>
         <ul>
-
             @forelse ($user->saleorders as $order)
             <li>{{ date('d/m/Y', strtotime($order->date_set)) }} - <a href="{{ route('orden-ventas.show', $order->id) }}">Más información</a></li>
             @empty
@@ -99,10 +98,6 @@
         <a href="{{ route('usuarios.edit', $user->id) }}" class="btn btn-warning btn-circle">
             <i class="fas fa-edit"></i>
         </a>
-        <a href="" class="btn btn-danger btn-circle">
-            <i class="fas fa-trash-alt"></i>
-        </a>
-
     </div>
 </div>
 @else

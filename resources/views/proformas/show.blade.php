@@ -15,7 +15,6 @@
         </h6>
     </div>
     <div class="card-body">
-
         <h4>
             <strong>Datos generales</strong>
         </h4>
@@ -77,7 +76,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Comisión</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->commission }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->commission_value }} ({{ $invoice->commission_percentage }}%)">
             </div>
         </div>
         <div class="form-group row">
@@ -117,7 +116,7 @@
         <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>
-        <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;">
+        <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Desea eliminar este registro?');">
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-danger btn-circle">

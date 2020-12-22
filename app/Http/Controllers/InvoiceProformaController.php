@@ -15,11 +15,6 @@ use PDF;
 class InvoiceProformaController extends Controller
 {
 
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function index()
     {
         $invoices = InvoiceProforma::all();
@@ -52,6 +47,7 @@ class InvoiceProformaController extends Controller
 
     public function store(RequestsInvoiceProforma $request)
     {
+
         $user = User::find($request->input('id-user'));
 
         // Refactor...
@@ -74,7 +70,8 @@ class InvoiceProformaController extends Controller
             'quantity' => $request->input('quantity'),
             'price_unit' => $request->input('price_unit'),
             'partial_total' => $request->input('partial_total'),
-            'commission' => $request->input('commission'),
+            'commission_percentage' => $request->input('commission'),
+            'commission_value' => $request->input('commission_value'),
             'partial_payment' => $request->input('partial_payment'),
             'total' => $request->input('total'),
             'user_id' => $user->id,

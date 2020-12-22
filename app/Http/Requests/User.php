@@ -17,13 +17,13 @@ class User extends FormRequest
         return [
             'name' => 'required|string',
             'lastname' => 'required|string',
-            'email' => 'nullable|email|string|unique:users,email',
+            'email' => 'nullable|email|unique:users,email,' . $this->user()->id,
             'address' => 'nullable|string',
             'postal_code' => 'nullable|string',
             'city' => 'nullable|string',
-            'phone' => 'nullable|string|unique:users,phone',
-            'dni' => 'required|string|unique:users,dni',
-            'cuit' => 'nullable|string|unique:users,cuit',
+            'phone' => 'nullable|string|unique:users,phone,' . $this->user()->id,
+            'dni' => 'required|string|unique:users,dni,' . $this->user()->id,
+            'cuit' => 'nullable|string|unique:users,cuit,' . $this->user()->id,
         ];
     }
 }

@@ -48,7 +48,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search2" value="dni" onclick="show_dni();">
                                 <label class="form-check-label" for="type_search2">
@@ -56,7 +56,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search3" value="cuit" onclick="show_cuit();">
                                 <label class="form-check-label" for="type_search3">
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="form-row" id="dc-search" style="display:none;">
-                        <div class="form-group col-md-10 mt-5">
+                        <div class="form-group col-md-12 mt-5">
                             <input type="search" class="form-control" id="search" name="search">
                         </div>
                         <div class="form-group col-md-2 mt-5">

@@ -8,15 +8,11 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
 
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function index()
     {
         $categories = Category::paginate('10');
-        return view('categorias.index', compact('categories'));
+        $categoriesDeleted = Category::onlyTrashed()->get();
+        return view('categorias.index', compact('categories', 'categoriesDeleted'));
     }
 
     public function create()
@@ -66,5 +62,16 @@ class CategoryController extends Controller
         return redirect()
             ->route('categorias.index')
             ->with('success-destroy', 'Categoría eliminada con éxito.');
+    }
+
+    public function restore($id)
+    {
+        Category::withTrashed()
+            ->where('id', $id)
+            ->restore();
+
+        return redirect()
+            ->route('categorias.index')
+            ->with('success-restore', 'Categoría activada con éxito.');
     }
 }

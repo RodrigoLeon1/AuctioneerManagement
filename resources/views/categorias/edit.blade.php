@@ -43,7 +43,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="description">Descripción</label>
-                            <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" id="description" name="description" value="{{ $category->description }}" require>
+                            <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" id="description" name="description" value="{{ old('description', $category->description) }}" require>
                         </div>
                     </div>
 

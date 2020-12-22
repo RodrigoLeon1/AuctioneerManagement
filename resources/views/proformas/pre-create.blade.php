@@ -86,7 +86,7 @@
                                             @else
                                             <li class="mb-3">
                                                 <a href="{{ route('proformas.create', ['orden' => $order->id, 'mercaderia' => $product->id]) }}" class="btn btn-success btn-icon-split">
-                                                    <span class="text">{{ $product->description }}</span>
+                                                    <span class="text">{{ $product->id }} - {{ $product->description }}</span>
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-arrow-right"></i>
                                                     </span>

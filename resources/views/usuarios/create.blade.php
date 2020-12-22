@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}">
+                            <input type="number" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}">
                         </div>
                     </div>
 

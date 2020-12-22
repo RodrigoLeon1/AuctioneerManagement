@@ -27,6 +27,7 @@
                 <thead>
                     <tr>
                         <th>Fecha de creación</th>
+                        <th>Código</th>
                         <th>Descripción</th>
                         <th>Categoría</th>
                         <th>Acciones</th>
@@ -35,6 +36,7 @@
                 <tfoot>
                     <tr>
                         <th>Fecha de creación</th>
+                        <th>Código</th>
                         <th>Descripción</th>
                         <th>Categoría</th>
                         <th>Acciones</th>
@@ -44,6 +46,7 @@
                     @forelse ($products as $product)
                     <tr>
                         <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
+                        <td> {{ $product->id }} </td>
                         <td> {{ $product->description }} </td>
                         <td>
                             @foreach ($product->categories as $category)
@@ -56,9 +59,6 @@
                             </a>
                             <a href="{{ route('productos.edit', $product->id) }}" class="btn btn-warning btn-circle">
                                 <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="#" class="btn btn-danger btn-circle">
-                                <i class="fas fa-trash"></i>
                             </a>
                         </td>
                     </tr>

@@ -45,22 +45,22 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="date-order">Fecha</label>
-                            <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" require>
+                            <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" require min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="remite-order">Remito</label>
-                            <input type="number" class="form-control {{ $errors->has('remito') ? 'is-invalid' : '' }}" id="remite-order" name="remito" value="{{ old('remito') }}" min=1 require>
+                            <label for="date-payment-order">Fecha de pago</label>
+                            <input type="date" class="form-control {{ $errors->has('date_payment') ? 'is-invalid' : '' }}" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require min="{{ date('Y-m-d') }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="date-payment-order">Fecha de pago</label>
-                            <input type="date" class="form-control {{ $errors->has('date_payment') ? 'is-invalid' : '' }}" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require>
+                            <label for="remite-order">Remito</label>
+                            <input type="number" class="form-control {{ $errors->has('remito') ? 'is-invalid' : '' }}" id="remite-order" name="remito" value="{{ $lastOrder + 1 }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="id-order">Número de orden</label>
-                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="id-order" name="order_number" value="{{ old('order_number') }}" min=1 require>
+                            <input type="number" class="form-control {{ $errors->has('order_number') ? 'is-invalid' : '' }}" id="id-order" name="order_number" value="{{ $lastOrder + 1 }}" readonly>
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería.</h6>
                     </div>
 
                     @php
@@ -167,19 +167,19 @@
 
                     <div data-role="dynamic-fields">
                         <div class="form-row form-dinamic">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-5">
                                 <label>Descripción</label>
                                 <input type="text" class="form-control" name="productDescription[]">
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Cantidad</label>
                                 <input type="number" class="form-control" name="productQuantity[]" min=1>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Tasac</label>
                                 <input type="number" class="form-control" name="productTasac[]" min=0>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Etiquetas</label>
                                 <input type="number" class="form-control" name="productTags[]" min=0>
                             </div>

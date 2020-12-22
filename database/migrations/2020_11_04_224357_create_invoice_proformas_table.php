@@ -16,7 +16,8 @@ class CreateInvoiceProformasTable extends Migration
             $table->integer('quantity');
             $table->float('price_unit');
             $table->float('partial_total');
-            $table->integer('commission');
+            $table->integer('commission_percentage');
+            $table->float('commission_value');
             $table->float('partial_payment');
             $table->float('total');
             $table->boolean('is_invoiced')->default(false);

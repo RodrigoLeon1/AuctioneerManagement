@@ -7,6 +7,14 @@
     <h1 class="h3 mb-0 text-gray-800">Editar usuario</h1>
 </div>
 
+@if (session('success-update'))
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        {{ session('success-update') }}
+    </h4>
+</div>
+@endif
+
 <!-- Content Row -->
 <div class="row">
 
@@ -19,8 +27,21 @@
 
             <div class="card-body">
 
-                <form method="GET" action="{{ route('usuarios.update', $id) }}" autocomplete="off">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                <form method="POST" action="{{ route('usuarios.update', $id) }}" autocomplete="off">
+
                     @csrf
+                    @method('PUT')
+
                     <div class="form-row mb-5">
                         <div class="form-check form-check-inline col-md-3">
                             <label class="form-check-label">
@@ -64,41 +85,41 @@
 
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ $user[0]->name }}">
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name', $user[0]->name) }}">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="lastname">Apellido</label>
-                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ $user[0]->lastname }}">
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ old('lastname', $user[0]->lastname) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone">Teléfono</label>
-                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ $user[0]->phone }}">
+                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone', $user[0]->phone) }}">
                         </div>
                     </div>
 
                     <div class=" form-row">
                         <div class="form-group col-md-4">
                             <label for="city">Ciudad</label>
-                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ $user[0]->city }}">
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ old('city', $user[0]->city) }}">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="postal_code">Código postal</label>
-                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ $user[0]->postal_code }}">
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ old('postal_code', $user[0]->postal_code) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="address">Domicilio</label>
-                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ $user[0]->address }}">
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ old('address', $user[0]->address) }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dni">DNI</label>
-                            <input type="text" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ $user[0]->dni }}">
+                            <input type="number" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ old('dni', $user[0]->dni) }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="cuit">CUIT</label>
-                            <input type="text" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ $user[0]->cuit }}">
+                            <input type="number" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ old('cuit', $user[0]->cuit) }}">
                         </div>
                     </div>
 
@@ -106,19 +127,10 @@
                         <h6 class="m-0 font-weight-bold text-primary">Datos de accesso</h6>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" value="{{ $user[0]->email }}">
+                            <input type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" name="email" value="{{ old('email', $user[0]->email) }}">
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="password">Contraseña</label>
-                            <input type="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" id="password" name="password">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="password-repeat">Repetir contraseña</label>
-                            <input type="password" class="form-control {{ $errors->has('password-repeat') ? 'is-invalid' : '' }}" id="password-repeat" name="password-repeat">
-                        </div>
-
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Crear usuario</button>
@@ -127,9 +139,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
 
 
 <style>

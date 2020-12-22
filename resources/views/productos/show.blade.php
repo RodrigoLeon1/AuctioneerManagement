@@ -26,6 +26,12 @@
             </div>
         </div>
         <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Código</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ $product->id }}">
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Descripción</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ $product->description }}">
@@ -55,10 +61,6 @@
         <a href="{{ route('productos.edit', $product->id) }}" class="btn btn-warning btn-circle">
             <i class="fas fa-edit"></i>
         </a>
-        <a href="#" class="btn btn-danger btn-circle">
-            <i class="fas fa-trash"></i>
-        </a>
-
     </div>
 </div>
 @else

@@ -48,7 +48,7 @@
             <i class="fas fa-edit"></i>
         </a>
 
-        <form action="{{ route('categorias.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+        <form action="{{ route('categorias.destroy', $category->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Desea eliminar este registro?');">
             @csrf
             @method('delete')
             <button type="submit" class="btn btn-danger btn-circle">

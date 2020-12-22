@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePasswordRequest;
 use App\Http\Requests\User as RequestsUser;
 use App\Models\User;
 use App\Notifications\UserInviteNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function index()
     {
         $users = User::paginate('10');
-        return view('usuarios.index', compact('users'));
+        $usersDeleted = User::onlyTrashed()->get();
+        return view('usuarios.index', compact('users', 'usersDeleted'));
     }
 
     public function create()
@@ -54,9 +51,11 @@ class UserController extends Controller
 
         $user->save();
 
-        // Notificacion via email para que el usuario pueda elegir su contraseña, una vez registrado
-        // $url = URL::signedRoute('invitacion', $user);
-        // $user->notify(new UserInviteNotification($url));
+        // Email notification to set a new password        
+        if ($user->email) {
+            $url = URL::signedRoute('usuarios.invitation', $user);
+            $user->notify(new UserInviteNotification($url));
+        }
 
         return redirect()
             ->route('usuarios.index')
@@ -102,14 +101,14 @@ class UserController extends Controller
         $check_admin = false;
 
         foreach ($user[0]->roles as $role) {
-            if ($role->id == 3) {
-                $check_customer = true;
-            }
-            if ($role->id == 2) {
-                $check_provider = true;
-            }
             if ($role->id == 1) {
                 $check_admin = true;
+            }
+            if ($role->id == 2) {
+                $check_customer = true;
+            }
+            if ($role->id == 3) {
+                $check_provider = true;
             }
         }
 
@@ -118,66 +117,66 @@ class UserController extends Controller
 
     public function update(RequestsUser $request, $id)
     {
-        $error = null;
+        User::where('id', $id)->update([
+            'name' => $request->input('name'),
+            'lastname' => $request->input('lastname'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'postal_code' => $request->input('postal_code'),
+            'city' => $request->input('city'),
+            'phone' => $request->input('phone'),
+            'dni' => $request->input('dni'),
+            'cuit' => $request->input('cuit')
+        ]);
 
-        if ($request->input('password') != $request->input('password-repeat')) {
-            $error = "Las contraseñas ingresadas no son iguales";
+        $user = User::find($id);
+
+        // Email notification to set a new password        
+        if ($user->email) {
+            $url = URL::signedRoute('usuarios.invitation', $user);
+            $user->notify(new UserInviteNotification($url));
         }
 
-        if ($error != null) {
-            $user = User::where('id', $id)
-                ->update(
-                    ['name' => $request->input('name')],
-                    ['lastname' => $request->input('lastname')],
-                    ['email' => $request->input('email ')],
-                    ['phone' => $request->input('phone')],
-                    ['city' => $request->input('city')],
-                    ['postal_code' => $request->input('postal_code')],
-                    ['address' => $request->input('address')],
-                    ['dni' => $request->input('dni')],
-                    ['cuit' => $request->input('cuit')]
-                );
+        $this->setRoles($user, $request);
 
-            if ($request->password != null) {
-                $pass = $request->password;
-                $pass = Hash::make('secret');
-                $user->password = $pass;
+        return redirect()
+            ->back()
+            ->with('success-update', 'Usuario modificado de manera exitosa.');
+    }
+
+    private function setRoles($user, RequestsUser $request)
+    {
+        if ($request->input('customer-checked') == false) {
+            if ($request->input('customer-role') != null) {
+                $user->roles()->attach($request->input('customer-role'));
             }
-
-            if ($request->input('customer-checked') == false) {
-                if ($request->input('customer-role') != null) {
-                    $user->roles()->attach($request->input('customer-role'));
-                }
-            } else {
-                if ($request->input('customer-role') == null) {
-                    $user->roles()->detach(3);
-                }
+        } else {
+            if ($request->input('customer-role') == null) {
+                $user->roles()->detach(2);
             }
-
-            if ($request->input('provider-checked') == false) {
-                if ($request->input('provider-role') != null) {
-                    $user->roles()->attach($request->input('provider-role'));
-                }
-            } else {
-                if ($request->input('provider-role') == null) {
-                    $user->roles()->detach(2);
-                }
-            }
-
-            if ($request->input('admin-checked') == false) {
-                if ($request->input('admin-role') != null) {
-                    $user->roles()->attach($request->input('admin-role'));
-                }
-            } else {
-                if ($request->input('admin-role') == null) {
-                    $user->roles()->detach(2);
-                }
-            }
-
-            $user->save();
         }
 
-        return $this->edit($id);
+        if ($request->input('provider-checked') == false) {
+            if ($request->input('provider-role') != null) {
+                $user->roles()->attach($request->input('provider-role'));
+            }
+        } else {
+            if ($request->input('provider-role') == null) {
+                $user->roles()->detach(3);
+            }
+        }
+
+        if ($request->input('admin-checked') == false) {
+            if ($request->input('admin-role') != null) {
+                $user->roles()->attach($request->input('admin-role'));
+            }
+        } else {
+            if ($request->input('admin-role') == null) {
+                $user->roles()->detach(1);
+            }
+        }
+
+        $user->save();
     }
 
     public function destroy($id)
@@ -190,15 +189,40 @@ class UserController extends Controller
             ->with('success-destroy', 'Usuario eliminado con éxito.');
     }
 
-    // Fix...
+    public function restore($id)
+    {
+        User::withTrashed()
+            ->where('id', $id)
+            ->restore();
+
+        return redirect()
+            ->route('usuarios.index')
+            ->with('success-restore', 'Usuario activado con éxito.');
+    }
+
     public function invitation(User $user)
     {
-        if (!request()->hasValidSignature() || $user->password != 'secret') {
+        if (!request()->hasValidSignature() || $user->password !== null) {
             abort(401);
         }
-
-        // auth()->login($user);
+        Auth::login($user);
         return redirect()->route('dashboard');
+    }
+
+    public function setPassword()
+    {
+        return view('auth.passwords.setpassword');
+    }
+
+    public function setPasswordStore(StorePasswordRequest $request)
+    {
+        User::where('id', Auth::id())->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect()
+            ->route('dashboard')
+            ->with('success-password', 'Contraseña guardada con éxito.');
     }
 
     public function getAutocompleteData(Request $request)

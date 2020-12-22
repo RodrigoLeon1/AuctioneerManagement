@@ -55,11 +55,11 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="date_remate">Fecha de remate</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" required>
+                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" required min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="date_remate_delivery">Fecha de entrega</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate_delivery') ? 'is-invalid' : '' }}" id="date_remate_delivery" name="date_remate_delivery" value="{{ old('date_remate_delivery') }}" required>
+                            <input type="date" class="form-control {{ $errors->has('date_remate_delivery') ? 'is-invalid' : '' }}" id="date_remate_delivery" name="date_remate_delivery" value="{{ old('date_remate_delivery') }}" required min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="order_number">Número de orden</label>
@@ -102,8 +102,12 @@ $quantity = $order->pivot->quantity;
                             <input type="number" class="form-control {{ $errors->has('partial_total') ? 'is-invalid' : '' }}" id="partial_total" name="partial_total" value="{{ old('partial_total') }}" min=1 step=".01" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="commission">Comisión</label>
-                            <input type="number" class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" id="commission" name="commission" value="{{ old('commission') }}" min=1 step=".01" readonly>
+                            <label for="commission">Comisión en porcentaje</label>
+                            <input type="number" class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" id="commission" name="commission" value="{{ old('commission', 10) }}" min="1" max="100">
+                            <small class="form-text text-muted">
+                                El importe de la <strong>comisión</strong> sera $<strong id="commission_str">0</strong>.
+                                <input type="hidden" id="commission_value" name="commission_value">
+                            </small>
                         </div>
                     </div>
 
@@ -185,6 +189,8 @@ $quantity = $order->pivot->quantity;
     const priceUnit = document.querySelector('#price_unit')
     const partialTotal = document.querySelector('#partial_total')
     const commission = document.querySelector('#commission')
+    const commission_total = document.querySelector('#commission_str')
+    const commission_value = document.querySelector('#commission_value')
     const partial_payment = document.querySelector('#partial_payment')
     const total = document.querySelector('#total')
 
@@ -206,11 +212,12 @@ $quantity = $order->pivot->quantity;
 
     function renderTotal() {
         partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
-        commission.value = parseFloat(partialTotal.value) * 0.10
-
         if (quantity.value && priceUnit.value) {
-            total.value = parseFloat(partialTotal.value) + parseFloat(commission.value) - parseFloat(partial_payment.value)
+            commission_total.innerText = parseFloat(partialTotal.value) * (commission.value / 100)
+            total.value = parseFloat(partialTotal.value) + parseFloat(commission_total.innerText) - parseFloat(partial_payment.value)
+            commission_value.value = parseFloat(commission_total.innerText)
         }
+
     }
 
     // User inputs autocomplete

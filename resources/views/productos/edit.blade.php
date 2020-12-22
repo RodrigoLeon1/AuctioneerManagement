@@ -50,7 +50,7 @@
                     <div class="form-row form-dinamic">
                         <div class="form-group col-md-6">
                             <label>Descripción</label>
-                            <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" value="{{ $product->description }}" require>
+                            <input type="text" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description" value="{{ old('description', $product->description) }}" require>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Categoría</label>

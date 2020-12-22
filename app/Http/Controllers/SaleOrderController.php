@@ -17,13 +17,26 @@ class SaleOrderController extends Controller
 
     /**               
      *  - Corregir inputs de mercaderia dinamicos en el SaleOrder 
-     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )     
+     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )   
+     * 
+     *  - BUG -> Al seleccionar un user existente, y luego borrar los campos para agregar uno nuevo
+     *           queda seteado el ID del user anterior... Agregar un boton para resetear los campos y 
+     *           asi poder borrar los campos y el ID en el input hidden        
+     *
+     *  - Arreglos ultima meet:
+     * 
+     *       // Santi
+     *       [19:09, 12/10/2020] Rodrigo Leon: Filtrar proforma por número de producto (proforma - input para buscar y filtro   
+     *                                          con id producto)
+     *      [19:18, 12/10/2020] Rodrigo Leon: Liquidación filtrar por nombre o apellido
+     *      [19:24, 12/10/2020] Santi: Filtrar producto por codigo
+     *      //       
+     * 
+     *  - Retocar pdfs     
+     *  - Ganacias = ????          
+     *  - Traducir inputs validation
+     *  - Colocar zona horaria de Argentina, buenos aires    
      */
-
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -34,7 +47,8 @@ class SaleOrderController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('orden-ventas.create', compact('categories'));
+        $lastOrder = (SaleOrder::latest()->first() !== null) ? SaleOrder::latest()->first()->id : 0;
+        return view('orden-ventas.create', compact('categories', 'lastOrder'));
     }
 
     public function store(RequestsSaleOrder $request)

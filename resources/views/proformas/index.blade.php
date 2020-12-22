@@ -73,7 +73,7 @@
                             <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>
                             </a>
-                            <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;">
+                            <form action="{{ route('proformas.destroy', $invoice->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Desea eliminar este registro?');">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger btn-circle">
@@ -84,7 +84,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5">No se encontraron proformas registradas.</td>
+                        <td colspan="6">No se encontraron proformas registradas.</td>
                     </tr>
                     @endforelse
                 </tbody>
