@@ -26,7 +26,7 @@ class UserInviteNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Has sido invitado a participar del remate online.')
+            ->line('Has sido invitado a utilizar nuestra plataforma.')
             ->action('Aceptar invitacion', $this->url)
             ->line('Gracias por utilizar nuestra plataforma. Remates Ise');
     }

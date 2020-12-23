@@ -29,7 +29,7 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off">
+                <form method="POST" action="{{ route('usuarios.store') }}" autocomplete="off" onsubmit="return checkRoleInput()">
                     @csrf
                     <div class="form-row mb-5">
                         <div class="form-check form-check-inline col-md-3">
@@ -38,16 +38,16 @@
                             </label>
                         </div>
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1">
+                            <input class="form-check-input" name="admin-role" type="checkbox" id="admin" value="1" {{ (old('admin-role')) ? "checked" : "" }}>
                             <label class="form-check-label" for="inlineCheckbox3">Administrador</label>
                         </div>
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="2">
+                            <input class="form-check-input" name="customer-role" type="checkbox" id="customer" value="2" {{ (old('customer-role')) ? "checked" : "" }}>
                             <label class="form-check-label" for="inlineCheckbox1">Cliente</label>
                         </div>
 
                         <div class="form-check form-check-inline col-md-2">
-                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="3">
+                            <input class="form-check-input" name="provider-role" type="checkbox" id="provider" value="3" {{ (old('provider-role')) ? "checked" : "" }}>
                             <label class="form-check-label" for="inlineCheckbox2">Remitente</label>
                         </div>
                     </div>
@@ -113,52 +113,23 @@
 
 </div>
 
-<style>
-    [data-role="dynamic-fields"]>.form-dinamic+.form-dinamic {
-        margin-top: 0.5em;
-    }
-
-    [data-role="dynamic-fields"]>.form-dinamic [data-role="add"] {
-        display: none;
-    }
-
-    [data-role="dynamic-fields"]>.form-dinamic:last-child [data-role="add"] {
-        display: inline-block;
-    }
-
-    [data-role="dynamic-fields"]>.form-dinamic:last-child [data-role="remove"] {
-        display: none;
-    }
-</style>
-
 <script>
-    jQuery(document).ready(function($) {
-        $(function() {
-            // Remove button click
-            $(document).on(
-                'click',
-                '[data-role="dynamic-fields"] > .form-dinamic [data-role="remove"]',
-                function(e) {
-                    e.preventDefault();
-                    $(this).closest('.form-dinamic').remove();
-                }
-            );
-            // Add button click
-            $(document).on(
-                'click',
-                '[data-role="dynamic-fields"] > .form-dinamic [data-role="add"]',
-                function(e) {
-                    e.preventDefault();
-                    var container = $(this).closest('[data-role="dynamic-fields"]');
-                    new_field_group = container.children().filter('.form-dinamic:first-child').clone();
-                    new_field_group.find('input').each(function() {
-                        $(this).val('');
-                    });
-                    container.append(new_field_group);
-                }
-            );
-        });
-    });
+    const adminInput = document.querySelector('#admin')
+    const customerInput = document.querySelector('#customer')
+    const providerInput = document.querySelector('#provider')
+
+    const checkRoleInput = (e) => {
+        if (adminInput.checked || customerInput.checked || providerInput.checked) {
+            if (adminInput.checked) {
+                let result = confirm('¡Cuidado! Ha seleccionado el ROL ADMINISTRADOR. Si desea continuar, el usuario podrá realizar las siguientes operaciones: Gestionar órdenes de venta, Gestionar proformas, Gestionar liquidaciones, Gestionar mercaderías y gestionar usuarios. ¿Desea continuar?')
+
+                if (!result) return false
+            }
+        } else {
+            alert('Para poder continuar, es necesario establecer al menos un rol para el usuario. En caso de no estar seguro de cual elegir, recomendamos seleccionar el ROL CLIENTE.')
+            return false
+        }
+    }
 </script>
 
 @endsection()

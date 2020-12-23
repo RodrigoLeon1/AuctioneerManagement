@@ -47,47 +47,58 @@ class InvoiceProformaController extends Controller
 
     public function store(RequestsInvoiceProforma $request)
     {
+        DB::beginTransaction();
 
-        $user = User::find($request->input('id-user'));
+        try {
 
-        // Refactor...
-        if ($user === null) {
-            $user = User::create([
-                'name' => $request->input('name-order'),
-                'lastname' => $request->input('lastname-order'),
-                'address' => $request->input('address-order'),
-                'phone' => $request->input('phone-order'),
-                'postal_code' => $request->input('cp-order'),
-                'city' => $request->input('city-order'),
-                'dni' => $request->input('dni-order'),
-                'cuit' => $request->input('cuit-order'),
+            $user = User::findOrFail($request->input('id-user'));
+
+            // Refactor...
+            if ($user === null) {
+                $user = User::create([
+                    'name' => $request->input('name'),
+                    'lastname' => $request->input('lastname'),
+                    'address' => $request->input('address'),
+                    'phone' => $request->input('phone'),
+                    'postal_code' => $request->input('postal_code'),
+                    'city' => $request->input('city'),
+                    'dni' => $request->input('dni'),
+                    'cuit' => $request->input('cuit'),
+                ]);
+            }
+
+            InvoiceProforma::create([
+                'date_remate' => $request->input('date_remate'),
+                'date_delivery' => $request->input('date_delivery'),
+                'quantity' => $request->input('quantity'),
+                'price_unit' => $request->input('price_unit'),
+                'partial_total' => $request->input('partial_total'),
+                'commission_percentage' => $request->input('commission_percentage'),
+                'commission_value' => $request->input('commission_value'),
+                'partial_payment' => $request->input('partial_payment'),
+                'total' => $request->input('total'),
+                'user_id' => $user->id,
+                'sale_order_id' => $request->input('order_id'),
+                'product_id' => $request->input('product_id')
             ]);
+
+            $product = Product::findOrFail($request->input('product_id'));
+
+            DB::table('product_sale_order')
+                ->where('sale_order_id', $request->input('order_id'))
+                ->where('product_id', $request->input('product_id'))
+                ->update([
+                    'quantity_sold' => $product->saleorder[0]->pivot->quantity_sold + $request->input('quantity'),
+                    'quantity_remaining' => $product->saleorder[0]->pivot->quantity_remaining - $request->input('quantity')
+                ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()
+                ->route('proformas.create')
+                ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
         }
-
-        InvoiceProforma::create([
-            'date_remate' => $request->input('date_remate'),
-            'date_delivery' => $request->input('date_remate_delivery'),
-            'quantity' => $request->input('quantity'),
-            'price_unit' => $request->input('price_unit'),
-            'partial_total' => $request->input('partial_total'),
-            'commission_percentage' => $request->input('commission'),
-            'commission_value' => $request->input('commission_value'),
-            'partial_payment' => $request->input('partial_payment'),
-            'total' => $request->input('total'),
-            'user_id' => $user->id,
-            'sale_order_id' => $request->input('order_id'),
-            'product_id' => $request->input('product_id')
-        ]);
-
-        $product = Product::find($request->input('product_id'));
-
-        DB::table('product_sale_order')
-            ->where('sale_order_id', $request->input('order_id'))
-            ->where('product_id', $request->input('product_id'))
-            ->update([
-                'quantity_sold' => $product->saleorder[0]->pivot->quantity_sold + $request->input('quantity'),
-                'quantity_remaining' => $product->saleorder[0]->pivot->quantity_remaining - $request->input('quantity')
-            ]);
 
         return redirect()
             ->route('proformas.index')

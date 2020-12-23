@@ -112,7 +112,6 @@ class InvoiceController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             return redirect()
                 ->route('liquidaciones.create')

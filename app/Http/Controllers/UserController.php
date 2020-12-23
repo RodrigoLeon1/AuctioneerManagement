@@ -117,6 +117,13 @@ class UserController extends Controller
 
     public function update(RequestsUser $request, $id)
     {
+        $user = User::find($id);
+        $notificate = false;
+
+        if ($user->email == null) {
+            $notificate = true;
+        }
+
         User::where('id', $id)->update([
             'name' => $request->input('name'),
             'lastname' => $request->input('lastname'),
@@ -129,10 +136,10 @@ class UserController extends Controller
             'cuit' => $request->input('cuit')
         ]);
 
-        $user = User::find($id);
+        $user = $user->fresh();
 
         // Email notification to set a new password        
-        if ($user->email) {
+        if ($user->email && $notificate) {
             $url = URL::signedRoute('usuarios.invitation', $user);
             $user->notify(new UserInviteNotification($url));
         }

@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-3">Crear usuario</button>
+                    <button type="submit" class="btn btn-primary mt-3">Editar usuario</button>
                 </form>
 
             </div>

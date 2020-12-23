@@ -9,13 +9,11 @@
     <ul class="navbar-nav ml-auto">
 
         <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
+        <!-- <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
+                <i class="fas fa-bell fa-fw"></i>                
                 <span class="badge badge-danger badge-counter">3+</span>
-            </a>
-            <!-- Dropdown - Alerts -->
+            </a>            
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                     Alertas
@@ -33,7 +31,7 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todas las alertas</a>
             </div>
-        </li>
+        </li> -->
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -45,7 +43,6 @@
                 </span>
                 <img class="img-profile rounded-circle" src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png">
             </a>
-            <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('usuarios.show', Auth::id()) }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>

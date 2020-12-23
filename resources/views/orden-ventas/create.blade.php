@@ -24,7 +24,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la orden de venta.</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la orden de venta</h6>
             </div>
 
             <div class="card-body">
@@ -39,17 +39,17 @@
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('orden-ventas.store') }}" autocomplete="off">
+                <form method="POST" id="form_data" action="{{ route('orden-ventas.store') }}" autocomplete="off">
                     @csrf
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="date-order">Fecha</label>
-                            <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" require min="{{ date('Y-m-d') }}">
+                            <input type="date" class="form-control {{ $errors->has('date_set') ? 'is-invalid' : '' }}" id="date-order" name="date_set" value="{{ old('date_set') }}" min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="date-payment-order">Fecha de pago</label>
-                            <input type="date" class="form-control {{ $errors->has('date_payment') ? 'is-invalid' : '' }}" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" require min="{{ date('Y-m-d') }}">
+                            <input type="date" class="form-control {{ $errors->has('date_payment') ? 'is-invalid' : '' }}" id="date-payment-order" name="date_payment" value="{{ old('date_payment') }}" min="{{ date('Y-m-d') }}">
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos del remitente.</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del remitente</h6>
                     </div>
 
                     <div class="form-row">
@@ -73,107 +73,100 @@
                         <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
 
                         <div class="form-group col-md-3">
-                            <label for="name-order">Nombre</label>
-                            <input type="text" class="form-control" id="name-order" name="name-order" value="{{ old('name-order') }}">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name') }}">
                         </div>
                         <div class=" form-group col-md-3">
-                            <label for="lastname-order">Apellido</label>
-                            <input type="text" class="form-control" id="lastname-order" name="lastname-order" value="{{ old('lastname-order') }}">
+                            <label for="lastname">Apellido</label>
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ old('lastname') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="phone-order">Teléfono</label>
-                            <input type="text" class="form-control" id="phone-order" name="phone-order" value="{{ old('phone-order') }}">
+                            <label for="phone">Teléfono</label>
+                            <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-4">
-                            <label for="city-order">Ciudad</label>
-                            <input type="text" class="form-control" id="city-order" name="city-order" value="{{ old('city-order') }}">
+                            <label for="city">Ciudad</label>
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ old('city') }}">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="cp-order">Código postal</label>
-                            <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
+                            <label for="postal_code">Código postal</label>
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ old('postal_code') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="address-order">Domicilio</label>
-                            <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
+                            <label for="address">Domicilio</label>
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ old('address') }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-6">
-                            <label for="dni-order">DNI</label>
-                            <input type="number" class="form-control" id="dni-order" name="dni-order" value="{{ old('dni-order') }}">
+                            <label for="dni">DNI</label>
+                            <input type="number" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ old('dni') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="cuit-order">CUIT</label>
-                            <input type="number" class="form-control" id="cuit-order" name="cuit-order" value="{{ old('cuit-order') }}">
+                            <label for="cuit">CUIT</label>
+                            <input type="number" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ old('cuit') }}">
                         </div>
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería.</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Agregar mercadería</h6>
                     </div>
 
-                    @php
-                    if (!empty(old('productDescription'))) {
-                    $productsDescription = old('productDescription');
-                    $productsQuantity = old('productQuantity');
-                    $productsTasac = old('productTasac');
-                    $productsTags = old('productTags');
-                    foreach($productsDescription as $key => $product) {
-                    echo '
-                    <div data-role="dynamic-fields">
+                    @if (!empty(old('productDescription')))
+                    @foreach(old('productDescription') as $key => $product)
+                    <div data-role="dynamic-fields-old">
                         <div class="form-row form-dinamic">
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-5">
                                 <label>Descripción</label>
-                                <input type="text" class="form-control" name="productDescription[]" value="' . $product . '">
+                                <input type="text" class="form-control" name="productDescription[]" value="{{ old('productDescription')[$key] }}" required>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Cantidad</label>
-                                <input type="number" class="form-control" name="productQuantity[]" value="' . $productsQuantity[$key] . '" min=1>
+                                <input type="number" class="form-control" name="productQuantity[]" min=1 value="{{ old('productQuantity')[$key] }}" required>
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Tasac</label>
-                                <input type="number" class="form-control" name="productTasac[]" value="' . $productsTasac[$key] . '" min=0>
+                                <input type="number" class="form-control" name="productTasac[]" min=0 value="{{ old('productTasac')[$key] }}">
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label>Etiquetas</label>
-                                <input type="number" class="form-control" name="productTags[]" value="' . $productsTags[$key] . '" min=0>
+                                <input type="number" class="form-control" name="productTags[]" min=0 value="{{ old('productTags')[$key] }}">
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Categoría</label>
-                                <select class="form-control" name="productCategory" id="productCategory">
+                                <select class="form-control" name="productCategory[]" id="productCategory">
                                     @foreach ($categories as $category)
+                                    @if ($category->id == old('productCategory')[$key])
+                                    <option value="{{ $category->id }}" selected>{{ $category->description }}</option>
+                                    @else
                                     <option value="{{ $category->id }}">{{ $category->description }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
-                                <button class="btn btn-danger" data-role="remove" style="margin-top: 2rem;">
+                                <button class="btn btn-danger to-remove" data-role="remove" style="margin-top: 2rem;">
                                     <i class="fas fa-minus"></i>
-                                </button>
-                                <button class="btn btn-primary" data-role="add" style="margin-top: 2rem;">
-                                    <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    ';
-                    }
-                    }
-                    @endphp
+                    @endforeach
+                    @endif
 
                     <div data-role="dynamic-fields">
                         <div class="form-row form-dinamic">
                             <div class="form-group col-md-5">
                                 <label>Descripción</label>
-                                <input type="text" class="form-control" name="productDescription[]">
+                                <input type="text" class="form-control" name="productDescription[]" required>
                             </div>
                             <div class="form-group col-md-1">
                                 <label>Cantidad</label>
-                                <input type="number" class="form-control" name="productQuantity[]" min=1>
+                                <input type="number" class="form-control" name="productQuantity[]" min=1 required>
                             </div>
                             <div class="form-group col-md-1">
                                 <label>Tasac</label>
@@ -203,6 +196,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Crear orden de venta</button>
+                    <button type="button" class="btn btn-danger mt-3" onclick="resetForm()">Resetear datos del remitente</button>
                 </form>
 
             </div>
@@ -227,6 +221,10 @@
     [data-role="dynamic-fields"]>.form-dinamic:last-child [data-role="remove"] {
         display: none;
     }
+
+    [data-role="dynamic-fields-old"]>.form-dinamic:last-child [data-role="remove"] {
+        display: inline-block;
+    }
 </style>
 
 <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
@@ -235,7 +233,6 @@
 
 <script>
     jQuery(document).ready(function($) {
-
         // Products inputs dinamic
         $(function() {
             // Remove button click
@@ -263,9 +260,21 @@
             );
         });
 
+        $(function() {
+            // Remove button click
+            $(document).on(
+                'click',
+                '[data-role="dynamic-fields-old"] > .form-dinamic [data-role="remove"]',
+                function(e) {
+                    e.preventDefault();
+                    $(this).closest('.form-dinamic').remove();
+                }
+            );
+        });
+
         // User inputs autocomplete
         $(function() {
-            $('#name-order').autocomplete({
+            $('#name').autocomplete({
                 source: function(request, response) {
                     $.getJSON('http://127.0.0.1:8000/api/usuarios?term=' + request.term, function(data) {
                         var array = $.map(data, function(row) {
@@ -280,6 +289,7 @@
                                 city: row.city,
                                 phone: row.phone,
                                 dni: row.dni,
+                                cuit: row.cuit
                             }
                         })
                         response($.ui.autocomplete.filter(array, request.term));
@@ -289,18 +299,34 @@
                 delay: 100,
                 select: function(event, ui) {
                     $('#id-user').val(ui.item.id)
-                    $('#name-order').val(ui.item.name)
-                    $('#lastname-order').val(ui.item.lastname)
-                    $('#address-order').val(ui.item.address)
-                    $('#cp-order').val(ui.item.postal_code)
-                    $('#city-order').val(ui.item.city)
-                    $('#phone-order').val(ui.item.phone)
-                    $('#dni-order').val(ui.item.dni)
+                    $('#name').val(ui.item.name)
+                    $('#lastname').val(ui.item.lastname)
+                    $('#address').val(ui.item.address)
+                    $('#postal_code').val(ui.item.postal_code)
+                    $('#city').val(ui.item.city)
+                    $('#phone').val(ui.item.phone)
+                    $('#dni').val(ui.item.dni)
+                    $('#cuit').val(ui.item.cuit)
                 }
             })
         })
 
     });
+
+    const resetForm = () => {
+        if (confirm('Desea resetear los campos?')) {
+            document.getElementById('id-user').value = ''
+            document.getElementById('name').value = ''
+            document.getElementById('lastname').value = ''
+            document.getElementById('phone').value = ''
+            document.getElementById('city').value = ''
+            document.getElementById('postal_code').value = ''
+            document.getElementById('address').value = ''
+            document.getElementById('dni').value = ''
+            document.getElementById('name').value = ''
+            document.getElementById('cuit').value = ''
+        }
+    }
 </script>
 
 @endsection()

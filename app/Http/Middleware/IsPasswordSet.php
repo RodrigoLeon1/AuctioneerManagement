@@ -16,7 +16,6 @@ class IsPasswordSet
             !$request->is('password') &&
             !$request->password
         ) {
-            // dd('entre');
             return redirect()->route('usuarios.setpassword');
         }
         return $next($request);

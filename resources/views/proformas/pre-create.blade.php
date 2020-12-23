@@ -25,7 +25,7 @@
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    A continuación podrá observar aquellas órdenes de venta, que tienen mercadería disponible para vender.
+                    A continuación podrá observar aquellas órdenes de venta, que tienen mercadería disponible para vender
                 </h6>
             </div>
 

@@ -34,7 +34,7 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuación podrá observar el listado de usuarios.
+            A continuación podrá observar el listado de usuarios
         </h6>
     </div>
     <div class="card-body">

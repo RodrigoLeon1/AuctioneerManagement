@@ -16,26 +16,18 @@ class SaleOrderController extends Controller
 {
 
     /**               
-     *  - Corregir inputs de mercaderia dinamicos en el SaleOrder 
-     *    (Al haber un error, no deja quitar los anteriores, crear un input de mas (?) )   
      * 
-     *  - BUG -> Al seleccionar un user existente, y luego borrar los campos para agregar uno nuevo
-     *           queda seteado el ID del user anterior... Agregar un boton para resetear los campos y 
-     *           asi poder borrar los campos y el ID en el input hidden        
-     *
-     *  - Arreglos ultima meet:
+     *  - PDFS fix...    
+     *  - Ganacias
+     *  - Error on update models, fix ...
+     *  - Update email view
      * 
-     *       // Santi
+     *  - Fix last meet (Santi):     
      *       [19:09, 12/10/2020] Rodrigo Leon: Filtrar proforma por número de producto (proforma - input para buscar y filtro   
      *                                          con id producto)
      *      [19:18, 12/10/2020] Rodrigo Leon: Liquidación filtrar por nombre o apellido
      *      [19:24, 12/10/2020] Santi: Filtrar producto por codigo
-     *      //       
      * 
-     *  - Retocar pdfs     
-     *  - Ganacias = ????          
-     *  - Traducir inputs validation
-     *  - Colocar zona horaria de Argentina, buenos aires    
      */
 
     public function index()
@@ -57,19 +49,19 @@ class SaleOrderController extends Controller
 
         try {
 
-            $user = User::find($request->input('id-user'));
+            $user = User::findOrFail($request->input('id-user'));
 
             // Refactor...
             if ($user === null) {
                 $user = User::create([
-                    'name' => $request->input('name-order'),
-                    'lastname' => $request->input('lastname-order'),
-                    'address' => $request->input('address-order'),
-                    'phone' => $request->input('phone-order'),
-                    'postal_code' => $request->input('cp-order'),
-                    'city' => $request->input('city-order'),
-                    'dni' => $request->input('dni-order'),
-                    'cuit' => $request->input('cuit-order'),
+                    'name' => $request->input('name'),
+                    'lastname' => $request->input('lastname'),
+                    'address' => $request->input('address'),
+                    'phone' => $request->input('phone'),
+                    'postal_code' => $request->input('postal_code'),
+                    'city' => $request->input('city'),
+                    'dni' => $request->input('dni'),
+                    'cuit' => $request->input('cuit'),
                 ]);
             }
 

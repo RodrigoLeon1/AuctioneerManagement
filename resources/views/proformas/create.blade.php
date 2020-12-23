@@ -31,7 +31,7 @@ $quantity = $order->pivot->quantity;
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la proforma.</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Complete el formulario para crear la proforma</h6>
             </div>
 
             <div class="card-body">
@@ -55,11 +55,11 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="date_remate">Fecha de remate</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" required min="{{ date('Y-m-d') }}">
+                            <input type="date" class="form-control {{ $errors->has('date_remate') ? 'is-invalid' : '' }}" id="date_remate" name="date_remate" value="{{ old('date_remate') }}" min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="date_remate_delivery">Fecha de entrega</label>
-                            <input type="date" class="form-control {{ $errors->has('date_remate_delivery') ? 'is-invalid' : '' }}" id="date_remate_delivery" name="date_remate_delivery" value="{{ old('date_remate_delivery') }}" required min="{{ date('Y-m-d') }}">
+                            <label for="date_delivery">Fecha de entrega</label>
+                            <input type="date" class="form-control {{ $errors->has('date_delivery') ? 'is-invalid' : '' }}" id="date_delivery" name="date_delivery" value="{{ old('date_delivery') }}" min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="order_number">Número de orden</label>
@@ -68,7 +68,7 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos de la mercadería.</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos de la mercadería</h6>
                     </div>
 
                     <div class="form-row">
@@ -85,14 +85,14 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="quantity">Cantidad</label>
-                            <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" required max={{ $orderHc->quantity_remaining }} min=1>
+                            <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" max={{ $orderHc->quantity_remaining }} min=1>
                             <small id="quantity" class="form-text text-muted">
                                 La mercadería <strong>{{ $product->description }}</strong> tiene una cantidad de <strong>{{ $orderHc->quantity_remaining }} unidades</strong> para vender.
                             </small>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="price_unit">Precio por unidad</label>
-                            <input type="number" class="form-control {{ $errors->has('price_unit') ? 'is-invalid' : '' }}" id="price_unit" name="price_unit" value="{{ old('price_unit') }}" min=1 step=".01" required>
+                            <input type="number" class="form-control {{ $errors->has('price_unit') ? 'is-invalid' : '' }}" id="price_unit" name="price_unit" value="{{ old('price_unit') }}" min=1 step=".01">
                         </div>
                     </div>
 
@@ -102,8 +102,8 @@ $quantity = $order->pivot->quantity;
                             <input type="number" class="form-control {{ $errors->has('partial_total') ? 'is-invalid' : '' }}" id="partial_total" name="partial_total" value="{{ old('partial_total') }}" min=1 step=".01" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="commission">Comisión en porcentaje</label>
-                            <input type="number" class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" id="commission" name="commission" value="{{ old('commission', 10) }}" min="1" max="100">
+                            <label for="commission_percentage">Comisión en porcentaje</label>
+                            <input type="number" class="form-control {{ $errors->has('commission_percentage') ? 'is-invalid' : '' }}" id="commission_percentage" name="commission_percentage" value="{{ old('commission_percentage') }}" min="1" max="100">
                             <small class="form-text text-muted">
                                 El importe de la <strong>comisión</strong> sera $<strong id="commission_str">0</strong>.
                                 <input type="hidden" id="commission_value" name="commission_value">
@@ -114,7 +114,7 @@ $quantity = $order->pivot->quantity;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="partial_payment">Seña</label>
-                            <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=0 step=".01" required>
+                            <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=0 step=".01">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="total">Importe total</label>
@@ -123,7 +123,7 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
-                        <h6 class="m-0 font-weight-bold text-primary">Datos del comprador.</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Datos del comprador</h6>
                     </div>
 
                     <div class="form-row">
@@ -131,46 +131,47 @@ $quantity = $order->pivot->quantity;
                         <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
 
                         <div class="form-group col-md-3">
-                            <label for="name-order">Nombre</label>
-                            <input type="text" class="form-control" id="name-order" name="name-order" value="{{ old('name-order') }}">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name') }}">
                         </div>
                         <div class=" form-group col-md-3">
-                            <label for="lastname-order">Apellido</label>
-                            <input type="text" class="form-control" id="lastname-order" name="lastname-order" value="{{ old('lastname-order') }}">
+                            <label for="lastname">Apellido</label>
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ old('lastname') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="phone-order">Teléfono</label>
-                            <input type="text" class="form-control" id="phone-order" name="phone-order" value="{{ old('phone-order') }}">
+                            <label for="phone">Teléfono</label>
+                            <input type="number" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-4">
-                            <label for="city-order">Ciudad</label>
-                            <input type="text" class="form-control" id="city-order" name="city-order" value="{{ old('city-order') }}">
+                            <label for="city">Ciudad</label>
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ old('city') }}">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="cp-order">Código postal</label>
-                            <input type="number" class="form-control" id="cp-order" name="cp-order" value="{{ old('cp-order') }}">
+                            <label for="postal_code">Código postal</label>
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ old('postal_code') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="address-order">Domicilio</label>
-                            <input type="text" class="form-control" id="address-order" name="address-order" value="{{ old('address-order') }}">
+                            <label for="address">Domicilio</label>
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ old('address') }}">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-6">
-                            <label for="dni-order">DNI</label>
-                            <input type="number" class="form-control" id="dni-order" name="dni-order" value="{{ old('dni-order') }}">
+                            <label for="dni">DNI</label>
+                            <input type="number" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ old('dni') }}">
                         </div>
                         <div class=" form-group col-md-6">
-                            <label for="cuit-order">CUIT</label>
-                            <input type="number" class="form-control" id="cuit-order" name="cuit-order" value="{{ old('cuit-order') }}">
+                            <label for="cuit">CUIT</label>
+                            <input type="number" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ old('cuit') }}">
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Crear proforma</button>
+                    <button type="button" class="btn btn-danger mt-3" onclick="resetForm()">Resetear datos del comprador</button>
                 </form>
 
             </div>
@@ -188,7 +189,7 @@ $quantity = $order->pivot->quantity;
     const quantity = document.querySelector('#quantity')
     const priceUnit = document.querySelector('#price_unit')
     const partialTotal = document.querySelector('#partial_total')
-    const commission = document.querySelector('#commission')
+    const commission = document.querySelector('#commission_percentage')
     const commission_total = document.querySelector('#commission_str')
     const commission_value = document.querySelector('#commission_value')
     const partial_payment = document.querySelector('#partial_payment')
@@ -217,12 +218,26 @@ $quantity = $order->pivot->quantity;
             total.value = parseFloat(partialTotal.value) + parseFloat(commission_total.innerText) - parseFloat(partial_payment.value)
             commission_value.value = parseFloat(commission_total.innerText)
         }
+    }
 
+    const resetForm = () => {
+        if (confirm('Desea resetear los campos?')) {
+            document.getElementById('id-user').value = ''
+            document.getElementById('name').value = ''
+            document.getElementById('lastname').value = ''
+            document.getElementById('phone').value = ''
+            document.getElementById('city').value = ''
+            document.getElementById('postal_code').value = ''
+            document.getElementById('address').value = ''
+            document.getElementById('dni').value = ''
+            document.getElementById('name').value = ''
+            document.getElementById('cuit').value = ''
+        }
     }
 
     // User inputs autocomplete
     $(function() {
-        $('#name-order').autocomplete({
+        $('#name').autocomplete({
             source: function(request, response) {
                 $.getJSON('http://127.0.0.1:8000/api/usuarios?term=' + request.term, function(data) {
                     var array = $.map(data, function(row) {
@@ -237,6 +252,7 @@ $quantity = $order->pivot->quantity;
                             city: row.city,
                             phone: row.phone,
                             dni: row.dni,
+                            cuit: row.cuit
                         }
                     })
                     response($.ui.autocomplete.filter(array, request.term));
@@ -246,13 +262,14 @@ $quantity = $order->pivot->quantity;
             delay: 100,
             select: function(event, ui) {
                 $('#id-user').val(ui.item.id)
-                $('#name-order').val(ui.item.name)
-                $('#lastname-order').val(ui.item.lastname)
-                $('#address-order').val(ui.item.address)
-                $('#cp-order').val(ui.item.postal_code)
-                $('#city-order').val(ui.item.city)
-                $('#phone-order').val(ui.item.phone)
-                $('#dni-order').val(ui.item.dni)
+                $('#name').val(ui.item.name)
+                $('#lastname').val(ui.item.lastname)
+                $('#address').val(ui.item.address)
+                $('#postal_code').val(ui.item.postal_code)
+                $('#city').val(ui.item.city)
+                $('#phone').val(ui.item.phone)
+                $('#dni').val(ui.item.dni)
+                $('#cuit').val(ui.item.cuit)
             }
         })
     })
