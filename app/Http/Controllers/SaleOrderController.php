@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SaleOrder as RequestsSaleOrder;
+use App\Http\Requests\StoreSaleOrderRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SaleOrder;
@@ -43,7 +43,7 @@ class SaleOrderController extends Controller
         return view('orden-ventas.create', compact('categories', 'lastOrder'));
     }
 
-    public function store(RequestsSaleOrder $request)
+    public function store(StoreSaleOrderRequest $request)
     {
         DB::beginTransaction();
 

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Category as RequestsCategory;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -20,7 +21,7 @@ class CategoryController extends Controller
         return view('categorias.create');
     }
 
-    public function store(RequestsCategory $request)
+    public function store(StoreCategoryRequest $request)
     {
         Category::create([
             'description' => $request->input('description')
@@ -43,7 +44,7 @@ class CategoryController extends Controller
         return view('categorias.edit', compact('category'));
     }
 
-    public function update(RequestsCategory $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
         Category::where('id', $id)->update(
             ['description' => $request->input('description')]

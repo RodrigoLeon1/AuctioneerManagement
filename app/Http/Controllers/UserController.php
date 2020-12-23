@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePasswordRequest;
-use App\Http\Requests\User as RequestsUser;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Notifications\UserInviteNotification;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('usuarios.create');
     }
 
-    public function store(RequestsUser $request)
+    public function store(StoreUserRequest $request)
     {
         $user = User::create([
             'name' => $request->input('name'),
@@ -115,7 +116,7 @@ class UserController extends Controller
         return view('usuarios.edit', compact('user', 'check_customer', 'check_provider', 'check_admin', 'id'));
     }
 
-    public function update(RequestsUser $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
         $user = User::find($id);
         $notificate = false;
@@ -151,7 +152,7 @@ class UserController extends Controller
             ->with('success-update', 'Usuario modificado de manera exitosa.');
     }
 
-    private function setRoles($user, RequestsUser $request)
+    private function setRoles($user, UpdateUserRequest $request)
     {
         if ($request->input('customer-checked') == false) {
             if ($request->input('customer-role') != null) {

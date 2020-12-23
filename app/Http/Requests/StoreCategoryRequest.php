@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Product extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
 
     public function authorize()
@@ -15,7 +15,7 @@ class Product extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|string'
+            'description' => 'required|string|unique:categories'
         ];
     }
 }

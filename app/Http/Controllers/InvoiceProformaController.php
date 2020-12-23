@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\InvoiceProforma as RequestsInvoiceProforma;
+use App\Http\Requests\StoreInvoiceProformaRequest;
 use App\Models\InvoiceProforma;
 use App\Models\Product;
 use App\Models\User;
@@ -45,7 +45,7 @@ class InvoiceProformaController extends Controller
         return view('proformas.create', compact(['order', 'product']));
     }
 
-    public function store(RequestsInvoiceProforma $request)
+    public function store(StoreInvoiceProformaRequest $request)
     {
         DB::beginTransaction();
 
