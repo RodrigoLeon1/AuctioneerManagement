@@ -40,9 +40,11 @@
         <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Categoría</label>
             <div class="col-sm-10">
-                @foreach ($product->categories as $category)
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ $category->description }}">
-                @endforeach
+                @forelse ($product->categories as $category)
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ $category->description ? $category->description : 'Categoría eliminada' }}">
+                @empty
+                Categoría eliminada
+                @endforelse
             </div>
         </div>
 

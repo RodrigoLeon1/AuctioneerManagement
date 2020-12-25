@@ -96,6 +96,7 @@
         <h4>
             <strong>Datos del comprador</strong>
         </h4>
+        @if ($invoice->user)
         <div class="form-group row">
             <label for="user" class="col-sm-2 col-form-label">Nombre completo</label>
             <div class="col-sm-10">
@@ -111,6 +112,14 @@
                 </a>
             </div>
         </div>
+        @else
+        <div class="form-group row">
+            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticName" value="Comprador eliminado">
+            </div>
+        </div>
+        @endif
 
         <hr>
         <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">

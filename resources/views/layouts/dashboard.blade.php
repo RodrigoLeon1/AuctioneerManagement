@@ -47,12 +47,11 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ganancias</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ganancias total</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50,000</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ number_format($earningsValue) }}</div>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-auto">
@@ -88,7 +87,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Ganancias en los últimos 15 días</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Ganancias anual</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -148,9 +147,7 @@
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-
-                // Dinamic data here..
-                data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+                data: <?= $earnings; ?>
             }],
         },
         options: {

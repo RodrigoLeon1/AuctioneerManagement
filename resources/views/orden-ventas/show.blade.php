@@ -49,6 +49,7 @@
         <h4>
             <strong>Datos del remitente</strong>
         </h4>
+        @if ($order->user)
         <div class="form-group row">
             <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
             <div class="col-sm-10">
@@ -99,6 +100,14 @@
                 <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $order->user->email ?? 'No disponible' }}">
             </div>
         </div>
+        @else
+        <div class="form-group row">
+            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticName" value="Remitente eliminado">
+            </div>
+        </div>
+        @endif
 
         <hr>
 

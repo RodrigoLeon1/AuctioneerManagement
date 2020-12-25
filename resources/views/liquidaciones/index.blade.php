@@ -55,7 +55,9 @@
                     <tr>
                         <td>{{ date('d/m/Y', strtotime($invoice->created_at)) }}</td>
                         <td>{{ ucfirst($invoice->type_invoice) }}</td>
-                        <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
+                        <td>
+                            {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Usuario eliminado' }}
+                        </td>
                         <td>${{ $invoice->total }}</td>
                         <td>
                             <ul>
@@ -73,12 +75,6 @@
                             <a href="{{ route('liquidaciones.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>
                             </a>
-                            <!-- <form action="{{ route('liquidaciones.destroy', $invoice->id) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('¿Desea eliminar este registro?');">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-circle">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form> -->
                         </td>
                     </tr>
                     @empty

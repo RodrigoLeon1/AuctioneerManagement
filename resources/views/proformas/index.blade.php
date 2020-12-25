@@ -65,7 +65,9 @@
                         <td> ${{ $invoice->total }}</td>
                         <td>{{ $invoice->product->description }}</td>
                         <td>{{ $invoice->quantity }}</td>
-                        <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
+                        <td>
+                            {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Comprador eliminado' }}
+                        </td>
                         <td>
                             <a href="{{ route('proformas.show', $invoice->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>

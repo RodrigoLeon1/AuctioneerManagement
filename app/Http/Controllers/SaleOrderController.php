@@ -18,15 +18,7 @@ class SaleOrderController extends Controller
     /**               
      * 
      *  - PDFS fix...    
-     *  - Ganacias
-     *  - Error on update models, fix ...
      *  - Update email view
-     * 
-     *  - Fix last meet (Santi):     
-     *       [19:09, 12/10/2020] Rodrigo Leon: Filtrar proforma por número de producto (proforma - input para buscar y filtro   
-     *                                          con id producto)
-     *      [19:18, 12/10/2020] Rodrigo Leon: Liquidación filtrar por nombre o apellido
-     *      [19:24, 12/10/2020] Santi: Filtrar producto por codigo
      * 
      */
 

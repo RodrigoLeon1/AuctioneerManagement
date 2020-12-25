@@ -49,9 +49,11 @@
                         <td> {{ $product->id }} </td>
                         <td> {{ $product->description }} </td>
                         <td>
-                            @foreach ($product->categories as $category)
-                            {{ $category->description }}
-                            @endforeach
+                            @forelse ($product->categories as $category)
+                            {{ $category->description ? $category->description : 'Categoría eliminada' }}
+                            @empty
+                            Categoría eliminada
+                            @endforelse
                         </td>
                         <td>
                             <a href="{{ route('productos.show', $product->id) }}" class="btn btn-info btn-circle">
