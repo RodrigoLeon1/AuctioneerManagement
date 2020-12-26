@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInvoiceProformaRequest;
 use App\Models\InvoiceProforma;
 use App\Models\Product;
 use App\Models\User;
@@ -17,7 +16,7 @@ class InvoiceProformaController extends Controller
 
     public function index()
     {
-        $invoices = InvoiceProforma::all();
+        $invoices = InvoiceProforma::orderBy('id', 'desc')->paginate('10');
         return view('proformas.index', compact('invoices'));
     }
 
@@ -45,13 +44,14 @@ class InvoiceProformaController extends Controller
         return view('proformas.create', compact(['order', 'product']));
     }
 
-    public function store(StoreInvoiceProformaRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
 
-        try {
+        $user = User::find($request->input('id-user'));
+        $this->validateInvoiceProforma($request, $user);
 
-            $user = User::findOrFail($request->input('id-user'));
+        try {
 
             // Refactor...
             if ($user === null) {
@@ -103,6 +103,53 @@ class InvoiceProformaController extends Controller
         return redirect()
             ->route('proformas.index')
             ->with('success-store', 'Su proforma ha sido creada de manera exitosa.');
+    }
+
+    private function validateInvoiceProforma(Request $request, $user)
+    {
+        if ($user) {
+            $request->validate([
+                'date_remate' => 'required|date|after_or_equal:start_date',
+                'date_delivery' => 'required|date|after_or_equal:start_date',
+                'quantity' => 'required|numeric',
+                'price_unit' => 'required|numeric',
+                'partial_total' => 'required|numeric',
+                'commission_percentage' => 'required|numeric',
+                'commission_value' => 'required|numeric',
+                'partial_payment' => 'required|numeric',
+                'total' => 'required|numeric',
+                'name' => 'required|string',
+                'lastname' => 'required|string',
+                'email' => 'nullable|email|unique:users,email,' . $user->id,
+                'address' => 'nullable|string',
+                'postal_code' => 'nullable|string',
+                'city' => 'nullable|string',
+                'phone' => 'nullable|string|unique:users,phone,' . $user->id,
+                'dni' => 'required|string|unique:users,dni,' . $user->id,
+                'cuit' => 'nullable|string|unique:users,cuit,' . $user->id,
+            ]);
+        } else {
+            $request->validate([
+                'date_remate' => 'required|date|after_or_equal:start_date',
+                'date_delivery' => 'required|date|after_or_equal:start_date',
+                'quantity' => 'required|numeric',
+                'price_unit' => 'required|numeric',
+                'partial_total' => 'required|numeric',
+                'commission_percentage' => 'required|numeric',
+                'commission_value' => 'required|numeric',
+                'partial_payment' => 'required|numeric',
+                'total' => 'required|numeric',
+                'name' => 'required|string',
+                'lastname' => 'required|string',
+                'email' => 'nullable|email|unique:users,email',
+                'address' => 'nullable|string',
+                'postal_code' => 'nullable|string',
+                'city' => 'nullable|string',
+                'phone' => 'nullable|string|unique:users,phone',
+                'dni' => 'required|string|unique:users,dni',
+                'cuit' => 'nullable|string|unique:users,cuit'
+            ]);
+        }
     }
 
     public function show($id)

@@ -19,49 +19,49 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('liquidaciones.store') }}" autocomplete="off">
+                <form method="POST" action="{{ route('liquidaciones.store') }}" autocomplete="off" onsubmit="return checkSubmit()">
 
                     @csrf
 
                     <div class="form-row">
-                        <input type="hidden" name="user-id" value="{{ $user->id }}">
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
                         <div class="form-group col-md-3">
                             <label for="name-order">Nombre</label>
-                            <input type="text" class="form-control" id="name-user" name="name-user" value="{{ $user->name }}" readonly>
+                            <input type="text" class="form-control" id="name-user" value="{{ $user->name }}" readonly>
                         </div>
                         <div class=" form-group col-md-3">
                             <label for="lastname-order">Apellido</label>
-                            <input type="text" class="form-control" id="lastname-user" name="lastname-user" value="{{ $user->lastname }}" readonly>
+                            <input type="text" class="form-control" id="lastname-user" value="{{ $user->lastname }}" readonly>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="phone-order">Teléfono</label>
-                            <input type="text" class="form-control" id="phone-user" name="phone-user" value="{{ $user->phone }}" readonly>
+                            <input type="text" class="form-control" id="phone-user" value="{{ $user->phone }}" readonly>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-4">
                             <label for="city-order">Ciudad</label>
-                            <input type="text" class="form-control" id="city-user" name="city-user" value="{{ $user->city }}" readonly>
+                            <input type="text" class="form-control" id="city-user" value="{{ $user->city }}" readonly>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="cp-order">Código postal</label>
-                            <input type="number" class="form-control" id="cp-user" name="cp-user" value="{{ $user->postal_code }}" readonly>
+                            <input type="number" class="form-control" id="cp-user" value="{{ $user->postal_code }}" readonly>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="address-order">Domicilio</label>
-                            <input type="text" class="form-control" id="address-user" name="address-user" value="{{ $user->address }}" readonly>
+                            <input type="text" class="form-control" id="address-user" value="{{ $user->address }}" readonly>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-6">
                             <label for="dni-order">DNI</label>
-                            <input type="number" class="form-control" id="dni-user" name="dni-user" value="{{ $user->dni }}" readonly>
+                            <input type="number" class="form-control" id="dni-user" value="{{ $user->dni }}" readonly>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="cuit-order">CUIT</label>
-                            <input type="number" class="form-control" id="cuit-user" name="cuit-user" value="{{ $user->cuit }}" readonly>
+                            <input type="number" class="form-control" id="cuit-user" value="{{ $user->cuit }}" readonly>
                         </div>
                     </div>
 
@@ -74,23 +74,23 @@
                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>Código</th>
                                         <th>Descripción</th>
+                                        <th>Número de orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Comisión</th>
-                                        <th>Importe total</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Código</th>
                                         <th>Descripción</th>
+                                        <th>Número de orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Comisión</th>
-                                        <th>Importe total</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </tfoot>
@@ -99,22 +99,23 @@
                                         <?php $i = 1; ?>
                                         @foreach ($proformas as $proforma)
                                         <tr>
-
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
                                             <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
 
+                                            <td>{{ $proforma->product->id }}</td>
                                             <td>{{ $proforma->product->description }}</td>
+                                            <td>{{ $proforma->saleorder->order_number }}</td>
                                             <td>{{ $proforma->quantity }}</td>
-                                            <td>${{ $proforma->price_unit }}</td>
-                                            <td>${{ $proforma->partial_total }}</td>
-                                            <td>${{ $proforma->commission }}</td>
-                                            <td>${{ $proforma->total }}</td>
+                                            <td>${{ number_format($proforma->price_unit) }}</td>
+                                            <td>${{ number_format($proforma->partial_total) }}</td>
                                             <td>
-                                                <input class="form-check-input" type="checkbox" value="{{ $proforma->product->id }}" name="products[]" id="user-products">
-                                                <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description-products">
-                                                <input type="hidden" value="<?php echo $i; ?>" name="products[]" id="quantity-products">
-                                                <input type="hidden" value="{{ $proforma->total }}" name="products[]" id="price-products">
+                                                <input class="form-check-input" type="checkbox" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
+
+                                                <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
+
+                                                <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
+                                                <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="price_products">
                                             </td>
                                         </tr>
                                         <?php $i++; ?>
@@ -125,17 +126,17 @@
                     </div>
 
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal" onclick="modalData()">Liquidar</button>
+                    <button type="button" class="btn btn-secondary mt-3" onclick="window.history.go(-1); return false;">Cancelar</button>
 
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-dialog modal-xl" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Confirmar liquidacion</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmar liquidación</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-
                                 <div class="modal-body">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -152,7 +153,7 @@
                                                         <th>Importe total por mercadería</th>
                                                     </tr>
                                                 </tfoot>
-                                                <tbody id="modal-product-items">
+                                                <tbody id="modal_product_items">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -160,36 +161,41 @@
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Importe</th>
+                                                        <th>Subtotal</th>
+                                                        <th>Comisión en porcentaje</th>
                                                         <th>Comisión</th>
+                                                        <th>Seña</th>
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td id="modal-total"></td>
-                                                        <td>?</td>
-                                                        <td>?</td>
+                                                        <td id="modal_subtotal"></td>
+                                                        <td id="modal_commission">
+                                                            <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
+                                                        </td>
+                                                        <td id="modal_commission_value">$0</td>
+                                                        <td id="modal_partial_payment">
+                                                            <input type="number" class="form-control " id="partial_payment" name="partial_payment" value="0">
+                                                        </td>
+                                                        <td id="modal_total"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
-
 </div>
 
 <style>
@@ -199,33 +205,68 @@
 </style>
 
 <script>
-    function modalData() {
-        var us_products = document.getElementsByName("products[]");
-        var role = document.getElementById("user-role");
-        var inputs = "";
-        var i = 0
-        var subtotal = 0;
-        var comision;
-        while (i < us_products.length) {
-            var is_checked = us_products[i].checked;
+    const modal_product_items = document.querySelector('#modal_product_items')
+    const products = document.getElementsByName("products[]")
+
+    const commission = document.querySelector('#commission_percentage')
+    const partial_payment = document.querySelector('#partial_payment')
+
+    const modal_commission_v = document.querySelector('#modal_commission_value')
+    const modal_subtotal = document.querySelector('#modal_subtotal')
+    const modal_total = document.querySelector('#modal_total')
+    let modal_commission = 0
+    let modal_commission_value = 0
+    let modal_partial_payment = 0
+
+    commission.addEventListener('blur', (e) => {
+        modal_commission = e.target.value
+        modalData()
+    })
+
+    partial_payment.addEventListener('blur', (e) => {
+        modal_partial_payment = e.target.value
+        modalData()
+    })
+
+    const modalData = (e) => {
+        let inputs = ""
+        let i = 0
+        let subtotal = 0
+        let comision = 0
+        let partial_payment = 0
+        let total = 0
+
+        while (i < products.length) {
+            let is_checked = products[i].checked
             if (is_checked) {
                 inputs = inputs + '<tr>' +
-                    '<td>' + us_products[i + 1].value + '</td>' +
-                    '<td>' + us_products[i + 3].value + '</td>' +
+                    '<td>' + products[i + 1].value + '</td>' +
+                    '<td>' + products[i + 3].value + '</td>' +
                     '</tr>';
-                subtotal = parseFloat(subtotal) + parseFloat(us_products[i + 3].value);
+                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
             }
             i = i + 4;
         }
-        document.getElementById("modal-product-items").innerHTML = inputs;
-        document.getElementById("modal-total").innerHTML = "$" + subtotal;
-        // if (role == 3) {
-        //     document.getElementById("modal-commission").innerHTML = subtotal * 0.2;
-        //     document.getElementById("modal-total").innerHTML = "$" + subtotal + (subtotal * 0.2);
-        // } else {
-        //     document.getElementById("modal-commission").innerHTML = subtotal * 0.1;
-        //     document.getElementById("modal-total").innerHTML = "$" + (subtotal + (subtotal * 0.1));
-        // }
+
+        modal_product_items.innerHTML = inputs
+        modal_subtotal.innerHTML = "$" + subtotal
+
+        if (modal_commission) {
+            modal_commission_value = parseFloat(subtotal) * (modal_commission / 100)
+            modal_commission_v.innerText = "$" + modal_commission_value
+        }
+
+        modal_total.innerHTML = "$" + (parseFloat(subtotal) + parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
+    }
+
+    const checkSubmit = () => {
+        for (let index = 0; index < products.length; index++) {
+            if (products[index].checked) {
+                break;
+            }
+            alert('Para poder continuar y crear la liquidación es necesario seleccionar al menos una mercadería de la lista.')
+            return false
+        }
     }
 </script>
 @endsection()

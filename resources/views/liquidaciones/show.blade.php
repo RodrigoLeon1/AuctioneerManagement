@@ -31,83 +31,6 @@
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{ ucfirst($invoice->type_invoice) }}">
             </div>
         </div>
-        <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Comisión</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ $invoice->commission }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Importe final</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ $invoice->total }}">
-            </div>
-        </div>
-
-        <hr>
-
-        <h4>
-            <strong>Datos del {{ ucfirst($invoice->type_invoice) }}</strong>
-        </h4>
-        @if ($invoice->user)
-        <div class="form-group row">
-            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ ucfirst($invoice->user->name) }} {{ ucfirst($invoice->user->lastname) }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $invoice->user->email ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticAddress" class="col-sm-2 col-form-label">Dirección</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ ucfirst($invoice->user->address) }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticPhone" class="col-sm-2 col-form-label">Teléfono</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ $invoice->user->phone ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticCp" class="col-sm-2 col-form-label">Código postal</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $invoice->user->postal_code ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticCity" class="col-sm-2 col-form-label">Ciudad</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($invoice->user->city) ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticDni" class="col-sm-2 col-form-label">DNI / CUIT</label>
-            <div class="col-sm-10">
-                @if (isset($invoice->user->dni) && isset($invoice->user->cuit))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="{{ $invoice->user->dni }} / {{ $invoice->user->cuit }}">
-                @elseif (isset($invoice->user->dni))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="{{ $invoice->user->dni }} / No disponible">
-                @elseif (isset($invoice->user->cuit))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="No disponible / {{ $invoice->user->cuit }}">
-                @else
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="No disponible">
-                @endif
-            </div>
-        </div>
-        @else
-        <div class="form-group row">
-            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ ucfirst($invoice->type_invoice) }} eliminado">
-            </div>
-        </div>
-        @endif
 
         <hr>
 
@@ -125,11 +48,69 @@
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
             </div>
             <div class="form-group col-md-4">
-                <label for="staticProductQuantity">Importe</label>
-                <input type="text" readonly class="form-control" id="staticProductQuantity" value="${{ $product->pivot->total }}">
+                <label for="staticProductQuantity">Precio por unidad</label>
+                <input type="text" readonly class="form-control" id="staticProductQuantity" value="${{ number_format($product->pivot->price_unit) }}">
             </div>
             @endforeach
         </div>
+
+        <hr>
+
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Subtotal</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->subtotal) }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Seña</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->partial_payment) }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Comisión</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->commission) }} ({{ $invoice->commission_percentage }} %)">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Importe final</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->total) }}">
+            </div>
+        </div>
+
+        <hr>
+
+        <h4>
+            <strong>Datos del {{ $invoice->type_invoice }}</strong>
+        </h4>
+        @if ($invoice->user)
+        <div class="form-group row">
+            <label for="user" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="user" value="{{ ucwords($invoice->user->name) }} {{ ucwords($invoice->user->lastname) }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="user" class="col-sm-2 col-form-label">Más información sobre el {{ $invoice->type_invoice }}</label>
+            <div class="col-sm-10">
+                <a class="form-control-plaintext" href="{{ route('usuarios.show', $invoice->user->id) }}">
+                    <i class="fas fa-user"></i>
+                    Ver más
+                </a>
+            </div>
+        </div>
+        @else
+        <div class="form-group row">
+            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticName" value="Comprador eliminado">
+            </div>
+        </div>
+        @endif
 
         <hr>
 

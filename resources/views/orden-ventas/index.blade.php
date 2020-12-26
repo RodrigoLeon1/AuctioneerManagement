@@ -35,6 +35,7 @@
                         <th>Fecha</th>
                         <th>Remito</th>
                         <th>Número de orden</th>
+                        <th>Mercadería</th>
                         <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>
@@ -44,6 +45,7 @@
                         <th>Fecha</th>
                         <th>Remito</th>
                         <th>Número de orden</th>
+                        <th>Mercadería</th>
                         <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>
@@ -55,7 +57,16 @@
                         <td> {{ $order->remito }} </td>
                         <td> {{ $order->order_number }} </td>
                         <td>
-                            {{ $order->user ? $order->user->name . $order->user->lastname : 'Remitente eliminado' }}
+                            <ul>
+                                @foreach ($order->products as $product)
+                                <li>
+                                    {{ $product->description }} ( {{ $product->pivot->quantity}} unidades )
+                                </li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            {{ $order->user ? ucwords($order->user->name . ' ' . $order->user->lastname) : 'Remitente eliminado' }}
                         </td>
                         <td>
                             <a href="{{ route('orden-ventas.show', $order->id) }}" class="btn btn-info btn-circle">

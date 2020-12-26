@@ -63,32 +63,32 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Precio por unidad</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->price_unit }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->price_unit) }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Importe</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->partial_total }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->partial_total) }}">
             </div>
         </div>
         <hr>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Comisión</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->commission_value }} ({{ $invoice->commission_percentage }}%)">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->commission_value) }} ({{ $invoice->commission_percentage }}%)">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Seña</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->partial_payment }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->partial_payment) }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Importe total</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ $invoice->total }}">
+                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->total) }}">
             </div>
         </div>
 
@@ -100,7 +100,7 @@
         <div class="form-group row">
             <label for="user" class="col-sm-2 col-form-label">Nombre completo</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="user" value="{{ $invoice->user->name }} {{ $invoice->user->lastname }}">
+                <input type="text" readonly class="form-control-plaintext" id="user" value="{{ ucwords($invoice->user->name) }} {{ ucwords($invoice->user->lastname) }}">
             </div>
         </div>
         <div class="form-group row">

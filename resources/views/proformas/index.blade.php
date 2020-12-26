@@ -62,7 +62,7 @@
                     @forelse($invoices as $invoice)
                     <tr>
                         <td>{{ date('d/m/Y', strtotime($invoice->date_remate)) }}</td>
-                        <td> ${{ $invoice->total }}</td>
+                        <td> ${{ number_format($invoice->total) }}</td>
                         <td>{{ $invoice->product->description }}</td>
                         <td>{{ $invoice->quantity }}</td>
                         <td>

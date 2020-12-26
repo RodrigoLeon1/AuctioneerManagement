@@ -51,13 +51,14 @@
                             <div class="card-body">
                                 <ul>
                                     <li>
-                                        <strong>Fecha:</strong> {{ $order->date_set }}
+                                        <strong>Fecha:</strong> {{ date("d/m/Y", strtotime($order->date_set)) }}
                                     </li>
                                     <li>
                                         <strong>Remito:</strong> {{ $order->remito }}
                                     </li>
                                     <li>
-                                        <strong>Remitente:</strong> {{ $order->user->name }} {{ $order->user->lastname }}
+                                        <strong>Remitente:</strong>
+                                        {{ $order->user ? ucwords($order->user->name . ' ' . $order->user->lastname) : 'Comprador eliminado' }}
                                     </li>
                                     <li>
                                         <strong>Más información:</strong>

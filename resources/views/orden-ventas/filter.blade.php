@@ -69,10 +69,12 @@
                         <tbody>
                             @foreach ($orders as $order)
                             <tr>
-                                <td> {{ $order->date_set }} </td>
+                                <td> {{ date("d/m/Y", strtotime($order->date_set)) }}</td>
                                 <td> {{ $order->remito }} </td>
                                 <td> {{ $order->order_number }} </td>
-                                <td> {{ $order->user->name }} {{ $order->user->lastname }} </td>
+                                <td>
+                                    {{ $order->user ? ucwords($order->user->name . ' ' . $order->user->lastname) : 'Remitente eliminado' }}
+                                </td>
                                 <td>
                                     <a href="{{ route('orden-ventas.show', $order->id) }}" class="btn btn-info btn-circle">
                                         <i class="fas fa-info-circle"></i>

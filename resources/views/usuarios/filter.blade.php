@@ -130,10 +130,10 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td> {{ $user->name }} {{ $user->lastname }} </td>
+                        <td> {{ ucwords($user->name) }} {{ ucwords($user->lastname) }} </td>
                         <td> {{ $user->email }} </td>
-                        <td> {{ $user->address }} </td>
-                        <td> {{ $user->city }} </td>
+                        <td> {{ ucfirst($user->address) }} </td>
+                        <td> {{ ucfirst($user->city) }} </td>
                         <td> {{ $user->phone }} </td>
                         <td> {{ $user->dni }} </td>
                         <td>

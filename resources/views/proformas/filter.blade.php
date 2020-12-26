@@ -69,10 +69,12 @@
                         <tbody>
                             @foreach ($invoices as $invoice)
                             <tr>
-                                <td>{{ $invoice->date_remate }}</td>
-                                <td>{{ $invoice->total }}</td>
+                                <td> {{ date("d/m/Y", strtotime($invoice->date_remate)) }}</td>
+                                <td>${{ number_format($invoice->total) }}</td>
                                 <td>{{ $invoice->product->description }}</td>
-                                <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
+                                <td>
+                                    {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Comprador eliminado' }}
+                                </td>
                                 <td>
                                     <a href="{{ route('proformas.show', $invoice->id) }}" class="btn btn-info btn-circle">
                                         <i class="fas fa-info-circle"></i>

@@ -47,71 +47,6 @@
         <hr>
 
         <h4>
-            <strong>Datos del remitente</strong>
-        </h4>
-        @if ($order->user)
-        <div class="form-group row">
-            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ ucfirst($order->user->name) }} {{ ucfirst($order->user->lastname) }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticPhone" class="col-sm-2 col-form-label">Teléfono</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="{{ $order->user->phone ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticCity" class="col-sm-2 col-form-label">Ciudad</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCity" value="{{ ucfirst($order->user->city) ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticCp" class="col-sm-2 col-form-label">Código postal</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticCp" value="{{ $order->user->postal_code ?? 'No disponible' }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticAddress" class="col-sm-2 col-form-label">Domicilio</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticAddress" value="{{ ucfirst($order->user->address) }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticDni" class="col-sm-2 col-form-label">DNI / CUIT</label>
-            <div class="col-sm-10">
-                @if (isset($order->user->dni) && isset($order->user->cuit))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="{{ $order->user->dni }} / {{ $order->user->cuit }}">
-                @elseif (isset($order->user->dni))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="{{ $order->user->dni }} / No disponible">
-                @elseif (isset($order->user->cuit))
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="No disponible / {{ $order->user->cuit }}">
-                @else
-                <input type="text" readonly class="form-control-plaintext" id="staticDni" value="No disponible">
-                @endif
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ $order->user->email ?? 'No disponible' }}">
-            </div>
-        </div>
-        @else
-        <div class="form-group row">
-            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticName" value="Remitente eliminado">
-            </div>
-        </div>
-        @endif
-
-        <hr>
-
-        <h4>
             <strong>Mercadería</strong>
         </h4>
         <div class="form-row">
@@ -142,6 +77,36 @@
             </div>
             @endforeach
         </div>
+
+        <hr>
+
+        <h4>
+            <strong>Datos del remitente</strong>
+        </h4>
+        @if ($order->user)
+        <div class="form-group row">
+            <label for="user" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="user" value="{{ ucwords($order->user->name) }} {{ ucwords($order->user->lastname) }}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="user" class="col-sm-2 col-form-label">Más información sobre el remitente</label>
+            <div class="col-sm-10">
+                <a class="form-control-plaintext" href="{{ route('usuarios.show', $order->user->id) }}">
+                    <i class="fas fa-user"></i>
+                    Ver más
+                </a>
+            </div>
+        </div>
+        @else
+        <div class="form-group row">
+            <label for="staticName" class="col-sm-2 col-form-label">Nombre completo</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticName" value="Comprador eliminado">
+            </div>
+        </div>
+        @endif
 
         <hr>
 

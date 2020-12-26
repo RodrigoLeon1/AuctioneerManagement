@@ -86,7 +86,7 @@
                                     @forelse ($usersDeleted as $user)
                                     <tr>
                                         <td> {{ date('d/m/Y', strtotime($user->deleted_at)) }} </td>
-                                        <td> {{ $user->name }} {{ $user->lastname }} </td>
+                                        <td> {{ ucwords($user->name) }} {{ ucwords($user->lastname) }} </td>
                                         <td> {{ $user->phone }} </td>
                                         <td> {{ $user->dni }} </td>
                                         <td>
@@ -137,9 +137,9 @@
                 <tbody>
                     @forelse ($users as $user)
                     <tr>
-                        <td> {{ $user->name }} {{ $user->lastname }} </td>
-                        <td> {{ $user->address }} </td>
-                        <td> {{ $user->city }} </td>
+                        <td> {{ ucwords($user->name) }} {{ ucwords($user->lastname) }} </td>
+                        <td> {{ ucfirst($user->address) }} </td>
+                        <td> {{ ucfirst($user->city) }} </td>
                         <td> {{ $user->phone }} </td>
                         <td> {{ $user->dni }} </td>
                         <td>

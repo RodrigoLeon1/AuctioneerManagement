@@ -58,7 +58,7 @@
                         <td>
                             {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Usuario eliminado' }}
                         </td>
-                        <td>${{ $invoice->total }}</td>
+                        <td>${{ number_format($invoice->total) }}</td>
                         <td>
                             <ul>
                                 @foreach ($invoice->products as $product)

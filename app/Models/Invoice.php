@@ -13,6 +13,8 @@ class Invoice extends Model
         'type_invoice',
         'partial_payment',
         'commission',
+        'commission_percentage',
+        'subtotal',
         'total',
         'user_id',
     ];
@@ -24,7 +26,6 @@ class Invoice extends Model
 
     public function products()
     {
-        // return $this->belongsToMany('App\Models\Product');
         return $this->belongsToMany('App\Models\Product')
             ->withPivot('quantity', 'price_unit', 'total')
             ->withTimestamps();

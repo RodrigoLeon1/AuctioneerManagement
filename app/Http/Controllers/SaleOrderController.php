@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSaleOrderRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SaleOrder;
@@ -16,15 +15,13 @@ class SaleOrderController extends Controller
 {
 
     /**               
-     * 
      *  - PDFS fix...    
-     *  - Update email view
-     * 
+     *  - Error on saleorder with dinamic products when an error exists
      */
 
     public function index()
     {
-        $orders = SaleOrder::paginate('10');
+        $orders = SaleOrder::orderBy('id', 'desc')->paginate('10');
         return view('orden-ventas.index', compact('orders'));
     }
 
@@ -35,13 +32,14 @@ class SaleOrderController extends Controller
         return view('orden-ventas.create', compact('categories', 'lastOrder'));
     }
 
-    public function store(StoreSaleOrderRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
 
-        try {
+        $user = User::find($request->input('id-user'));
+        $this->validateSaleOrder($request, $user);
 
-            $user = User::findOrFail($request->input('id-user'));
+        try {
 
             // Refactor...
             if ($user === null) {
@@ -94,6 +92,43 @@ class SaleOrderController extends Controller
         return redirect()
             ->route('orden-ventas.index')
             ->with('success-store', 'Su orden de venta ha sido creada de manera exitosa.');
+    }
+
+    private function validateSaleOrder(Request $request, $user)
+    {
+        if ($user) {
+            $request->validate([
+                'date_set' => 'required|date|after_or_equal:start_date',
+                'date_payment' => 'required|date|after_or_equal:start_date',
+                'remito' => 'required|integer',
+                'order_number' => 'required|integer|unique:sale_orders,order_number',
+                'name' => 'required|string',
+                'lastname' => 'required|string',
+                'email' => 'nullable|email|unique:users,email,' . $user->id,
+                'address' => 'nullable|string',
+                'postal_code' => 'nullable|string',
+                'city' => 'nullable|string',
+                'phone' => 'nullable|string|unique:users,phone,' . $user->id,
+                'dni' => 'required|string|unique:users,dni,' . $user->id,
+                'cuit' => 'nullable|string|unique:users,cuit,' . $user->id,
+            ]);
+        } else {
+            $request->validate([
+                'date_set' => 'required|date|after_or_equal:start_date',
+                'date_payment' => 'required|date|after_or_equal:start_date',
+                'remito' => 'required|integer',
+                'order_number' => 'required|integer|unique:sale_orders,order_number',
+                'name' => 'required|string',
+                'lastname' => 'required|string',
+                'email' => 'nullable|email|unique:users,email',
+                'address' => 'nullable|string',
+                'postal_code' => 'nullable|string',
+                'city' => 'nullable|string',
+                'phone' => 'nullable|string|unique:users,phone',
+                'dni' => 'required|string|unique:users,dni',
+                'cuit' => 'nullable|string|unique:users,cuit'
+            ]);
+        }
     }
 
     public function show($id)

@@ -16,7 +16,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::paginate('10');
+        $invoices = Invoice::orderBy('id', 'desc')->paginate('10');
         return view('liquidaciones.index', compact('invoices'));
     }
 
@@ -62,19 +62,15 @@ class InvoiceController extends Controller
 
         try {
 
-            $user = User::findOrFail($request->input('user-id'));
+            $user = User::findOrFail($request->input('user_id'));
+            $commissionPercentage = $request->input('commission_percentage') ? $request->input('commission_percentage') : 0;
+            $partialPayment = $request->input('partial_payment');
+            $subtotal = 0;
             $priceTotal = 0;
-
-            // Get user role
-            if ($user->isRemitente()) {
-                $role = 'remitente';    // Commission 10%                
-            } else {
-                $role = 'cliente';      // Commission 20%                
-            }
 
             // Create the invoice
             $invoice = Invoice::create([
-                'type_invoice' => $role,
+                'type_invoice' => 'cliente',
                 'user_id' => $user->id
             ]);
 
@@ -83,11 +79,13 @@ class InvoiceController extends Controller
 
                 $proforma = InvoiceProforma::findOrFail($request->input('proformasIds')[$i]);
                 $product = Product::findOrFail($request->input('productsIds')[$i]);
+                $productQuantity = $request->input('productsQuantities')[$i];
+                $subtotal += ($productQuantity * $proforma->price_unit);
 
                 $invoice->products()->attach($invoice->id, [
-                    'quantity' => $request->input('productsQuantities')[$i],
+                    'quantity' => $productQuantity,
                     'price_unit' => $proforma->price_unit,
-                    'total' => $proforma->total,
+                    'total' => $productQuantity * $proforma->price_unit,
                     'product_id' => $product->id,
                     'invoice_id' => $invoice->id
                 ]);
@@ -99,15 +97,18 @@ class InvoiceController extends Controller
                         'is_invoiced' => true
                     ]);
 
-                $priceTotal += $proforma->total;
+                $priceTotal += $proforma->partial_total;
             }
 
-            $commission = ($role == 'remitente') ? ($priceTotal * 0.1) : ($priceTotal * 0.2);
+            $commission = ($priceTotal * ($commissionPercentage / 100));
 
             Invoice::where('id', $invoice->id)
                 ->update([
                     'commission' => $commission,
-                    'total' => $priceTotal + $commission
+                    'commission_percentage' => $commissionPercentage,
+                    'partial_payment' => $partialPayment,
+                    'subtotal' => $subtotal,
+                    'total' => $priceTotal + $commission - $partialPayment
                 ]);
 
             DB::commit();

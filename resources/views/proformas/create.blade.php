@@ -105,8 +105,8 @@ $quantity = $order->pivot->quantity;
                             <label for="commission_percentage">Comisión en porcentaje</label>
                             <input type="number" class="form-control {{ $errors->has('commission_percentage') ? 'is-invalid' : '' }}" id="commission_percentage" name="commission_percentage" value="{{ old('commission_percentage') }}" min="1" max="100">
                             <small class="form-text text-muted">
-                                El importe de la <strong>comisión</strong> sera $<strong id="commission_str">0</strong>.
-                                <input type="hidden" id="commission_value" name="commission_value">
+                                El importe de la <strong>comisión</strong> sera $<strong id="commission_str">{{ old('commission_value', 0) }}</strong>.
+                                <input type="hidden" id="commission_value" name="commission_value" value="{{ old('commission_value') }}">
                             </small>
                         </div>
                     </div>
@@ -224,14 +224,21 @@ $quantity = $order->pivot->quantity;
         if (confirm('Desea resetear los campos?')) {
             document.getElementById('id-user').value = ''
             document.getElementById('name').value = ''
+            document.getElementById('name').readOnly = false;
             document.getElementById('lastname').value = ''
+            document.getElementById('lastname').readOnly = false;
             document.getElementById('phone').value = ''
+            document.getElementById('phone').readOnly = false;
             document.getElementById('city').value = ''
+            document.getElementById('city').readOnly = false;
             document.getElementById('postal_code').value = ''
+            document.getElementById('postal_code').readOnly = false;
             document.getElementById('address').value = ''
+            document.getElementById('address').readOnly = false;
             document.getElementById('dni').value = ''
-            document.getElementById('name').value = ''
+            document.getElementById('dni').readOnly = false;
             document.getElementById('cuit').value = ''
+            document.getElementById('cuit').readOnly = false;
         }
     }
 
@@ -270,6 +277,15 @@ $quantity = $order->pivot->quantity;
                 $('#phone').val(ui.item.phone)
                 $('#dni').val(ui.item.dni)
                 $('#cuit').val(ui.item.cuit)
+                //
+                document.getElementById('name').readOnly = true;
+                document.getElementById('lastname').readOnly = true;
+                document.getElementById('phone').readOnly = true;
+                document.getElementById('city').readOnly = true;
+                document.getElementById('postal_code').readOnly = true;
+                document.getElementById('address').readOnly = true;
+                document.getElementById('dni').readOnly = true;
+                document.getElementById('cuit').readOnly = true;
             }
         })
     })

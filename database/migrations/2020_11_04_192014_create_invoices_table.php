@@ -13,7 +13,9 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->enum('type_invoice', ['cliente', 'remitente']);
             $table->integer('commission')->default(0);
+            $table->integer('commission_percentage');
             $table->float('partial_payment')->default(0);
+            $table->float('subtotal')->default(0);
             $table->float('total')->default(0);
 
             $table->foreignId('user_id')

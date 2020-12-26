@@ -153,12 +153,13 @@ return [
         'name' => 'nombre',
         'lastname' => 'apellido',
         'date_remate' => 'fecha de remate',
-        'date_remate_delivery' => 'fecha de entrega',
+        'date_delivery' => 'fecha de entrega',
         'quantity' => 'cantidad',
         'price_unit' => 'precio por unidad',
         'partial_total' => 'importe',
         'total' => 'importe total',
-
+        'commission_percentage' => 'comisión en porcentaje',
+        'commission_value' => 'importe de la comisión',
     ],
 
 ];

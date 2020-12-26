@@ -22,13 +22,13 @@
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Nombre</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="name" value="{{ $user->name }}">
+                <input type="text" readonly class="form-control-plaintext" id="name" value="{{ ucwords($user->name) }}">
             </div>
         </div>
         <div class="form-group row">
             <label for="lastname" class="col-sm-2 col-form-label">Apellido</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="lastname" value="{{ $user->lastname }}">
+                <input type="text" readonly class="form-control-plaintext" id="lastname" value="{{ ucwords($user->lastname) }}">
             </div>
         </div>
         <div class="form-group row">
@@ -40,7 +40,7 @@
         <div class="form-group row">
             <label for="city" class="col-sm-2 col-form-label">Ciudad</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="city" value="{{ $user->city }}">
+                <input type="text" readonly class="form-control-plaintext" id="city" value="{{ ucfirst($user->city) }}">
             </div>
         </div>
         <div class="form-group row">
@@ -52,7 +52,7 @@
         <div class="form-group row">
             <label for="address" class="col-sm-2 col-form-label">Domicilio</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="address" value="{{ $user->address }}">
+                <input type="text" readonly class="form-control-plaintext" id="address" value="{{ ucfirst($user->address) }}">
             </div>
         </div>
         <div class="form-group row">
