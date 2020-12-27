@@ -14,11 +14,6 @@ use PDF;
 class SaleOrderController extends Controller
 {
 
-    /**               
-     *  - PDFS fix...    
-     *  - Error on saleorder with dinamic products when an error exists
-     */
-
     public function index()
     {
         $orders = SaleOrder::orderBy('id', 'desc')->paginate('10');
@@ -65,20 +60,21 @@ class SaleOrderController extends Controller
 
             // Create and save each product of sale order
             for ($i = 0; $i < sizeof($request->input('productDescription')); $i++) {
+                if ($request->input('productDescription')[$i] != null) {
+                    $product = Product::create([
+                        'description' => $request->input('productDescription')[$i]
+                    ]);
 
-                $product = Product::create([
-                    'description' => $request->input('productDescription')[$i]
-                ]);
+                    $product->categories()->attach($request->input('productCategory')[$i]);
 
-                $product->categories()->attach($request->input('productCategory')[$i]);
-
-                $order->products()->attach($order->id, [
-                    'product_id' => $product->id,
-                    'quantity' => $request->input('productQuantity')[$i],
-                    'quantity_sold' => 0,
-                    'quantity_remaining' => $request->input('productQuantity')[$i],
-                    'quantity_tags' => $request->input('productTags')[$i]
-                ]);
+                    $order->products()->attach($order->id, [
+                        'product_id' => $product->id,
+                        'quantity' => $request->input('productQuantity')[$i],
+                        'quantity_sold' => 0,
+                        'quantity_remaining' => $request->input('productQuantity')[$i],
+                        'quantity_tags' => $request->input('productTags')[$i]
+                    ]);
+                }
             }
 
             DB::commit();
