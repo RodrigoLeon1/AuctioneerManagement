@@ -57,12 +57,14 @@ class ProductController extends Controller
         $products = [];
         $categories = Category::all();
 
-        if ($request->input('description') && $request->input('category')) {
-            $products = Product::has('categories', '=', $request->input('category'))
-                ->where('description', 'like', '%' . $request->input('description') . '%')
-                ->get();
-        } else {
-            $products = Product::has('categories', '=', $request->input('category'))->get();
+        if ($request->has('type_search')) {
+            if ($request->input('type_search') == 'code') {
+                $products = Product::where('id', $request->input('search'))->get();
+            } else if ($request->input('type_search') == 'description') {
+                $products = Product::where('description', $request->input('search'))->get();
+            } else if ($request->input('type_search') == 'category') {
+                $products = Product::has('categories', '=', $request->input('category'))->get();
+            }
         }
 
         return view('productos.filter', compact(['products', 'categories']));

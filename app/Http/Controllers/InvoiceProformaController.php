@@ -28,17 +28,33 @@ class InvoiceProformaController extends Controller
 
     public function create(Request $request)
     {
-        $order = SaleOrder::find($request->input('orden'));
-        $product = Product::find($request->input('mercaderia'));
+        if ($request->input('product-code') != null) {
 
-        if ($order === null || $product === null) {
-            return redirect()
-                ->route('proformas.pre-create')
-                ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
-        }
+            $product = Product::find($request->input('product-code'));
+            $order = $product->saleorder();
 
-        if ($product->saleorder[0]->pivot->quantity_remaining == 0) {
-            return redirect()->route('proformas.pre-create');
+            if ($order === null || $product === null) {
+                return redirect()
+                    ->route('proformas.pre-create')
+                    ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+            }
+
+            if ($product->saleorder[0]->pivot->quantity_remaining == 0) {
+                return redirect()->route('proformas.pre-create');
+            }
+        } else {
+            $order = SaleOrder::find($request->input('orden'));
+            $product = Product::find($request->input('mercaderia'));
+
+            if ($order === null || $product === null) {
+                return redirect()
+                    ->route('proformas.pre-create')
+                    ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+            }
+
+            if ($product->saleorder[0]->pivot->quantity_remaining == 0) {
+                return redirect()->route('proformas.pre-create');
+            }
         }
 
         return view('proformas.create', compact(['order', 'product']));

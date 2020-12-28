@@ -1,3 +1,20 @@
+<script>
+    function show_category() {
+        document.getElementById('category-search').style.display = "flex";
+        document.getElementById('cd-search').style.display = "none";
+    }
+
+    function show_description() {
+        document.getElementById('category-search').style.display = "none";
+        document.getElementById('cd-search').style.display = "flex";
+    }
+
+    function show_code() {
+        document.getElementById('category-search').style.display = "none";
+        document.getElementById('cd-search').style.display = "flex";
+    }
+</script>
+
 @extends('layouts.app')
 
 @section('title', ' - Filtrar mercaderías')
@@ -21,23 +38,54 @@
 
                 <form class="mb-5" action="{{ route('productos.filter') }}" autocomplete="off">
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="description">Descripción</label>
-                            <input type="text" class="form-control" id="description" name="description">
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-name" type="radio" name="type_search" id="type_search" value="code" onclick="show_code();">
+                                <label class="form-check-label" for="type_search">
+                                    Codigo
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="category">Categoría</label>
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search2" value="description" onclick="show_description();">
+                                <label class="form-check-label" for="type_search2">
+                                    Descripcion
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search3" value="category" onclick="show_category();">
+                                <label class="form-check-label" for="type_search3">
+                                    Categoria
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-md-center" id="cd-search" style="display:none;">
+                        <div class="form-group col-md-4 mt-5">
+                            <input type="search" class="form-control" id="search" name="search">
+                        </div>
+                        <div class="form-group col-md-2 mt-5">
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Filtrar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group justify-content-md-center" id="category-search" style="display:none;">
+                        <div class="form-group col-md-4 mt-5">
                             <select class="form-control" name="category" id="category">
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"> {{ $category->description }} </option>
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group col-md-2 mt-5">
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Filtrar</button>
+                        </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary mt-3"> <i class="fas fa-search"></i> Filtrar</button>
-
                 </form>
 
                 @if (count($products) > 0)
@@ -52,6 +100,7 @@
                         <thead>
                             <tr>
                                 <th>Fecha de creación</th>
+                                <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Categoría</th>
                                 <th>Acciones</th>
@@ -60,6 +109,7 @@
                         <tfoot>
                             <tr>
                                 <th>Fecha de creación</th>
+                                <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Categoría</th>
                                 <th>Acciones</th>
@@ -69,6 +119,7 @@
                             @foreach ($products as $product)
                             <tr>
                                 <td> {{ date("d/m/Y", strtotime($product->created_at)) }}</td>
+                                <td> {{ $product->id }} </td>
                                 <td> {{ $product->description }} </td>
                                 <td>
                                     @foreach ($product->categories as $category)

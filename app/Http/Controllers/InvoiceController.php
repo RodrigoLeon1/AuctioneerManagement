@@ -22,19 +22,43 @@ class InvoiceController extends Controller
 
     public function preCreate()
     {
-        return view('liquidaciones.pre-create');
+        $user = [];
+        return view('liquidaciones.pre-create', compact('user'));
     }
 
     public function create(Request $request)
     {
-        if (!$request->input('type_search') || !$request->input('search')) {
-            return redirect()->back();
-        }
+        if ($request->input('user_id') != null) {
+            $user = User::where('id', $request->input('user_id'))->first();
+        } else {
 
-        if ($_GET['type_search'] == 'dni') {
-            $user = User::where('dni', $_GET['search'])->first();
-        } else if ($_GET['type_search'] == 'cuit') {
-            $user = User::where('cuit', $_GET['search'])->first();
+            if (!$request->input('type_search')) {
+                return redirect()->back();
+            }
+
+            if ($request->has('type_search')) {
+                if ($request->input('type_search') == 'name') {
+                    if ($request->input('name') !== null xor $request->input('lastname') !== null) {
+                        $user = User::where('name', $request->input('name'))
+                            ->orWhere('lastname', $request->input('lastname'))
+                            ->get();
+                    } elseif ($request->input('name') && $request->input('lastname')) {
+                        $user = User::where('name', $request->input('name'))
+                            ->where('lastname', $request->input('lastname'))
+                            ->first();
+                    }
+                } else if ($request->input('type_search') == 'dni') {
+                    $user = User::where('dni', $request->input('search'))->first();
+                } else if ($request->input('type_search') == 'cuit') {
+                    $user = User::where('cuit', $request->input('search'))->first();
+                }
+            }
+            if (get_class($user) != "App\Models\User") {
+
+                return redirect()
+                    ->back()
+                    ->with(['user' => $user]);
+            }
         }
 
         if ($user == null) {

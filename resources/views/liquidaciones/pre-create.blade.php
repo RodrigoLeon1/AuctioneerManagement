@@ -1,3 +1,20 @@
+<script>
+    function show_name() {
+        document.getElementById('name-search').style.display = "flex";
+        document.getElementById('dc-search').style.display = "none";
+    }
+
+    function show_dni() {
+        document.getElementById('name-search').style.display = "none";
+        document.getElementById('dc-search').style.display = "flex";
+    }
+
+    function show_cuit() {
+        document.getElementById('name-search').style.display = "none";
+        document.getElementById('dc-search').style.display = "flex";
+    }
+</script>
+
 @extends('layouts.app')
 
 @section('title', ' - Filtrar liquidaciones')
@@ -39,6 +56,14 @@
                     <div class="form-row justify-content-center">
                         <div class=" col-md-2">
                             <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-name" type="radio" name="type_search" id="type_search" value="name" onclick="show_name();">
+                                <label class="form-check-label" for="type_search">
+                                    Nombre
+                                </label>
+                            </div>
+                        </div>
+                        <div class=" col-md-2">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-dni" id="type_search_dni" type="radio" name="type_search" id="type_search" value="dni" onclick="show_dni();">
                                 <label class="form-check-label" for="type_search_dni">
                                     DNI
@@ -64,12 +89,83 @@
                             <button class="btn btn-primary form-control" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
+
+                    <div class="form-row" id="name-search" style="display:none; margin-top: 2rem;">
+                        <div class="form-group col-md-6">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Apellido</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3"> <i class="fas fa-search"></i> Filtrar</button>
+                    </div>
                 </form>
             </div>
 
         </div>
     </div>
 </div>
+
+@php $user = Session::get('user'); @endphp
+
+@if ( $user != null)
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            Hay mas de un resultado para su busqueda. Seleccione el indicado.
+        </h6>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <th>Email</th>
+                        <th>Domicilio</th>
+                        <th>Ciudad</th>
+                        <th>Teléfono</th>
+                        <th>DNI</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <th>Email</th>
+                        <th>Domicilio</th>
+                        <th>Ciudad</th>
+                        <th>Teléfono</th>
+                        <th>DNI</th>
+                        <th>Acciones</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach ($user as $us)
+                    <tr>
+                        <td> {{ $us->name }} {{ $us->lastname }} </td>
+                        <td> {{ $us->email }} </td>
+                        <td> {{ $us->address }} </td>
+                        <td> {{ $us->city }} </td>
+                        <td> {{ $us->phone }} </td>
+                        <td> {{ $us->dni }} </td>
+                        <td>
+                            <a href="{{ route('liquidaciones.create', ['user_id' => $us->id]) }}" class="btn btn-success btn-circle">
+                                <i class="fas fa-check"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
 
 
 <style>

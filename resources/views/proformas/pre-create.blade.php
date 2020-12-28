@@ -25,6 +25,23 @@
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
+                    A continuación podrá ingresar el codigo del producto para filtrarlo y realizar la proforma del mismo.
+                </h6>
+            </div>
+
+            <form method="POST" action="proformas.create">
+                <div class="form-row justify-content-center" style="margin-bottom: 2rem;">
+                    <div class="form-group col-md-2 mt-5">
+                        <input type="number" class="form-control" id="product-code" name="product-code">
+                    </div>
+                    <div class="form-group col-md-2 mt-5">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">
                     A continuación podrá observar aquellas órdenes de venta, que tienen mercadería disponible para vender
                 </h6>
             </div>
