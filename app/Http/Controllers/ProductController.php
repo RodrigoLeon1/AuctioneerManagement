@@ -63,7 +63,8 @@ class ProductController extends Controller
             } else if ($request->input('type_search') == 'description') {
                 $products = Product::where('description', $request->input('search'))->get();
             } else if ($request->input('type_search') == 'category') {
-                $products = Product::has('categories', '=', $request->input('category'))->get();
+                $cat = Category::where('id', $request->input('category'))->first();
+                $products = $cat->products;
             }
         }
 
