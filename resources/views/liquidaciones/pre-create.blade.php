@@ -17,11 +17,11 @@
 
 @extends('layouts.app')
 
-@section('title', ' - Filtrar liquidaciones')
+@section('title', ' - Crear liquidación')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Crear liquidación</h1>
+    <h1 class="h3 mb-0 text-gray-800">Crear liquidación - {{ ucfirst($tu) }}</h1>
 </div>
 
 @if (session('success-store'))
@@ -43,7 +43,6 @@
 <div class="row">
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
-            <h1>{{$tu}}</h1>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación</h6>
             </div>
@@ -122,7 +121,6 @@
                 <thead>
                     <tr>
                         <th>Nombre completo</th>
-                        <th>Email</th>
                         <th>Domicilio</th>
                         <th>Ciudad</th>
                         <th>Teléfono</th>
@@ -133,7 +131,6 @@
                 <tfoot>
                     <tr>
                         <th>Nombre completo</th>
-                        <th>Email</th>
                         <th>Domicilio</th>
                         <th>Ciudad</th>
                         <th>Teléfono</th>
@@ -145,7 +142,6 @@
                     @foreach ($user as $us)
                     <tr>
                         <td> {{ $us->name }} {{ $us->lastname }} </td>
-                        <td> {{ $us->email }} </td>
                         <td> {{ $us->address }} </td>
                         <td> {{ $us->city }} </td>
                         <td> {{ $us->phone }} </td>
@@ -163,7 +159,6 @@
     </div>
 </div>
 @endif
-
 
 <style>
     [data-role="dynamic-fields"]>.form-dinamic+.form-dinamic {

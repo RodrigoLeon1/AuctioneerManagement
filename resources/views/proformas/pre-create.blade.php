@@ -25,7 +25,7 @@
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    A continuación podrá ingresar el codigo del producto para filtrarlo y realizar la proforma del mismo.
+                    A continuación podrá ingresar el código del producto para filtrar y realizar la proforma del mismo.
                 </h6>
             </div>
 

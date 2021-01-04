@@ -32,7 +32,6 @@ class InvoiceController extends Controller
         if ($request->input('user_id') != null) {
             $user = User::where('id', $request->input('user_id'))->first();
         } else {
-            
 
             if (!$request->input('type_search')) {
                 return redirect()->back();
@@ -56,7 +55,6 @@ class InvoiceController extends Controller
                 }
             }
             if (get_class($user) != "App\Models\User") {
-
                 return redirect()
                     ->back()
                     ->with(['user' => $user], ['tu' => $request->input('tu')]);
@@ -68,36 +66,31 @@ class InvoiceController extends Controller
                 ->back()
                 ->with('error-search', 'El DNI/CUIT ingresado no se encuentra asociado a un usuario. Vuelva a intentar.');
         }
-        
-        if($request->input('tu') == 'cliente'){
-            
+
+        if ($request->input('tu') == 'cliente') {
             $proformas = InvoiceProforma::where('user_id', $user->id)
-            ->where('is_invoiced', false)
-            ->get();
-        }else{
-            
-            $so = SaleOrder::where('user_id', $user->id)
-            ->get();
-
-
-            foreach($so as $s){
-
-                $prfs = InvoiceProforma::where('sale_order_id', $s->id)
-                ->where('is_invoiced', true)
+                ->where('is_invoiced', false)
                 ->get();
+        } else {
+
+            $so = SaleOrder::where('user_id', $user->id)
+                ->get();
+
+            foreach ($so as $s) {
+                $prfs = InvoiceProforma::where('sale_order_id', $s->id)
+                    ->where('is_invoiced', true)
+                    ->get();
             }
-            
-            
+
             $proformas = [];
             $invoices = [];
             if (sizeof($prfs) > 0) {
-                foreach($prfs as $proforma){
+                foreach ($prfs as $proforma) {
                     $pdt = Product::where('id', $proforma->product_id)->first();
-
-                    if(sizeof($pdt->invoices) < 2){
+                    if (sizeof($pdt->invoices) < 2) {
                         array_push($proformas, $proforma);
-                        foreach($pdt->invoices as $inv){
-                            array_push($invoices, $inv);  
+                        foreach ($pdt->invoices as $inv) {
+                            array_push($invoices, $inv);
                         }
                     }
                 }
@@ -116,11 +109,11 @@ class InvoiceController extends Controller
             }
 
             $tu = $request->input('tu');
-    
-            return view('liquidaciones.create', compact('user', 'proformas', 'invoices', 'tu'));
-            
 
+            return view('liquidaciones.create', compact('user', 'proformas', 'invoices', 'tu'));
         }
+
+        $tu = $request->input('tu');
 
         if (sizeof($proformas) == 0) {
             return redirect()
@@ -128,7 +121,7 @@ class InvoiceController extends Controller
                 ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
         }
 
-        return view('liquidaciones.create', compact('user', 'proformas'));
+        return view('liquidaciones.create', compact('user', 'proformas', 'tu'));
     }
 
     public function store(Request $request)

@@ -72,7 +72,6 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             @if ($tu == 'cliente')
-                                
                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -124,9 +123,7 @@
                                         @endforeach
                                 </tbody>
                             </table>
-
                             @else
-
                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -169,9 +166,7 @@
                                         @endforeach
                                 </tbody>
                             </table>
-                                
                             @endif
-                            
                         </div>
                     </div>
 
@@ -209,7 +204,6 @@
                                             </table>
                                         </div>
                                         @endif
-
                                         @if ($tu == 'cliente')
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
@@ -239,8 +233,6 @@
                                         </div>
                                         @else
                                         @foreach ($invoices as $invoice)
-                                            
-                                        @endforeach
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
@@ -263,8 +255,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        @endforeach
                                         @endif
-
                                     </div>
                                 </div>
                                 <input type="hidden" name="tu" value="{{$tu}}">

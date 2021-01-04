@@ -22,7 +22,7 @@ class InvoiceProformaController extends Controller
 
     public function preCreate()
     {
-        $orders = SaleOrder::paginate(5);
+        $orders = SaleOrder::orderBy('id', 'desc')->paginate(5);
         return view('proformas.pre-create', compact('orders'));
     }
 
@@ -32,15 +32,15 @@ class InvoiceProformaController extends Controller
         if ($request->input('product-code') != null) {
 
             $product = Product::find($request->input('product-code'));
-            $order = $product->saleorder();
-
-            if ($order === null || $product === null) {
+            if ($product === null) {
                 return redirect()
                     ->route('proformas.pre-create')
-                    ->with('error-store', 'Error inesperado! Ha ocurrido un error en la base de datos. Si el error persiste, consulte con los desarrolladores.');
+                    ->with('error-store', 'El código ingresado no se encuentra asociado a ningún producto, probablemente el código es erróneo. Vuelva a intentar.');
             }
 
-            if ($product->saleorder[0]->pivot->quantity_remaining == 0) {
+            $order = $product->saleorder();
+
+            if ($product->saleorder[0]->pivot->quantity_remaining == 0 || $order === null) {
                 return redirect()->route('proformas.pre-create');
             }
         } else {
