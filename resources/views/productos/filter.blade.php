@@ -39,7 +39,7 @@
                 <form class="mb-5" action="{{ route('productos.filter') }}" autocomplete="off">
 
                     <div class="form-row justify-content-center">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-name" type="radio" name="type_search" id="type_search" value="code" onclick="show_code();">
                                 <label class="form-check-label" for="type_search">

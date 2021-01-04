@@ -64,8 +64,8 @@
         <div id="collapseInvoices" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Seleccione su opción:</h6>
-                <a class="collapse-item" href="{{ route('liquidaciones.pre-create') }}">Crear liquidación cliente</a>
-                <a class="collapse-item" href="{{ route('liquidaciones.pre-create') }}">Crear liquidacion remitente</a>
+                <a class="collapse-item" href="{{ route('liquidaciones.pre-create', ['tu' => 'cliente']) }}">Crear liquidación cliente</a>
+                <a class="collapse-item" href="{{ route('liquidaciones.pre-create', ['tu' => 'remitente']) }}">Crear liquidacion remitente</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.index') }}">Listar liquidaciones</a>
                 <a class="collapse-item" href="">Filtrar liquidaciones</a>
             </div>

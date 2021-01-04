@@ -71,6 +71,8 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
+                            @if ($tu == 'cliente')
+                                
                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -122,6 +124,54 @@
                                         @endforeach
                                 </tbody>
                             </table>
+
+                            @else
+
+                            <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>Número de orden de venta</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio por unidad</th>
+                                        <th>Importe</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>Número de orden de venta</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio por unidad</th>
+                                        <th>Importe</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+
+                                    <div class="form-row">
+                                        <?php $i = 1; ?>
+                                        @foreach ($proformas as $proforma)
+                                        <tr>
+                                            <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
+                                            <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
+                                            <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
+
+                                            <td>{{ $proforma->product->id }}</td>
+                                            <td>{{ $proforma->product->description }}</td>
+                                            <td>{{ $proforma->saleorder->order_number }}</td>
+                                            <td>{{ $proforma->quantity }}</td>
+                                            <td>${{ number_format($proforma->price_unit) }}</td>
+                                            <td>${{ number_format($proforma->partial_total) }}</td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                        @endforeach
+                                </tbody>
+                            </table>
+                                
+                            @endif
+                            
                         </div>
                     </div>
 
@@ -139,6 +189,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="card-body">
+                                        @if($tu == 'cliente')
                                         <div class="table-responsive">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
@@ -157,6 +208,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        @endif
+
+                                        @if ($tu == 'cliente')
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
@@ -183,8 +237,37 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        @else
+                                        @foreach ($invoices as $invoice)
+                                            
+                                        @endforeach
+                                        <div class="table-responsive text-center">
+                                            <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Subtotal</th>
+                                                        <th>Comisión en porcentaje</th>
+                                                        <th>Comisión</th>
+                                                        <th>Seña</th>
+                                                        <th>Importe final</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{$invoice->subtotal}}</td>
+                                                        <td>{{$invoice->commission_percentage}}</td>
+                                                        <td>{{$invoice->commision}}</td>
+                                                        <td>{{$invoice->partial_payment}}</td>
+                                                        <td>{{$invoice->total}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        @endif
+
                                     </div>
                                 </div>
+                                <input type="hidden" name="tu" value="{{$tu}}">
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

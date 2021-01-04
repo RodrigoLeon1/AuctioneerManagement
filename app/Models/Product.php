@@ -26,4 +26,11 @@ class Product extends Model
             ->withPivot('quantity', 'quantity_sold', 'quantity_remaining', 'quantity_tags')
             ->withTimestamps();
     }
+
+    public function invoices()
+    {
+        return $this->belongsToMany('App\Models\Invoice')
+            ->withPivot('quantity', 'price_unit', 'total')
+            ->withTimestamps();
+    }
 }

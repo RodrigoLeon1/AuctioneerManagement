@@ -29,7 +29,7 @@
                 </h6>
             </div>
 
-            <form method="POST" action="proformas.create">
+            <form action="{{ route('proformas.create') }}" action="post">
                 <div class="form-row justify-content-center" style="margin-bottom: 2rem;">
                     <div class="form-group col-md-2 mt-5">
                         <input type="number" class="form-control" id="product-code" name="product-code">

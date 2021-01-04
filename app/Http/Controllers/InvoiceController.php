@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceProforma;
+use App\Models\SaleOrder;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
@@ -20,10 +21,10 @@ class InvoiceController extends Controller
         return view('liquidaciones.index', compact('invoices'));
     }
 
-    public function preCreate()
+    public function preCreate(Request $request)
     {
-        $user = [];
-        return view('liquidaciones.pre-create', compact('user'));
+        $tu = $request->input('tu');
+        return view('liquidaciones.pre-create', compact('tu'));
     }
 
     public function create(Request $request)
@@ -31,6 +32,7 @@ class InvoiceController extends Controller
         if ($request->input('user_id') != null) {
             $user = User::where('id', $request->input('user_id'))->first();
         } else {
+            
 
             if (!$request->input('type_search')) {
                 return redirect()->back();
@@ -57,7 +59,7 @@ class InvoiceController extends Controller
 
                 return redirect()
                     ->back()
-                    ->with(['user' => $user]);
+                    ->with(['user' => $user], ['tu' => $request->input('tu')]);
             }
         }
 
@@ -66,10 +68,59 @@ class InvoiceController extends Controller
                 ->back()
                 ->with('error-search', 'El DNI/CUIT ingresado no se encuentra asociado a un usuario. Vuelva a intentar.');
         }
-
-        $proformas = InvoiceProforma::where('user_id', $user->id)
+        
+        if($request->input('tu') == 'cliente'){
+            
+            $proformas = InvoiceProforma::where('user_id', $user->id)
             ->where('is_invoiced', false)
             ->get();
+        }else{
+            
+            $so = SaleOrder::where('user_id', $user->id)
+            ->get();
+
+
+            foreach($so as $s){
+
+                $prfs = InvoiceProforma::where('sale_order_id', $s->id)
+                ->where('is_invoiced', true)
+                ->get();
+            }
+            
+            
+            $proformas = [];
+            $invoices = [];
+            if (sizeof($prfs) > 0) {
+                foreach($prfs as $proforma){
+                    $pdt = Product::where('id', $proforma->product_id)->first();
+
+                    if(sizeof($pdt->invoices) < 2){
+                        array_push($proformas, $proforma);
+                        foreach($pdt->invoices as $inv){
+                            array_push($invoices, $inv);  
+                        }
+                    }
+                }
+            }
+
+            if (sizeof($invoices) == 0) {
+                return redirect()
+                    ->back()
+                    ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
+            }
+
+            if (sizeof($proformas) == 0) {
+                return redirect()
+                    ->back()
+                    ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
+            }
+
+            $tu = $request->input('tu');
+    
+            return view('liquidaciones.create', compact('user', 'proformas', 'invoices', 'tu'));
+            
+
+        }
 
         if (sizeof($proformas) == 0) {
             return redirect()
@@ -94,7 +145,7 @@ class InvoiceController extends Controller
 
             // Create the invoice
             $invoice = Invoice::create([
-                'type_invoice' => 'cliente',
+                'type_invoice' => $request->input('tu'),
                 'user_id' => $user->id
             ]);
 

@@ -39,20 +39,17 @@
     </h4>
 </div>
 @endif
-
 <!-- Content Row -->
 <div class="row">
-
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow mb-4">
-
+            <h1>{{$tu}}</h1>
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación</h6>
             </div>
-
             <div class="card-body">
                 <form action="{{ route('liquidaciones.create')}}" autocomplete="off">
-
+                    <input type="hidden" name="type_user" value="{{$tu}}">
                     <div class="form-row justify-content-center">
                         <div class=" col-md-2">
                             <div class="form-check form-check-inline">
@@ -154,7 +151,7 @@
                         <td> {{ $us->phone }} </td>
                         <td> {{ $us->dni }} </td>
                         <td>
-                            <a href="{{ route('liquidaciones.create', ['user_id' => $us->id]) }}" class="btn btn-success btn-circle">
+                            <a href="{{ route('liquidaciones.create', ['user_id' => $us->id , 'tu' => $tu]) }}" class="btn btn-success btn-circle">
                                 <i class="fas fa-check"></i>
                             </a>
                         </td>

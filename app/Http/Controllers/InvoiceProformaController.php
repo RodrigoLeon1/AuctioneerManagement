@@ -28,6 +28,7 @@ class InvoiceProformaController extends Controller
 
     public function create(Request $request)
     {
+
         if ($request->input('product-code') != null) {
 
             $product = Product::find($request->input('product-code'));

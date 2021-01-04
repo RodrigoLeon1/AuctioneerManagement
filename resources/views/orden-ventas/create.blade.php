@@ -70,7 +70,7 @@
 
                     <div class="form-row">
 
-                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
+                        <input type="hidden" id="id-user" name="id-user" value="2">
 
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
