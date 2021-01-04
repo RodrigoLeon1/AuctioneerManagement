@@ -26,8 +26,10 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-light bg-light">
-                    <a class="sidebar-brand d-flex align-items-center justify-content-center" style="font-size: 2rem;">
-                        <div class="sidebar-brand-text mx-3">Remates Ise</div>
+                    <a class="navbar-brand" href="/login">
+                        <i class="fas fa-hammer"></i>
+                        <!-- <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy"> -->
+                        Remates Ise
                     </a>
                 </nav>
 

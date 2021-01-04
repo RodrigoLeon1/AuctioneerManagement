@@ -76,10 +76,19 @@ class InvoiceController extends Controller
             $so = SaleOrder::where('user_id', $user->id)
                 ->get();
 
+            $prfs = [];
+
             foreach ($so as $s) {
-                $prfs = InvoiceProforma::where('sale_order_id', $s->id)
+                $proformasAux = InvoiceProforma::where('sale_order_id', $s->id)
                     ->where('is_invoiced', true)
                     ->get();
+
+                foreach ($proformasAux as $proforma) {
+                    array_push(
+                        $prfs,
+                        $proforma
+                    );
+                }
             }
 
             $proformas = [];
