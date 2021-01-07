@@ -54,10 +54,12 @@ class InvoiceController extends Controller
                     $user = User::where('cuit', $request->input('search'))->first();
                 }
             }
-            if (get_class($user) != "App\Models\User") {
-                return redirect()
-                    ->back()
-                    ->with(['user' => $user], ['tu' => $request->input('tu')]);
+            if($user != null){
+                if (get_class($user) != "App\Models\User") {
+                    return redirect()
+                        ->back()
+                        ->with(['user' => $user], ['tu' => $request->input('tu')]);
+                }
             }
         }
 
