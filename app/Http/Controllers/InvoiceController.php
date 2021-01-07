@@ -197,7 +197,7 @@ class InvoiceController extends Controller
         }
 
         return redirect()
-            ->route('liquidaciones.pre-create')
+            ->route('liquidaciones.pre-create', ['tu' => $request->input('tu')])
             ->with('success-store', 'Su liquidación ha sido creada de manera exitosa.');
     }
 

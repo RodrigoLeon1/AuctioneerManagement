@@ -22,8 +22,14 @@
         </h6>
     </div>
     <div class="card-body">
-        <a href="{{ route('liquidaciones.pre-create') }}" class="btn btn-success btn-icon-split mb-4">
-            <span class="text">Crear liquidación</span>
+        <a href="{{ route('liquidaciones.pre-create', ['tu' => 'cliente'])  }}" class="btn btn-success btn-icon-split mb-4">
+            <span class="text">Crear liquidación cliente</span>
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
+        <a href="{{ route('liquidaciones.pre-create', ['tu' => 'remitente']) }}" class="btn btn-success btn-icon-split mb-4" style="background-color: #218c65;">
+            <span class="text">Crear liquidación remitente</span>
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>

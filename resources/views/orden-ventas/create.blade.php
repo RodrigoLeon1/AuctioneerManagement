@@ -69,9 +69,7 @@
                     </div>
 
                     <div class="form-row">
-
-                        <input type="hidden" id="id-user" name="id-user" value="2">
-
+                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user', '') }}">
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
                             <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name') }}" {{ old('id-user') ? 'readonly' : '' }}>
@@ -362,6 +360,13 @@
                 }
             })
         })
+
+        $(document).keypress(
+            function(event) {
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            });
 
     });
 

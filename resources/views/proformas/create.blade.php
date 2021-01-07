@@ -128,45 +128,45 @@ $quantity = $order->pivot->quantity;
 
                     <div class="form-row">
 
-                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user') }}">
+                        <input type="hidden" id="id-user" name="id-user" value="{{ old('id-user', '') }}">
 
                         <div class="form-group col-md-3">
                             <label for="name">Nombre</label>
-                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name') }}">
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" id="name" name="name" value="{{ old('name') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                         <div class=" form-group col-md-3">
                             <label for="lastname">Apellido</label>
-                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ old('lastname') }}">
+                            <input type="text" class="form-control {{ $errors->has('lastname') ? 'is-invalid' : '' }}" id="lastname" name="lastname" value="{{ old('lastname') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="phone">Teléfono</label>
-                            <input type="number" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}">
+                            <input type="number" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" id="phone" name="phone" value="{{ old('phone') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-4">
                             <label for="city">Ciudad</label>
-                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ old('city') }}">
+                            <input type="text" class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" id="city" name="city" value="{{ old('city') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="postal_code">Código postal</label>
-                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ old('postal_code') }}">
+                            <input type="number" class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="address">Domicilio</label>
-                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ old('address') }}">
+                            <input type="text" class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" id="address" name="address" value="{{ old('address') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class=" form-group col-md-6">
                             <label for="dni">DNI</label>
-                            <input type="number" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ old('dni') }}">
+                            <input type="number" class="form-control {{ $errors->has('dni') ? 'is-invalid' : '' }}" id="dni" name="dni" value="{{ old('dni') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                         <div class=" form-group col-md-6">
                             <label for="cuit">CUIT</label>
-                            <input type="number" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ old('cuit') }}">
+                            <input type="number" class="form-control {{ $errors->has('cuit') ? 'is-invalid' : '' }}" id="cuit" name="cuit" value="{{ old('cuit') }}" {{ old('id-user') ? 'readonly' : '' }}>
                         </div>
                     </div>
 
