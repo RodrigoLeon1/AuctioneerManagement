@@ -159,6 +159,8 @@ class InvoiceController extends Controller
                 $productQuantity = $request->input('productsQuantities')[$i];
                 $subtotal += ($productQuantity * $proforma->price_unit);
 
+                
+
                 $invoice->products()->attach($invoice->id, [
                     'quantity' => $productQuantity,
                     'price_unit' => $proforma->price_unit,
@@ -177,15 +179,22 @@ class InvoiceController extends Controller
                 $priceTotal += $proforma->partial_total;
             }
 
-            $commission = ($priceTotal * ($commissionPercentage / 100));
+            
 
+            $commission = ($priceTotal * ($commissionPercentage / 100));
+            if($request->input('tu') == 'cliente'){
+                $finalPrice = $priceTotal + $commission - $partialPayment;
+            }else{
+                $finalPrice = $priceTotal - $commission - $partialPayment;
+            }
+            
             Invoice::where('id', $invoice->id)
                 ->update([
                     'commission' => $commission,
                     'commission_percentage' => $commissionPercentage,
                     'partial_payment' => $partialPayment,
                     'subtotal' => $subtotal,
-                    'total' => $priceTotal + $commission - $partialPayment
+                    'total' => $finalPrice
                 ]);
 
             DB::commit();
