@@ -67,7 +67,7 @@
                 <a class="collapse-item" href="{{ route('liquidaciones.pre-create', ['tu' => 'cliente']) }}">Crear liquidación cliente</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.pre-create', ['tu' => 'remitente']) }}">Crear liquidacion remitente</a>
                 <a class="collapse-item" href="{{ route('liquidaciones.index') }}">Listar liquidaciones</a>
-                <a class="collapse-item" href="">Filtrar liquidaciones</a>
+                <a class="collapse-item" href="{{ route('liquidaciones.filter') }}">Filtrar liquidaciones</a>
             </div>
         </div>
     </li>

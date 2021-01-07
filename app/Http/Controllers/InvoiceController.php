@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 use PDF;
 
@@ -54,7 +55,7 @@ class InvoiceController extends Controller
                     $user = User::where('cuit', $request->input('search'))->first();
                 }
             }
-            if($user != null){
+            if ($user != null) {
                 if (get_class($user) != "App\Models\User") {
                     return redirect()
                         ->back()
@@ -161,8 +162,6 @@ class InvoiceController extends Controller
                 $productQuantity = $request->input('productsQuantities')[$i];
                 $subtotal += ($productQuantity * $proforma->price_unit);
 
-                
-
                 $invoice->products()->attach($invoice->id, [
                     'quantity' => $productQuantity,
                     'price_unit' => $proforma->price_unit,
@@ -181,15 +180,13 @@ class InvoiceController extends Controller
                 $priceTotal += $proforma->partial_total;
             }
 
-            
-
             $commission = ($priceTotal * ($commissionPercentage / 100));
-            if($request->input('tu') == 'cliente'){
+            if ($request->input('tu') == 'cliente') {
                 $finalPrice = $priceTotal + $commission - $partialPayment;
-            }else{
+            } else {
                 $finalPrice = $priceTotal - $commission - $partialPayment;
             }
-            
+
             Invoice::where('id', $invoice->id)
                 ->update([
                     'commission' => $commission,
@@ -224,5 +221,39 @@ class InvoiceController extends Controller
         $title = 'liquidacion-' . $id . '.pdf';
         $pdf = PDF::loadView('liquidaciones.pdf', compact('invoice'));
         return $pdf->stream($title);
+    }
+
+    public function filter(Request $request)
+    {
+        $invoices = [];
+
+        if ($request->has('type_search')) {
+
+            if ($request->input('type_search') == 'name') {
+                if ($request->input('name') !== null xor $request->input('lastname') !== null) {
+                    $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                        $query
+                            ->where('name', 'like', $request->input('name') . '%')
+                            ->orWhere('lastname', 'like', $request->input('lastname') . '%');
+                    })->get();
+                } elseif ($request->input('name') && $request->input('lastname')) {
+                    $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                        $query
+                            ->where('name', 'like', $request->input('name') . '%')
+                            ->where('lastname', 'like', $request->input('lastname') . '%');
+                    })->get();
+                }
+            } else if ($request->input('type_search') == 'dni') {
+                $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                    $query->where('dni', 'like', $request->input('search') . '%');
+                })->get();
+            } else if ($request->input('type_search') == 'cuit') {
+                $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                    $query->where('cuit', 'like', $request->input('search') . '%');
+                })->get();
+            }
+        }
+
+        return view('liquidaciones.filter', compact('invoices'));
     }
 }
