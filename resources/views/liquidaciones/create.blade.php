@@ -151,6 +151,7 @@
                                         <?php $i = 1; ?>
                                         @foreach ($proformas as $proforma)
                                         <tr>
+                                            <?php //dd($proforma->product->id); ?>
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
                                             <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
@@ -161,6 +162,10 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
+                                            <input type="hidden" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
+                                            <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
+                                            <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
+                                            <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="price_products">
                                         </tr>
                                         <?php $i++; ?>
                                         @endforeach
@@ -232,7 +237,7 @@
                                             </table>
                                         </div>
                                         @else
-                                        @foreach ($invoices as $invoice)
+                                        
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
@@ -246,20 +251,23 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>{{$invoice->subtotal}}</td>
-                                                        <td>{{$invoice->commission_percentage}}</td>
-                                                        <td>{{$invoice->commision}}</td>
-                                                        <td>{{$invoice->partial_payment}}</td>
-                                                        <td>{{$invoice->total}}</td>
+                                                        <td id="modal_subtotal"></td>
+                                                        <td id="modal_commission">
+                                                            <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
+                                                        </td>
+                                                        <td id="modal_commission_value">$0</td>
+                                                        <td id="modal_partial_payment">
+                                                            <input type="number" class="form-control " id="partial_payment" name="partial_payment" value="0">
+                                                        </td>
+                                                        <td id="modal_total"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        @endforeach
                                         @endif
                                     </div>
                                 </div>
-                                <input type="hidden" name="tu" value="{{$tu}}">
+                                <input type="hidden" name="tu" id="tu" value="{{$tu}}">
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -282,6 +290,7 @@
 <script>
     const modal_product_items = document.querySelector('#modal_product_items')
     const products = document.getElementsByName("products[]")
+    const type_user = document.querySelector("#tu")
 
     const commission = document.querySelector('#commission_percentage')
     const partial_payment = document.querySelector('#partial_payment')
@@ -293,6 +302,8 @@
     let modal_commission_value = 0
     let modal_partial_payment = 0
 
+    
+    
     commission.addEventListener('blur', (e) => {
         modal_commission = e.target.value
         modalData()
@@ -310,20 +321,27 @@
         let comision = 0
         let partial_payment = 0
         let total = 0
+        
 
         while (i < products.length) {
-            let is_checked = products[i].checked
-            if (is_checked) {
-                inputs = inputs + '<tr>' +
-                    '<td>' + products[i + 1].value + '</td>' +
-                    '<td>' + products[i + 3].value + '</td>' +
-                    '</tr>';
-                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
+            if(type_user == 'cliente'){
+                let is_checked = products[i].checked
+                if (is_checked) {
+                    inputs = inputs + '<tr>' +
+                        '<td>' + products[i + 1].value + '</td>' +
+                        '<td>' + products[i + 3].value + '</td>' +
+                        '</tr>';
+                    subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
+                    
+                }
+            }else{
+                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)   
             }
             i = i + 4;
         }
 
-        modal_product_items.innerHTML = inputs
+    
+        //modal_product_items.innerHTML = inputs
         modal_subtotal.innerHTML = "$" + subtotal
 
         if (modal_commission) {
@@ -331,16 +349,23 @@
             modal_commission_v.innerText = "$" + modal_commission_value
         }
 
-        modal_total.innerHTML = "$" + (parseFloat(subtotal) + parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
+        if(type_user == 'cliente'){
+            modal_total.innerHTML = "$" + (parseFloat(subtotal) + parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
+        }else{
+            modal_total.innerHTML = "$" + (parseFloat(subtotal) - parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
+        }
+        
     }
 
-    const checkSubmit = () => {
-        for (let index = 0; index < products.length; index++) {
-            if (products[index].checked) {
-                break;
+    if(type_user == 'cliente'){
+        const checkSubmit = () => {
+            for (let index = 0; index < products.length; index++) {
+                if (products[index].checked) {
+                    break;
+                }
+                alert('Para poder continuar y crear la liquidación es necesario seleccionar al menos una mercadería de la lista.')
+                return false
             }
-            alert('Para poder continuar y crear la liquidación es necesario seleccionar al menos una mercadería de la lista.')
-            return false
         }
     }
 </script>
