@@ -41,7 +41,9 @@ class InvoiceProformaController extends Controller
             $order = $product->saleorder();
 
             if ($product->saleorder[0]->pivot->quantity_remaining == 0 || $order === null) {
-                return redirect()->route('proformas.pre-create');
+                return redirect()
+                    ->route('proformas.pre-create')
+                    ->with('error-store', 'La mercadería no posee más unidades para vender. Vuelva a intentar.');
             }
         } else {
             $order = SaleOrder::find($request->input('orden'));

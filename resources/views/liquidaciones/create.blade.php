@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Crear liquidación</h1>
+    <h1 class="h3 mb-0 text-gray-800">Crear liquidación - {{ ucfirst($tu) }}</h1>
 </div>
 
 <!-- Content Row -->
@@ -151,7 +151,8 @@
                                         <?php $i = 1; ?>
                                         @foreach ($proformas as $proforma)
                                         <tr>
-                                            <?php //dd($proforma->product->id); ?>
+                                            <?php //dd($proforma->product->id); 
+                                            ?>
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
                                             <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
@@ -237,7 +238,7 @@
                                             </table>
                                         </div>
                                         @else
-                                        
+
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
@@ -292,6 +293,8 @@
     const products = document.getElementsByName("products[]")
     const type_user = document.querySelector("#tu")
 
+    console.log(type_user.value)
+
     const commission = document.querySelector('#commission_percentage')
     const partial_payment = document.querySelector('#partial_payment')
 
@@ -302,8 +305,6 @@
     let modal_commission_value = 0
     let modal_partial_payment = 0
 
-    
-    
     commission.addEventListener('blur', (e) => {
         modal_commission = e.target.value
         modalData()
@@ -321,10 +322,9 @@
         let comision = 0
         let partial_payment = 0
         let total = 0
-        
 
         while (i < products.length) {
-            if(type_user == 'cliente'){
+            if (type_user.value == 'cliente') {
                 let is_checked = products[i].checked
                 if (is_checked) {
                     inputs = inputs + '<tr>' +
@@ -332,16 +332,17 @@
                         '<td>' + products[i + 3].value + '</td>' +
                         '</tr>';
                     subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
-                    
+
                 }
-            }else{
-                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)   
+            } else {
+                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
             }
             i = i + 4;
         }
 
-    
-        //modal_product_items.innerHTML = inputs
+        if (type_user.value == 'cliente') {
+            modal_product_items.innerHTML = inputs
+        }
         modal_subtotal.innerHTML = "$" + subtotal
 
         if (modal_commission) {
@@ -349,16 +350,16 @@
             modal_commission_v.innerText = "$" + modal_commission_value
         }
 
-        if(type_user == 'cliente'){
+        if (type_user.value == 'cliente') {
             modal_total.innerHTML = "$" + (parseFloat(subtotal) + parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
-        }else{
+        } else {
             modal_total.innerHTML = "$" + (parseFloat(subtotal) - parseFloat(modal_commission_value) - parseFloat(modal_partial_payment))
         }
-        
+
     }
 
-    if(type_user == 'cliente'){
-        const checkSubmit = () => {
+    const checkSubmit = () => {
+        if (type_user.value == 'cliente') {
             for (let index = 0; index < products.length; index++) {
                 if (products[index].checked) {
                     break;
@@ -367,6 +368,7 @@
                 return false
             }
         }
+        return true
     }
 </script>
 @endsection()

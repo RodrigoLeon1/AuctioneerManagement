@@ -59,15 +59,21 @@ class InvoiceController extends Controller
                 if (get_class($user) != "App\Models\User") {
                     return redirect()
                         ->back()
+                        // ->with('error-search', 'No se han encontrado liquidaciones para el nombre de usuario ingresado.')
                         ->with(['user' => $user], ['tu' => $request->input('tu')]);
                 }
             }
         }
 
         if ($user == null) {
+            if ($request->input('type_search') == 'dni' || $request->input('type_search') == 'cuit') {
+                return redirect()
+                    ->back()
+                    ->with('error-search', 'El DNI/CUIT ingresado no se encuentra asociado a un usuario. Vuelva a intentar.');
+            }
             return redirect()
                 ->back()
-                ->with('error-search', 'El DNI/CUIT ingresado no se encuentra asociado a un usuario. Vuelva a intentar.');
+                ->with('error-search', 'No se han encontrado liquidaciones para el nombre de usuario ingresado.');
         }
 
         if ($request->input('tu') == 'cliente') {
@@ -231,11 +237,15 @@ class InvoiceController extends Controller
 
             if ($request->input('type_search') == 'name') {
                 if ($request->input('name') !== null xor $request->input('lastname') !== null) {
-                    $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
-                        $query
-                            ->where('name', 'like', $request->input('name') . '%')
-                            ->orWhere('lastname', 'like', $request->input('lastname') . '%');
-                    })->get();
+                    if ($request->input('name') !== null && $request->input('lastname') == null) {
+                        $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                            $query->where('name', 'like', $request->input('name') . '%');
+                        })->get();
+                    } elseif ($request->input('name') == null && $request->input('lastname') !== null) {
+                        $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
+                            $query->where('lastname', 'like', $request->input('lastname') . '%');
+                        })->get();
+                    }
                 } elseif ($request->input('name') && $request->input('lastname')) {
                     $invoices = Invoice::whereHas('user', function (Builder $query) use ($request) {
                         $query

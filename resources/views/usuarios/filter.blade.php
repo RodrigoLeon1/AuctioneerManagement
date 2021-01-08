@@ -24,6 +24,13 @@
     <h1 class="h3 mb-0 text-gray-800">Filtrar usuarios</h1>
 </div>
 
+@if ($users && count($users) == 0)
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">
+        No se han encontrado usuarios con los parámetros de búsqueda. Vuelva a intentar.
+    </h4>
+</div>
+@endif
 <!-- Content Row -->
 <div class="row">
 
@@ -93,7 +100,7 @@
     </div>
 </div>
 
-@if ( count($users) > 0)
+@if ($users && count($users) > 0)
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
@@ -155,7 +162,6 @@
     </div>
 </div>
 @endif
-
 
 <style>
     [data-role="dynamic-fields"]>.form-dinamic+.form-dinamic {

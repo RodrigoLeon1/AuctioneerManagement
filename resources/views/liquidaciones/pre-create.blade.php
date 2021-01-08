@@ -39,6 +39,7 @@
     </h4>
 </div>
 @endif
+
 <!-- Content Row -->
 <div class="row">
     <div class="col-xl-12 col-lg-12">
@@ -47,10 +48,10 @@
                 <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('liquidaciones.create')}}" autocomplete="off">
-                    <input type="hidden" name="type_user" value="{{$tu}}">
+                <form action="{{ route('liquidaciones.create') }}" autocomplete="off">
+                    <input type="hidden" name="type_user" value="{{ $tu }}">
                     <div class="form-row justify-content-center">
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-name" type="radio" name="type_search" id="type_search" value="name" onclick="show_name();">
                                 <label class="form-check-label" for="type_search">
@@ -58,31 +59,30 @@
                                 </label>
                             </div>
                         </div>
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input radio-dni" id="type_search_dni" type="radio" name="type_search" id="type_search" value="dni" onclick="show_dni();">
-                                <label class="form-check-label" for="type_search_dni">
+                                <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search2" value="dni" onclick="show_dni();">
+                                <label class="form-check-label" for="type_search2">
                                     DNI
                                 </label>
                             </div>
                         </div>
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input radio-cuit" id="type_search_cuit" type="radio" name="type_search" id="type_search" value="cuit" onclick="show_cuit();">
-                                <label class="form-check-label" for="type_search_cuit">
+                                <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search3" value="cuit" onclick="show_cuit();">
+                                <label class="form-check-label" for="type_search3">
                                     CUIT
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-row" id="dc-search" style="margin-top: 2rem;">
-                        <div class="form-group offset-md-2 col-md-6">
-                            <label id="search-name" for="search"></label>
-                            <input type="text" class="form-control" id="search" name="search">
+                    <div class="form-row" id="dc-search" style="display:none;">
+                        <div class="form-group col-md-12 mt-5">
+                            <input type="search" class="form-control" id="search" name="search">
                         </div>
-                        <div class="form-group col-md-2" style="display: flex; align-items: flex-end;">
-                            <button class="btn btn-primary form-control" type="submit"><i class="fas fa-search"></i></button>
+                        <div class="form-group col-md-2 mt-5">
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Filtrar</button>
                         </div>
                     </div>
 
@@ -99,14 +99,13 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
 
 @php $user = Session::get('user'); @endphp
 
-@if ( $user != null)
+@if ($user != null && count($user) > 0)
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">

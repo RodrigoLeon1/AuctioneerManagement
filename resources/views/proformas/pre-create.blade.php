@@ -32,7 +32,7 @@
             <form action="{{ route('proformas.create') }}" action="post">
                 <div class="form-row justify-content-center" style="margin-bottom: 2rem;">
                     <div class="form-group col-md-2 mt-5">
-                        <input type="number" class="form-control" id="product-code" name="product-code">
+                        <input type="number" class="form-control" id="product-code" min="0" name="product-code">
                     </div>
                     <div class="form-group col-md-2 mt-5">
                         <button type="submit" class="btn btn-primary">Buscar</button>

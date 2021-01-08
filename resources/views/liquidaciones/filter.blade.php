@@ -24,6 +24,14 @@
     <h1 class="h3 mb-0 text-gray-800">Filtrar liquidaciones</h1>
 </div>
 
+@if ($invoices && count($invoices) == 0)
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">
+        No se han encontrado liquidaciones con los parámetros de búsqueda. Vuelva a intentar.
+    </h4>
+</div>
+@endif
+
 <!-- Content Row -->
 <div class="row">
 
@@ -35,12 +43,10 @@
             </div>
 
             <div class="card-body">
-
                 <form action="{{ route('liquidaciones.filter') }}" autocomplete="off">
-
                     <div class="form-row justify-content-center">
 
-                        <div class=" col-md-2">
+                        <div class="col-md-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-name" type="radio" name="type_search" id="type_search" value="name" onclick="show_name();">
                                 <label class="form-check-label" for="type_search">
@@ -86,7 +92,6 @@
                         </div>
                         <button type="submit" class="btn btn-primary mt-3"> <i class="fas fa-search"></i> Filtrar</button>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -71,9 +71,10 @@ class UserController extends Controller
 
     public function filter(Request $request)
     {
-        $users = [];
+        $users = null;
 
         if ($request->has('type_search')) {
+            $users = [];
             if ($request->input('type_search') == 'name') {
                 if ($request->input('name') !== null xor $request->input('lastname') !== null) {
                     $users = User::where('name', $request->input('name'))
