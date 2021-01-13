@@ -316,7 +316,7 @@
         $(function() {
             $('#name').autocomplete({
                 source: function(request, response) {
-                    $.getJSON('http://127.0.0.1:8000/api/usuarios?term=' + request.term, function(data) {
+                    $.getJSON('/api/usuarios?term=' + request.term, function(data) {
                         var array = $.map(data, function(row) {
                             return {
                                 value: row.name,

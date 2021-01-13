@@ -39,15 +39,15 @@
         </h4>
         <div class="form-row">
             @foreach ($invoice->products as $product)
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <label for="staticProductName">Descripción</label>
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="staticProductQuantity">Cantidad total</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="staticProductQuantity">Precio por unidad</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="${{ number_format($product->pivot->price_unit) }}">
             </div>

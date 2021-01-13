@@ -51,11 +51,11 @@
         </h4>
         <div class="form-row">
             @foreach ($order->products as $product)
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-1">
                 <label for="staticProductTasac">Código</label>
                 <input type="text" readonly class="form-control" id="staticProductTasac" value="{{ $product->id }}">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
                 <label for="staticProductName">Descripción</label>
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
@@ -67,14 +67,14 @@
                 <label for="staticProductQuantityRemaining">Cantidad disponible para vender</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantityRemaining" value="{{ $product->pivot->quantity_remaining }}">
             </div>
-            <div class="form-group col-md-2">
+            <!-- <div class="form-group col-md-2">
                 <label for="staticProductCategory">Categoría</label>
                 @forelse ($product->categories as $category)
                 <input type="text" readonly class="form-control" id="staticProductCategory" value="{{ $category->description }}">
                 @empty
                 <input type="text" readonly class="form-control" id="staticProductCategory" value="Sin categoría">
                 @endforelse
-            </div>
+            </div> -->
             @endforeach
         </div>
 

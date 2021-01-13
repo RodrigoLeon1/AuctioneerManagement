@@ -60,6 +60,9 @@
         @endforeach
 
         <hr>
+        <h4>
+            <strong>Acciones</strong>
+        </h4>
         <a href="{{ route('productos.edit', $product->id) }}" class="btn btn-warning btn-circle">
             <i class="fas fa-edit"></i>
         </a>

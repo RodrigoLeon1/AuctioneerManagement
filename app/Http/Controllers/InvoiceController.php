@@ -58,8 +58,7 @@ class InvoiceController extends Controller
             if ($user != null) {
                 if (get_class($user) != "App\Models\User") {
                     return redirect()
-                        ->back()
-                        // ->with('error-search', 'No se han encontrado liquidaciones para el nombre de usuario ingresado.')
+                        ->back()                        
                         ->with(['user' => $user], ['tu' => $request->input('tu')]);
                 }
             }
@@ -82,42 +81,21 @@ class InvoiceController extends Controller
                 ->get();
         } else {
 
-            $so = SaleOrder::where('user_id', $user->id)
-                ->get();
-
-            $prfs = [];
+            $so = SaleOrder::where('user_id', $user->id)->get();            
+            $proformas = [];
 
             foreach ($so as $s) {
                 $proformasAux = InvoiceProforma::where('sale_order_id', $s->id)
                     ->where('is_invoiced', true)
+                    ->where('is_invoiced_remitente', false)
                     ->get();
 
                 foreach ($proformasAux as $proforma) {
                     array_push(
-                        $prfs,
+                        $proformas,
                         $proforma
                     );
                 }
-            }
-
-            $proformas = [];
-            $invoices = [];
-            if (sizeof($prfs) > 0) {
-                foreach ($prfs as $proforma) {
-                    $pdt = Product::where('id', $proforma->product_id)->first();
-                    if (sizeof($pdt->invoices) < 2) {
-                        array_push($proformas, $proforma);
-                        foreach ($pdt->invoices as $inv) {
-                            array_push($invoices, $inv);
-                        }
-                    }
-                }
-            }
-
-            if (sizeof($invoices) == 0) {
-                return redirect()
-                    ->back()
-                    ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
             }
 
             if (sizeof($proformas) == 0) {
@@ -126,12 +104,9 @@ class InvoiceController extends Controller
                     ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
             }
 
-            $tu = $request->input('tu');
-
-            return view('liquidaciones.create', compact('user', 'proformas', 'invoices', 'tu'));
-        }
-
-        $tu = $request->input('tu');
+            $tu = $request->input('tu');            
+            return view('liquidaciones.create', compact('user', 'proformas', 'tu'));
+        }        
 
         if (sizeof($proformas) == 0) {
             return redirect()
@@ -139,6 +114,7 @@ class InvoiceController extends Controller
                 ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
         }
 
+        $tu = $request->input('tu');
         return view('liquidaciones.create', compact('user', 'proformas', 'tu'));
     }
 
@@ -153,6 +129,12 @@ class InvoiceController extends Controller
             $partialPayment = $request->input('partial_payment');
             $subtotal = 0;
             $priceTotal = 0;
+            
+            if ($request->input('tu') == 'remitente') {
+                $isRemitente = true;
+            } else {
+                $isRemitente = false;
+            }           
 
             // Create the invoice
             $invoice = Invoice::create([
@@ -180,7 +162,8 @@ class InvoiceController extends Controller
                 DB::table('invoice_proformas')
                     ->where('id', $proforma->id)
                     ->update([
-                        'is_invoiced' => true
+                        'is_invoiced' => true,
+                        'is_invoiced_remitente' => $isRemitente
                     ]);
 
                 $priceTotal += $proforma->partial_total;

@@ -74,12 +74,6 @@
         </div>
         <hr>
         <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">Comisión</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->commission_value) }} ({{ $invoice->commission_percentage }}%)">
-            </div>
-        </div>
-        <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Seña</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->partial_payment) }}">
@@ -122,6 +116,9 @@
         @endif
 
         <hr>
+        <h4>
+            <strong>Acciones</strong>
+        </h4>
         <a href="{{ route('proformas.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
             <i class="fas fa-file-pdf"></i>
         </a>

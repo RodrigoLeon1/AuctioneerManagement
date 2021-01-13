@@ -77,10 +77,12 @@
                                     <tr>
                                         <th>Código</th>
                                         <th>Descripción</th>
-                                        <th>Número de orden de venta</th>
+                                        <th>Orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
+                                        <th>Seña</th>
+                                        <th>Importe total</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </thead>
@@ -88,17 +90,19 @@
                                     <tr>
                                         <th>Código</th>
                                         <th>Descripción</th>
-                                        <th>Número de orden de venta</th>
+                                        <th>Orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
+                                        <th>Seña</th>
+                                        <th>Importe total</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
                                     <div class="form-row">
                                         <?php $i = 1; ?>
-                                        @foreach ($proformas as $proforma)
+                                        @foreach ($proformas as $proforma)                                        
                                         <tr>
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
@@ -110,13 +114,15 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
+                                            <td>${{ number_format($proforma->partial_payment) }}</td>
+                                            <td>${{ number_format($proforma->total) }}</td>
                                             <td>
                                                 <input class="form-check-input" type="checkbox" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
-
                                                 <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
-
                                                 <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
-                                                <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="price_products">
+                                                <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="partial_products">
+                                                <input type="hidden" value="{{ $proforma->partial_payment }}" name="products[]" id="payment_products">
+                                                <input type="hidden" value="{{ $proforma->total }}" name="products[]" id="total_products">
                                             </td>
                                         </tr>
                                         <?php $i++; ?>
@@ -151,8 +157,6 @@
                                         <?php $i = 1; ?>
                                         @foreach ($proformas as $proforma)
                                         <tr>
-                                            <?php //dd($proforma->product->id); 
-                                            ?>
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
                                             <input type="hidden" value="{{ $proforma->quantity }}" name="productsQuantities[]">
@@ -163,10 +167,14 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
+                                            
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
                                             <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
                                             <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
-                                            <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="price_products">
+                                            <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="partial_products">
+                                            <input type="hidden" value="{{ $proforma->partial_payment }}" name="products[]" id="payment_products">
+                                            <input type="hidden" value="{{ $proforma->total }}" name="products[]" id="total_products">
+
                                         </tr>
                                         <?php $i++; ?>
                                         @endforeach
@@ -196,12 +204,14 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Descripción</th>
+                                                        <th>Seña</th>
                                                         <th>Importe total por mercadería</th>
                                                     </tr>
                                                 </thead>
                                                 <tfoot>
                                                     <tr>
                                                         <th>Descripción</th>
+                                                        <th>Seña</th>
                                                         <th>Importe total por mercadería</th>
                                                     </tr>
                                                 </tfoot>
@@ -217,8 +227,7 @@
                                                     <tr>
                                                         <th>Subtotal</th>
                                                         <th>Comisión en porcentaje</th>
-                                                        <th>Comisión</th>
-                                                        <th>Seña</th>
+                                                        <th>Comisión</th>                                                        
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
@@ -228,25 +237,20 @@
                                                         <td id="modal_commission">
                                                             <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
                                                         </td>
-                                                        <td id="modal_commission_value">$0</td>
-                                                        <td id="modal_partial_payment">
-                                                            <input type="number" class="form-control " id="partial_payment" name="partial_payment" value="0">
-                                                        </td>
+                                                        <td id="modal_commission_value">$0<td>                                                       
                                                         <td id="modal_total"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         @else
-
                                         <div class="table-responsive text-center">
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th>Subtotal</th>
                                                         <th>Comisión en porcentaje</th>
-                                                        <th>Comisión</th>
-                                                        <th>Seña</th>
+                                                        <th>Comisión</th>                                                        
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
@@ -256,10 +260,7 @@
                                                         <td id="modal_commission">
                                                             <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
                                                         </td>
-                                                        <td id="modal_commission_value">$0</td>
-                                                        <td id="modal_partial_payment">
-                                                            <input type="number" class="form-control " id="partial_payment" name="partial_payment" value="0">
-                                                        </td>
+                                                        <td id="modal_commission_value">$0</td>                                                        
                                                         <td id="modal_total"></td>
                                                     </tr>
                                                 </tbody>
@@ -292,12 +293,7 @@
     const modal_product_items = document.querySelector('#modal_product_items')
     const products = document.getElementsByName("products[]")
     const type_user = document.querySelector("#tu")
-
-    console.log(type_user.value)
-
-    const commission = document.querySelector('#commission_percentage')
-    const partial_payment = document.querySelector('#partial_payment')
-
+    const commission = document.querySelector('#commission_percentage')    
     const modal_commission_v = document.querySelector('#modal_commission_value')
     const modal_subtotal = document.querySelector('#modal_subtotal')
     const modal_total = document.querySelector('#modal_total')
@@ -310,42 +306,44 @@
         modalData()
     })
 
-    partial_payment.addEventListener('blur', (e) => {
-        modal_partial_payment = e.target.value
-        modalData()
-    })
-
     const modalData = (e) => {
         let inputs = ""
         let i = 0
         let subtotal = 0
+        let partial_pp = 0
         let comision = 0
-        let partial_payment = 0
-        let total = 0
+        let total = 0        
 
         while (i < products.length) {
             if (type_user.value == 'cliente') {
                 let is_checked = products[i].checked
-                if (is_checked) {
+                if (is_checked) {                    
                     inputs = inputs + '<tr>' +
                         '<td>' + products[i + 1].value + '</td>' +
-                        '<td>' + products[i + 3].value + '</td>' +
+                        '<td>' + products[i + 4].value + '</td>' +
+                        '<td>' + products[i + 5].value + '</td>' +
                         '</tr>';
-                    subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
-
+                    subtotal = parseFloat(subtotal) + parseFloat(products[i + 5].value)
+                    partial_pp = parseFloat(partial_pp) + parseFloat(products[i + 4].value)
                 }
             } else {
                 subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
             }
-            i = i + 4;
+            i = i + 6;
         }
 
         if (type_user.value == 'cliente') {
             modal_product_items.innerHTML = inputs
         }
-        modal_subtotal.innerHTML = "$" + subtotal
+
+        modal_subtotal.innerHTML = "$" + subtotal        
 
         if (modal_commission) {
+            console.log(subtotal);
+            console.log(partial_pp);
+            modal_commission_value = (parseFloat(subtotal)) * (modal_commission / 100)
+            modal_commission_v.innerText = "$" + modal_commission_value
+        } else {
             modal_commission_value = parseFloat(subtotal) * (modal_commission / 100)
             modal_commission_v.innerText = "$" + modal_commission_value
         }

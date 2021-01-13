@@ -97,29 +97,18 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="partial_total">Importe</label>
                             <input type="number" class="form-control {{ $errors->has('partial_total') ? 'is-invalid' : '' }}" id="partial_total" name="partial_total" value="{{ old('partial_total') }}" min=1 step=".01" readonly>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="commission_percentage">Comisión en porcentaje</label>
-                            <input type="number" class="form-control {{ $errors->has('commission_percentage') ? 'is-invalid' : '' }}" id="commission_percentage" name="commission_percentage" value="{{ old('commission_percentage') }}" min="1" max="100">
-                            <small class="form-text text-muted">
-                                El importe de la <strong>comisión</strong> sera $<strong id="commission_str">{{ old('commission_value', 0) }}</strong>.
-                                <input type="hidden" id="commission_value" name="commission_value" value="{{ old('commission_value') }}">
-                            </small>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="partial_payment">Seña</label>
                             <input type="number" class="form-control {{ $errors->has('partial_payment') ? 'is-invalid' : '' }}" id="partial_payment" name="partial_payment" value="{{ old('partial_payment', 0) }}" min=0 step=".01">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="total">Importe total</label>
                             <input type="text" class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" id="total" name="total" value="{{ old('total') }}" min=1 step=".01" readonly>
-                        </div>
+                        </div>                        
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
@@ -189,9 +178,6 @@ $quantity = $order->pivot->quantity;
     const quantity = document.querySelector('#quantity')
     const priceUnit = document.querySelector('#price_unit')
     const partialTotal = document.querySelector('#partial_total')
-    const commission = document.querySelector('#commission_percentage')
-    const commission_total = document.querySelector('#commission_str')
-    const commission_value = document.querySelector('#commission_value')
     const partial_payment = document.querySelector('#partial_payment')
     const total = document.querySelector('#total')
 
@@ -204,19 +190,14 @@ $quantity = $order->pivot->quantity;
     partialTotal.addEventListener('blur', () => {
         renderTotal()
     })
-    commission.addEventListener('blur', () => {
-        renderTotal()
-    })
     partial_payment.addEventListener('blur', () => {
         renderTotal()
     })
 
     function renderTotal() {
         partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
-        if (quantity.value && priceUnit.value) {
-            commission_total.innerText = parseFloat(partialTotal.value) * (commission.value / 100)
-            total.value = parseFloat(partialTotal.value) + parseFloat(commission_total.innerText) - parseFloat(partial_payment.value)
-            commission_value.value = parseFloat(commission_total.innerText)
+        if (quantity.value && priceUnit.value) {            
+            total.value = parseFloat(partialTotal.value) - parseFloat(partial_payment.value)            
         }
     }
 

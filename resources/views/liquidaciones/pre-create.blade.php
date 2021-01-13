@@ -48,8 +48,8 @@
                 <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('liquidaciones.create') }}" autocomplete="off">
-                    <input type="hidden" name="type_user" value="{{ $tu }}">
+                <form action="{{ route('liquidaciones.create') }}" autocomplete="off">                    
+                    <input type="hidden" name="tu" value="{{ $tu }}">
                     <div class="form-row justify-content-center">
                         <div class="col-md-2">
                             <div class="form-check form-check-inline">
