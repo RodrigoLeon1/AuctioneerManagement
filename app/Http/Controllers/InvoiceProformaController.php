@@ -131,7 +131,7 @@ class InvoiceProformaController extends Controller
                 'quantity' => 'required|numeric',
                 'price_unit' => 'required|numeric',
                 'partial_total' => 'required|numeric',                
-                'partial_payment' => 'required|numeric',
+                'partial_payment' => 'required|numeric', 
                 'total' => 'required|numeric',
                 'name' => 'required|string',
                 'lastname' => 'required|string',
@@ -210,11 +210,12 @@ class InvoiceProformaController extends Controller
         $to = null;
 
         if ($request->input('date_start') && $request->input('date_end')) {
-
             $from = date($request->input('date_start'));
             $to = date($request->input('date_end'));
-
             $invoices = InvoiceProforma::whereBetween('date_remate', [$from, $to])->get();
+        } else if ($request->input('date_start')) {            
+            $from = date($request->input('date_start'));
+            $invoices = InvoiceProforma::where('date_remate', $from)->get();
         }
 
         return view('proformas.filter', compact(['invoices', 'from', 'to']));

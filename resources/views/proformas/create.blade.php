@@ -18,10 +18,10 @@
 @endif
 
 @php
-foreach ($product->saleorder as $order) {
-$orderHc = $order->pivot;
-$quantity = $order->pivot->quantity;
-}
+    foreach ($product->saleorder as $order) {
+        $orderHc = $order->pivot;
+        $quantity = $order->pivot->quantity;
+    }
 @endphp
 
 <!-- Content Row -->
@@ -86,7 +86,7 @@ $quantity = $order->pivot->quantity;
                         <div class="form-group col-md-6">
                             <label for="quantity">Cantidad</label>
                             <input type="number" class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" id="quantity" name="quantity" value="{{ old('quantity') }}" max={{ $orderHc->quantity_remaining }} min=1>
-                            <small id="quantity" class="form-text text-muted">
+                            <small id="quantity_small" class="form-text text-muted">
                                 La mercadería <strong>{{ $product->description }}</strong> tiene una cantidad de <strong>{{ $orderHc->quantity_remaining }} unidades</strong> para vender.
                             </small>
                         </div>
@@ -181,23 +181,27 @@ $quantity = $order->pivot->quantity;
     const partial_payment = document.querySelector('#partial_payment')
     const total = document.querySelector('#total')
 
-    quantity.addEventListener('blur', () => {
+    quantity.addEventListener('keyup', () => {        
         renderTotal()
     })
-    priceUnit.addEventListener('blur', () => {
+    priceUnit.addEventListener('keyup', () => {
         renderTotal()
     })
-    partialTotal.addEventListener('blur', () => {
+    partialTotal.addEventListener('keyup', () => {
         renderTotal()
     })
-    partial_payment.addEventListener('blur', () => {
+    partial_payment.addEventListener('keyup', (e) => {             
+        if (e.target.value && e.target.value > partialTotal.value) {
+            e.target.value = 0            
+        }        
         renderTotal()
     })
 
-    function renderTotal() {
+    function renderTotal() {        
         partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
         if (quantity.value && priceUnit.value) {            
-            total.value = parseFloat(partialTotal.value) - parseFloat(partial_payment.value)            
+            let pp = parseFloat(partial_payment.value) || 0
+            total.value = parseFloat(partialTotal.value) - parseFloat(pp)
         }
     }
 

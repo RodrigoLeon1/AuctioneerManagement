@@ -7,6 +7,7 @@ use App\Http\Controllers\InvoiceProformaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleOrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,4 +46,6 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     Route::get('mercaderias/filtrar', [ProductController::class, 'filter'])->name('productos.filter');
     Route::resource('mercaderias', ProductController::class)->names('productos');
+
+    Route::resource('estadisticas', StatisticsController::class)->names('estadisticas');
 });

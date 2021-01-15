@@ -89,7 +89,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Seleccione su opción:</h6>
                 <a class="collapse-item" href="{{ route('productos.index') }}">Listar mercadería</a>
-                <a class="collapse-item" href="{{ route('productos.filter') }}">Filtrar mercadería</a>
+                <a class="collapse-item" href="{{ route('productos.filter', ['q' => 'vendidas']) }}">Mercadería vendidas</a>
+                <a class="collapse-item" href="{{ route('productos.filter', ['q' => 'no-vendidas']) }}">Mercadería no vendidas</a>
+                <a class="collapse-item" href="{{ route('productos.filter') }}">Filtrar mercadería</a>                
 
                 <div class="collapse-divider"></div>
                 <h6 class="collapse-header">Categorías:</h6>
@@ -110,6 +112,19 @@
                 <a class="collapse-item" href="{{ route('usuarios.create') }}">Crear usuario</a>
                 <a class="collapse-item" href="{{ route('usuarios.index') }}">Listar usuarios</a>
                 <a class="collapse-item" href="{{ route('usuarios.filter') }}">Filtrar usuarios</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item {{ request()->routeIs('estadisticas.*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages5" aria-expanded="true" aria-controls="collapsePages5">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Estadísticas </span>
+        </a>
+        <div id="collapsePages5" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Seleccione su opción:</h6>
+                <a class="collapse-item" href="{{ route('estadisticas.index') }}">Consultar ganancias</a>
             </div>
         </div>
     </li>

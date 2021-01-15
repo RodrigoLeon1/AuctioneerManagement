@@ -14,7 +14,7 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Seleccione el tipo de filtro para encontrar la proforma</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Seleccione el tipo de filtro para encontrar la proforma. <br>Si solo desea buscar las proformas que se hicieron en determinada fecha de remate, solo complete el primer campo, es decir, <strong>Fecha remate de inicio</strong>.</h6>
             </div>
 
             <div class="card-body">
@@ -41,8 +41,8 @@
                     <h6 class="m-0 font-weight-bold text-primary">
                         Resultados de búsqueda -
                         <strong>{{ date("d/m/Y", strtotime($from)) }}</strong>
-                        al
-                        <strong>{{ date("d/m/Y", strtotime($to)) }}</strong>
+                        {{ $to ? 'al' : '' }}
+                        <strong>{{ $to ? date("d/m/Y", strtotime($to)) : '' }}</strong>
                     </h6>
                 </div>
 

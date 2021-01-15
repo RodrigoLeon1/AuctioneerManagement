@@ -2,16 +2,31 @@
     function show_category() {
         document.getElementById('category-search').style.display = "flex";
         document.getElementById('cd-search').style.display = "none";
+        document.getElementById('name-search').style.display = "none";
     }
 
     function show_description() {
         document.getElementById('category-search').style.display = "none";
         document.getElementById('cd-search').style.display = "flex";
+        document.getElementById('name-search').style.display = "none";
     }
 
     function show_code() {
         document.getElementById('category-search').style.display = "none";
         document.getElementById('cd-search').style.display = "flex";
+        document.getElementById('name-search').style.display = "none";
+    }
+
+    function show_comprador() {
+        document.getElementById('category-search').style.display = "none";
+        document.getElementById('cd-search').style.display = "none";
+        document.getElementById('name-search').style.display = "flex";
+    }
+
+    function show_remitente() {
+        document.getElementById('category-search').style.display = "none";
+        document.getElementById('cd-search').style.display = "none";
+        document.getElementById('name-search').style.display = "flex";
     }
 </script>
 
@@ -57,6 +72,22 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search4" value="comprador" onclick="show_comprador();">
+                                <label class="form-check-label" for="type_search4">
+                                    Comprador
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-dni" type="radio" name="type_search" id="type_search5" value="remitente" onclick="show_remitente();">
+                                <label class="form-check-label" for="type_search5">
+                                    Remitente
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search3" value="category" onclick="show_category();">
                                 <label class="form-check-label" for="type_search3">
                                     Categoria
@@ -72,6 +103,18 @@
                         <div class="form-group col-md-2 mt-5">
                             <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Filtrar</button>
                         </div>
+                    </div>
+
+                    <div class="form-row" id="name-search" style="display:none; margin-top: 2rem;">
+                        <div class="form-group col-md-6">
+                            <label for="name">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Apellido</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3"> <i class="fas fa-search"></i> Filtrar</button>
                     </div>
 
                     <div class="form-group justify-content-md-center" id="category-search" style="display:none;">

@@ -119,15 +119,16 @@ class InvoiceController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         DB::beginTransaction();
 
         try {
-
+        
             $user = User::findOrFail($request->input('user_id'));
             $commissionPercentage = $request->input('commission_percentage') ? $request->input('commission_percentage') : 0;
-            $partialPayment = $request->input('partial_payment');
+            $partialPayment = 0;
             $subtotal = 0;
+            $pricePartialTotal = 0;
             $priceTotal = 0;
             
             if ($request->input('tu') == 'remitente') {
@@ -148,7 +149,7 @@ class InvoiceController extends Controller
                 $proforma = InvoiceProforma::findOrFail($request->input('proformasIds')[$i]);
                 $product = Product::findOrFail($request->input('productsIds')[$i]);
                 $productQuantity = $request->input('productsQuantities')[$i];
-                $subtotal += ($productQuantity * $proforma->price_unit);
+                $subtotal += ($productQuantity * $proforma->price_unit);                
 
                 $invoice->products()->attach($invoice->id, [
                     'quantity' => $productQuantity,
@@ -166,14 +167,17 @@ class InvoiceController extends Controller
                         'is_invoiced_remitente' => $isRemitente
                     ]);
 
-                $priceTotal += $proforma->partial_total;
+                $partialPayment += $proforma->partial_payment;
+                $pricePartialTotal += $proforma->partial_total;                
+                $priceTotal += $proforma->total;                  
             }
 
-            $commission = ($priceTotal * ($commissionPercentage / 100));
+            $commission = ($pricePartialTotal * ($commissionPercentage / 100));
+
             if ($request->input('tu') == 'cliente') {
-                $finalPrice = $priceTotal + $commission - $partialPayment;
+                $finalPrice = $priceTotal + $commission;
             } else {
-                $finalPrice = $priceTotal - $commission - $partialPayment;
+                $finalPrice = $priceTotal - $commission;
             }
 
             Invoice::where('id', $invoice->id)

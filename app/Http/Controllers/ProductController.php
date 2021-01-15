@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
@@ -64,8 +65,28 @@ class ProductController extends Controller
                 $products = Product::where('description', $request->input('search'))->get();
             } else if ($request->input('type_search') == 'category') {
                 $cat = Category::where('id', $request->input('category'))->first();
-                $products = $cat->products;
+                $products = $cat->products;            
+            } else if ($request->input('type_search') == 'comprador') {            
+                $products = Product::whereHas('invoices.user', function (Builder $query) use ($request) {
+                    $query
+                        ->where('name', 'like', $request->input('name') . '%')
+                        ->where('lastname', 'like', $request->input('lastname') . '%');
+                })->get();
+            } else if ($request->input('type_search') == 'remitente') {                
+                $products = Product::whereHas('saleorder.user', function (Builder $query) use ($request) {
+                    $query
+                        ->where('name', 'like', $request->input('name') . '%')
+                        ->where('lastname', 'like', $request->input('lastname') . '%');;
+                })->get();
             }
+        } elseif ($request->has('q')) {
+            $query = $request->input('q');
+            if ($query == 'vendidas') {
+                $products = Product::whereHas('invoices.user')->orderBy('id', 'desc')->paginate('10');
+            } else if ($query == 'no-vendidas') {
+                $products = Product::doesntHave('invoices.user')->orderBy('id', 'desc')->paginate('10');                  
+            }        
+            return view('productos.filter2', compact(['query', 'products']));
         }
 
         return view('productos.filter', compact(['products', 'categories']));
