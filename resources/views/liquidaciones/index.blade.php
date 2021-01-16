@@ -64,7 +64,14 @@
                         <td>
                             {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Usuario eliminado' }}
                         </td>
-                        <td>${{ number_format($invoice->total) }}</td>
+                        <td>
+                            @if ($invoice->is_price_modified)
+                                <del>${{ number_format($invoice->total) }}</del><br>
+                                ${{ number_format($invoice->price_modified) }}
+                            @else
+                                ${{ number_format($invoice->total) }}
+                            @endif                        
+                        </td>
                         <td>
                             <ul>
                                 @foreach ($invoice->products as $product)
@@ -77,6 +84,9 @@
                         <td>
                             <a href="{{ route('liquidaciones.show', $invoice->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="{{ route('liquidaciones.edit', $invoice->id) }}" class="btn btn-warning btn-circle">
+                                <i class="fas fa-edit"></i>
                             </a>
                             <a href="{{ route('liquidaciones.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>

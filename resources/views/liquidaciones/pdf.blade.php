@@ -63,7 +63,9 @@
             <tr>
                 <td>{{ date('d/m/Y', strtotime($invoice->created_at)) }}</td>
                 <td>{{ ucfirst($invoice->type_invoice) }}</td>
-                <td>{{ ucfirst($invoice->user->name) }} {{ ucfirst($invoice->user->lastname) }}</td>
+                <td>
+                    {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Usuario eliminado' }}
+                </td>
             </tr>
         </table>
         <br>
@@ -82,7 +84,7 @@
                 <td>{{ $product->id }}</td>
                 <td>{{ ucfirst($product->description) }}</td>
                 <td>{{ $product->pivot->quantity }}</td>
-                <td>${{ $product->pivot->total }}</td>
+                <td>${{ number_format($product->pivot->total) }}</td>
             </tr>
             @endforeach
         </table>
@@ -94,9 +96,11 @@
                 <th>Importe total y final</th>
             </tr>
             <tr>
-                <td>${{ $invoice->commission }}</td>
-                <td>${{ $invoice->partial_payment }} </td>
-                <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ $invoice->total }}</strong></td>
+                <td>
+                    ${{ number_format($invoice->commission) }} 
+                </td>
+                <td>${{ number_format($invoice->partial_payment) }} </td>
+                <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ number_format($invoice->total) }}</strong></td>
             </tr>
         </table>
     </div>

@@ -66,7 +66,9 @@
                 <td>{{ date('d/m/Y', strtotime($order->date_payment)) }}</td>
                 <td>{{ $order->remito }}</td>
                 <td>{{ $order->order_number }}</td>
-                <td>{{ ucfirst($order->user->name) }} {{ ucfirst($order->user->lastname) }}</td>
+                <td>
+                    {{ $order->user ? ucwords($order->user->name . ' ' . $order->user->lastname) : 'Remitente eliminado' }}
+                </td>
             </tr>
         </table>
         <br>
@@ -75,21 +77,15 @@
         </p>
         <table>
             <tr>
+                <th>Código</th>
                 <th>Descripción</th>
-                <th>Cantidad total</th>
-                <th>Tasac</th>
-                <th>Categoría</th>
+                <th>Cantidad total</th>                
             </tr>
             @foreach ($order->products as $product)
             <tr>
+                <td>{{ $product->id }}</td>
                 <td>{{ ucfirst($product->description) }}</td>
-                <td>{{ $product->pivot->quantity }}</td>
-                <td>{{ $order->tasac }}</td>
-                @forelse ($product->categories as $category)
-                <td>{{ $category->description }}</td>
-                @empty
-                <td> Sin categoría </td>
-                @endforelse
+                <td>{{ $product->pivot->quantity }}</td>                
             </tr>
             @endforeach
         </table>

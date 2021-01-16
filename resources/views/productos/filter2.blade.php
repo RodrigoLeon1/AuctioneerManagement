@@ -44,7 +44,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($products as $product)      
+                            @forelse ($products as $product)      
                             @foreach ($product->invoices as $invoice)
                             @if ($invoice->type_invoice === 'cliente')                            
                             <tr>
@@ -76,7 +76,11 @@
                             </tr>
                             @endif
                             @endforeach                        
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="5">No se encontraron usuarios eliminados.</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     {{ $products->links() }}

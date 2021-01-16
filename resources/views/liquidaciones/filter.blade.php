@@ -152,6 +152,9 @@
                             <a href="{{ route('liquidaciones.show', $invoice->id) }}" class="btn btn-info btn-circle">
                                 <i class="fas fa-info-circle"></i>
                             </a>
+                            <a href="{{ route('liquidaciones.edit', $invoice->id) }}" class="btn btn-warning btn-circle">
+                                <i class="fas fa-edit"></i>
+                            </a>
                             <a href="{{ route('liquidaciones.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
                                 <i class="fas fa-file-pdf"></i>
                             </a>

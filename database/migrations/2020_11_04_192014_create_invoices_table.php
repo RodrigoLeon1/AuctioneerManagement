@@ -16,7 +16,10 @@ class CreateInvoicesTable extends Migration
             $table->integer('commission_percentage');
             $table->float('partial_payment')->default(0);
             $table->float('subtotal')->default(0);
-            $table->float('total')->default(0);
+            $table->float('total')->default(0);        
+            $table->boolean('is_price_modified')->default(false);
+            $table->float('price_modified')->default(0);
+            $table->text('modified_description')->default('');
 
             $table->foreignId('user_id')
                 ->constrained()

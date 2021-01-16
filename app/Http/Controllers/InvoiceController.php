@@ -208,6 +208,26 @@ class InvoiceController extends Controller
         return view('liquidaciones.show', compact('invoice'));
     }
 
+    public function edit($id)
+    {
+        $invoice = Invoice::find($id);        
+        return view('liquidaciones.edit', compact('invoice'));
+    }
+
+    public function update(Request $request, $id)
+    {                
+        $invoice = Invoice::find($id);        
+        $invoice->update([
+            'is_price_modified' => true,
+            'price_modified' => $request->input('price_modified'),
+            'modified_description' => $request->input('description_modified'),
+        ]);
+
+        return redirect()
+            ->route('liquidaciones.index')
+            ->with('success-store', 'Liquidación modificada de manera exitosa.');
+    }
+
     public function pdf($id)
     {
         $invoice = Invoice::find($id);

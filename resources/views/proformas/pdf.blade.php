@@ -64,7 +64,9 @@
                 <td>{{ date('d/m/Y', strtotime($invoice->date_remate)) }}</td>
                 <td>{{ date('d/m/Y', strtotime($invoice->date_delivery)) }}</td>
                 <td>{{ $invoice->saleorder->order_number }}</td>
-                <td>{{ $invoice->user->name }} {{ $invoice->user->lastname }}</td>
+                <td>
+                    {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Comprador eliminado' }}
+                </td>
             </tr>
         </table>
         <br>
@@ -83,21 +85,19 @@
                 <td>{{ $invoice->product->id }}</td>
                 <td>{{ $invoice->product->description }}</td>
                 <td>{{ $invoice->quantity }}</td>
-                <td>${{ $invoice->price_unit }}</td>
-                <td>${{ $invoice->partial_total }}</td>
+                <td>${{ number_format($invoice->price_unit) }}</td>
+                <td>${{ number_format($invoice->partial_total) }}</td>
             </tr>
         </table>
         <br>
         <table>
-            <tr>
-                <th>Comisión</th>
+            <tr>                
                 <th>Seña</th>
                 <th>Importe total y final</th>
             </tr>
-            <tr>
-                <td>${{ $invoice->commission }}</td>
-                <td>${{ $invoice->partial_payment }}</td>
-                <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ $invoice->total }}</strong></td>
+            <tr>                
+                <td>${{ number_format($invoice->partial_payment) }}</td>
+                <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ number_format($invoice->total) }}</strong></td>
             </tr>
         </table>
     </div>

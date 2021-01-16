@@ -1,22 +1,48 @@
 @extends('layouts.app')
 
-@section('title', ' - Listar liquidación')
+@section('title', ' - Editar liquidación')
 
 @section('content')
 
 @isset ($invoice)
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Información sobre la liquidación #{{ $invoice->id }} </h1>
+    <h1 class="h3 mb-0 text-gray-800">Editar información de la liquidación #{{ $invoice->id }} </h1>
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            A continuación podrá observar la información completa de la liquidación
+            A continuación podrá editar la información de la liquidación
         </h6>
     </div>
     <div class="card-body">
 
-        <h4>
+      @if ($errors->any())
+      <div class="alert alert-danger">
+          <ul>
+              @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+      @endif
+
+      <form action="{{ route('liquidaciones.update', $invoice->id) }}" method="post">    
+        @csrf
+        @method('PUT')    
+        <div class="form-row form-dinamic">
+          <div class="form-group col-md-12">
+              <label>Precio modificado</label>
+              <input type="number" class="form-control {{ $errors->has('price_modified') ? 'is-invalid' : '' }}" name="price_modified" id="price_modified" value="{{ old('price_modified') }}" required>
+          </div>
+          <div class="form-group col-md-12">
+              <label>Motivo por el cual se ha de modificar el precio</label>
+              <textarea class="form-control" id="description_modified" name="description_modified" rows="3" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Editar liquidación</button>
+      </form>
+
+        <h4 class="mt-5">
             <strong>Datos generales</strong>
         </h4>
         <div class="form-group row">
@@ -39,15 +65,11 @@
         </h4>
         <div class="form-row">
             @foreach ($invoice->products as $product)
-            <div class="form-group col-md-1">
-                <label for="staticProductTasac">Código</label>
-                <input type="text" readonly class="form-control" id="staticProductTasac" value="{{ $product->id }}">
-            </div>
             <div class="form-group col-md-6">
                 <label for="staticProductName">Descripción</label>
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="staticProductQuantity">Cantidad total</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
             </div>
@@ -79,35 +101,12 @@
             </div>
         </div>
         <hr>
-        @if ($invoice->is_price_modified)
         <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Importe final</label>
-            <div class="col-sm-10">
-                <p class="form-control-plaintext">
-                    <del>${{ number_format($invoice->total) }}</del>
-                </p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Importe modificado</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->price_modified) }}">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Motivo</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="{{$invoice->modified_description }}">
-            </div>
-        </div>
-        @else
-        <div class="form-group row">
-            <label for="staticDate" class="col-sm-2 col-form-label">Importe final</label>
+            <label for="staticDate" class="col-sm-2 col-form-label">Importe final original</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->total) }}">
             </div>
-        </div>        
-        @endif
+        </div>
 
         <hr>
 
@@ -138,18 +137,6 @@
             </div>
         </div>
         @endif
-
-        <hr>
-
-        <h4>
-            <strong>Acciones</strong>
-        </h4>
-        <a href="{{ route('liquidaciones.pdf', $invoice->id) }}" target="_blank" class="btn btn-success btn-circle">
-            <i class="fas fa-file-pdf"></i>
-        </a>
-        <a href="{{ route('liquidaciones.edit', $invoice->id) }}" class="btn btn-warning btn-circle">
-            <i class="fas fa-edit"></i>
-        </a>
 
     </div>
 </div>

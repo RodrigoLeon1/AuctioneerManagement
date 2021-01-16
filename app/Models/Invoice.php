@@ -17,6 +17,9 @@ class Invoice extends Model
         'subtotal',
         'total',
         'user_id',
+        'is_price_modified',
+        'price_modified',
+        'modified_description',
     ];
 
     public function user()
