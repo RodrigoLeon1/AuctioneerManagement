@@ -2,16 +2,24 @@
     function show_name() {
         document.getElementById('name-search').style.display = "flex";
         document.getElementById('dc-search').style.display = "none";
+        document.getElementById('prof-search').style.display = "none";
     }
 
     function show_dni() {
         document.getElementById('name-search').style.display = "none";
         document.getElementById('dc-search').style.display = "flex";
+        document.getElementById('prof-search').style.display = "none";
     }
 
     function show_cuit() {
         document.getElementById('name-search').style.display = "none";
         document.getElementById('dc-search').style.display = "flex";
+        document.getElementById('prof-search').style.display = "none";
+    }
+    function show_prof() {
+        document.getElementById('name-search').style.display = "none";
+        document.getElementById('dc-search').style.display = "none";
+        document.getElementById('prof-search').style.display = "flex";
     }
 </script>
 
@@ -75,6 +83,26 @@
                                 </label>
                             </div>
                         </div>
+                        @if ($tu == 'cliente')
+                            <div class="col-md-2">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search4" value="proforma_date" onclick="show_prof();">
+                                    <label class="form-check-label" for="type_search4">
+                                        Proforma
+                                    </label>
+                                </div>
+                            </div>    
+                        @endif
+                        
+                    </div>
+
+                    <div class="form-row" id="prof-search" style="display:none;">
+                        <div class="form-group col-md-12 mt-5">
+                            <input type="date" class="form-control" id="date" name="date">
+                        </div>
+                        <div class="form-group col-md-2 mt-5">
+                            <button type="submit" class="btn btn-primary"> <i class="fas fa-search"></i> Filtrar</button>
+                        </div>
                     </div>
 
                     <div class="form-row" id="dc-search" style="display:none;">
@@ -104,6 +132,7 @@
 </div>
 
 @php $user = Session::get('user'); @endphp
+
 
 @if ($user != null && count($user) > 0)
 <div class="card shadow mb-4">
@@ -152,6 +181,57 @@
                         </td>
                     </tr>
                     @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endif
+@if ($preproformas != null && count($preproformas) > 0)
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            Hay mas de un resultado para su busqueda. Seleccione el indicado.
+        </h6>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <th>Codigo producto</th>
+                        <th>Seña</th>
+                        <th>Total</th>
+                        <th>Acciones<th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <th>Codigo producto</th>
+                        <th>Seña</th>
+                        <th>Total</th>
+                        <th>Acciones<th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @for ($i = 0; $i < count($preproformas); $i++)
+                    <tr>
+                        <td> {{ $proformas_user[$i]->name }} {{ $proformas_user[$i]->lastname }} </td>
+                        <td> {{ $preproformas[$i]->product->id }} </td>
+                        <td> {{ $preproformas[$i]->partial_payment }} </td>
+                        <td> {{ $preproformas[$i]->total }} </td>
+                        <td>
+                            <a href="{{ route('liquidaciones.create', ['user_id' => $proformas_user[$i]->id , 'tu' => $tu]) }}" class="btn btn-success btn-circle">
+                                <i class="fas fa-check"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endfor
+                    
                 </tbody>
             </table>
         </div>

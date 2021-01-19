@@ -139,7 +139,6 @@
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Seña</th>
                                         <th>Importe total</th>
                                     </tr>
                                 </thead>
@@ -151,7 +150,6 @@
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Seña</th>
                                         <th>Importe total</th>
                                     </tr>
                                 </tfoot>
@@ -171,15 +169,15 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
-                                            <td>${{ number_format($proforma->partial_payment) }}</td>
-                                            <td>${{ number_format($proforma->total) }}</td>
+                                            
+                                            <td>${{ number_format($proforma->total + $proforma->partial_payment) }}</td>
                                             
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
                                             <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
                                             <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
                                             <input type="hidden" value="{{ $proforma->partial_total }}" name="products[]" id="partial_products">
                                             <input type="hidden" value="{{ $proforma->partial_payment }}" name="products[]" id="payment_products">
-                                            <input type="hidden" value="{{ $proforma->total }}" name="products[]" id="total_products">
+                                            <input type="hidden" value="{{ $proforma->total + $proforma->partial_payment }}" name="products[]" id="total_products">
 
                                         </tr>
                                         <?php $i++; ?>

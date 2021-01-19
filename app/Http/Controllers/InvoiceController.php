@@ -25,7 +25,8 @@ class InvoiceController extends Controller
     public function preCreate(Request $request)
     {
         $tu = $request->input('tu');
-        return view('liquidaciones.pre-create', compact('tu'));
+        $preproformas = null;
+        return view('liquidaciones.pre-create', compact('tu', 'preproformas'));
     }
 
     public function create(Request $request)
@@ -33,7 +34,8 @@ class InvoiceController extends Controller
         if ($request->input('user_id') != null) {
             $user = User::where('id', $request->input('user_id'))->first();
         } else {
-
+            $preproformas = null;
+            $user = null;
             if (!$request->input('type_search')) {
                 return redirect()->back();
             }
@@ -53,16 +55,32 @@ class InvoiceController extends Controller
                     $user = User::where('dni', $request->input('search'))->first();
                 } else if ($request->input('type_search') == 'cuit') {
                     $user = User::where('cuit', $request->input('search'))->first();
+                }else if ($request->input('type_search') == 'proforma_date'){
+                    $preproformas = InvoiceProforma::where('date_remate', $request->input('date'))
+                                                    ->where('is_invoiced', false)
+                                                    ->get();
                 }
             }
+
+            if($preproformas != null) {
+                $proformas_user = [];
+                foreach($preproformas as $prof){
+                    $us = User::where('id', $prof->user_id)->first();
+                    array_push($proformas_user, $us);
+                }
+                $tu = $request->input('tu');
+                return view('liquidaciones.pre-create', compact('preproformas', 'proformas_user', 'tu'));
+            }
+            
             if ($user != null) {
                 if (get_class($user) != "App\Models\User") {
                     return redirect()
-                        ->back()                        
+                        ->back()
                         ->with(['user' => $user], ['tu' => $request->input('tu')]);
                 }
             }
         }
+
 
         if ($user == null) {
             if ($request->input('type_search') == 'dni' || $request->input('type_search') == 'cuit') {
@@ -168,8 +186,12 @@ class InvoiceController extends Controller
                     ]);
 
                 $partialPayment += $proforma->partial_payment;
-                $pricePartialTotal += $proforma->partial_total;                
-                $priceTotal += $proforma->total;                  
+                $pricePartialTotal += $proforma->partial_total; 
+                if ($request->input('tu') == 'remitente') {              
+                    $priceTotal += $proforma->total + $proforma->partial_payment;           
+                }else{
+                    $priceTotal += $proforma->total;
+                }
             }
 
             $commission = ($pricePartialTotal * ($commissionPercentage / 100));
