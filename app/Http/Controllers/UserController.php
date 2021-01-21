@@ -79,12 +79,12 @@ class UserController extends Controller
                 if ($request->input('name') !== null xor $request->input('lastname') !== null) {
 
 
-                    $users = User::where('name', 'like',  $request->input('name') . '%')
-                        ->orWhere('lastname', 'like',  $request->input('lastname') . '%')
+                    $users = User::where('name', 'LIKE', '%' .  $request->input('name') . '%')
+                        ->orWhere('lastname', 'LIKE', '%' .  $request->input('lastname') . '%')
                         ->get();
                 } elseif ($request->input('name') && $request->input('lastname')) {
-                    $users = User::where('name', 'like',  $request->input('name') . '%')
-                        ->where('lastname', 'like',  $request->input('lastname') . '%')
+                    $users = User::where('name', 'LIKE', '%' .  $request->input('name') . '%')
+                        ->where('lastname', 'LIKE', '%' .  $request->input('lastname') . '%')
                         ->get();
                 }
             } else if ($request->input('type_search') == 'dni') {
@@ -94,7 +94,6 @@ class UserController extends Controller
             }
         }
 
-        dd($users);
 
         return view('usuarios.filter', compact('users'));
     }
