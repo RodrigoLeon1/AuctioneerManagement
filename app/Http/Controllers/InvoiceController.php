@@ -43,12 +43,17 @@ class InvoiceController extends Controller
             if ($request->has('type_search')) {
                 if ($request->input('type_search') == 'name') {
                     if ($request->input('name') !== null xor $request->input('lastname') !== null) {
-                        $user = User::where('name', $request->input('name'))
-                            ->orWhere('lastname', $request->input('lastname'))
+
+                        $user = User::where('name', 'like', $request->input('name') . '%')
+                            ->orWhere('lastname', 'like', $request->input('lastname') . '%')
                             ->get();
+
+                        /*$user = User::where('name', $request->input('name'))
+                            ->orWhere('lastname', $request->input('lastname'))
+                            ->get();*/
                     } elseif ($request->input('name') && $request->input('lastname')) {
-                        $user = User::where('name', $request->input('name'))
-                            ->where('lastname', $request->input('lastname'))
+                        $user = User::where('name', 'like', $request->input('name') . '%')
+                            ->where('lastname', 'like', $request->input('lastname') . '%')
                             ->first();
                     }
                 } else if ($request->input('type_search') == 'dni') {

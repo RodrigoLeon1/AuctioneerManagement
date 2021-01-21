@@ -77,12 +77,14 @@ class UserController extends Controller
             $users = [];
             if ($request->input('type_search') == 'name') {
                 if ($request->input('name') !== null xor $request->input('lastname') !== null) {
-                    $users = User::where('name', $request->input('name'))
-                        ->orWhere('lastname', $request->input('lastname'))
+
+
+                    $users = User::where('name', 'like',  $request->input('name') . '%')
+                        ->orWhere('lastname', 'like',  $request->input('lastname') . '%')
                         ->get();
                 } elseif ($request->input('name') && $request->input('lastname')) {
-                    $users = User::where('name', $request->input('name'))
-                        ->where('lastname', $request->input('lastname'))
+                    $users = User::where('name', 'like',  $request->input('name') . '%')
+                        ->where('lastname', 'like',  $request->input('lastname') . '%')
                         ->get();
                 }
             } else if ($request->input('type_search') == 'dni') {
@@ -91,6 +93,8 @@ class UserController extends Controller
                 $users = User::where('cuit', $request->input('search'))->get();
             }
         }
+
+        dd($users);
 
         return view('usuarios.filter', compact('users'));
     }
