@@ -29,6 +29,7 @@ Route::middleware('auth', 'role:admin')->group(function () {
 
     Route::get('orden-ventas/filtrar', [SaleOrderController::class, 'filter'])->name('orden-ventas.filter');
     Route::get('orden-ventas/{id}/pdf', [SaleOrderController::class, 'pdf'])->name('orden-ventas.pdf');
+    Route::get('orden-ventas/{id}/etiqueta', [SaleOrderController::class, 'tags'])->name('orden-ventas.etiqueta');
     Route::resource('orden-ventas', SaleOrderController::class)->names('orden-ventas');
 
     Route::get('proformas/{id}/pdf', [InvoiceProformaController::class, 'pdf'])->name('proformas.pdf');

@@ -157,4 +157,12 @@ class SaleOrderController extends Controller
         $pdf = PDF::loadView('orden-ventas.pdf', compact('order'));
         return $pdf->stream($title);
     }
+
+    public function tags($id)
+    {
+        $order = SaleOrder::find($id);
+        $title = 'Etiquetas';
+        $pdf = PDF::loadView('orden-ventas.tags', compact('order'));
+        return $pdf->stream($title);
+    }
 }
