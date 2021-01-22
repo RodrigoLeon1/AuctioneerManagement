@@ -120,6 +120,7 @@
                     <div class="form-group justify-content-md-center" id="category-search" style="display:none;">
                         <div class="form-group col-md-4 mt-5">
                             <select class="form-control" name="category" id="category">
+                                <option value="" selected>Seleccione</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"> {{ $category->description }} </option>
                                 @endforeach
@@ -146,6 +147,7 @@
                                 <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Categoría</th>
+                                <th>Remitente</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -155,6 +157,7 @@
                                 <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Categoría</th>
+                                <th>Remitente</th>
                                 <th>Acciones</th>
                             </tr>
                         </tfoot>
@@ -167,6 +170,11 @@
                                 <td>
                                     @foreach ($product->categories as $category)
                                     {{ $category->description }}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($product->saleorder as $saleorder)
+                                    {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
                                     @endforeach
                                 </td>
                                 <td>

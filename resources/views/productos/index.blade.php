@@ -30,6 +30,7 @@
                         <th>Código</th>
                         <th>Descripción</th>
                         <th>Categoría</th>
+                        <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <th>Código</th>
                         <th>Descripción</th>
                         <th>Categoría</th>
+                        <th>Remitente</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
@@ -54,6 +56,11 @@
                             @empty
                             Categoría eliminada
                             @endforelse
+                        </td>
+                        <td>
+                            @foreach ($product->saleorder as $saleorder)
+                            {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
+                            @endforeach
                         </td>
                         <td>
                             <a href="{{ route('productos.show', $product->id) }}" class="btn btn-info btn-circle">

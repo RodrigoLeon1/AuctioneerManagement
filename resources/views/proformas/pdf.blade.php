@@ -91,11 +91,11 @@
         </table>
         <br>
         <table>
-            <tr>                
+            <tr>
                 <th>Seña</th>
                 <th>Importe total y final</th>
             </tr>
-            <tr>                
+            <tr>
                 <td>${{ number_format($invoice->partial_payment) }}</td>
                 <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ number_format($invoice->total) }}</strong></td>
             </tr>

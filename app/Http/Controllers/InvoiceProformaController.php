@@ -91,7 +91,7 @@ class InvoiceProformaController extends Controller
                 'date_delivery' => $request->input('date_delivery'),
                 'quantity' => $request->input('quantity'),
                 'price_unit' => $request->input('price_unit'),
-                'partial_total' => $request->input('partial_total'),                
+                'partial_total' => $request->input('partial_total'),
                 'partial_payment' => $request->input('partial_payment'),
                 'total' => $request->input('total'),
                 'user_id' => $user->id,
@@ -130,8 +130,8 @@ class InvoiceProformaController extends Controller
                 'date_delivery' => 'required|date|after_or_equal:start_date',
                 'quantity' => 'required|numeric',
                 'price_unit' => 'required|numeric',
-                'partial_total' => 'required|numeric',                
-                'partial_payment' => 'required|numeric', 
+                'partial_total' => 'required|numeric',
+                'partial_payment' => 'required|numeric',
                 'total' => 'required|numeric',
                 'name' => 'required|string',
                 'lastname' => 'required|string',
@@ -149,7 +149,7 @@ class InvoiceProformaController extends Controller
                 'date_delivery' => 'required|date|after_or_equal:start_date',
                 'quantity' => 'required|numeric',
                 'price_unit' => 'required|numeric',
-                'partial_total' => 'required|numeric',                
+                'partial_total' => 'required|numeric',
                 'partial_payment' => 'required|numeric',
                 'total' => 'required|numeric',
                 'name' => 'required|string',
@@ -213,7 +213,7 @@ class InvoiceProformaController extends Controller
             $from = date($request->input('date_start'));
             $to = date($request->input('date_end'));
             $invoices = InvoiceProforma::whereBetween('date_remate', [$from, $to])->get();
-        } else if ($request->input('date_start')) {            
+        } else if ($request->input('date_start')) {
             $from = date($request->input('date_start'));
             $invoices = InvoiceProforma::where('date_remate', $from)->get();
         }

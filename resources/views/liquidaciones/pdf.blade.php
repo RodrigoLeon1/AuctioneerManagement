@@ -97,7 +97,7 @@
             </tr>
             <tr>
                 <td>
-                    ${{ number_format($invoice->commission) }} 
+                    ${{ number_format($invoice->commission) }}
                 </td>
                 <td>${{ number_format($invoice->partial_payment) }} </td>
                 <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ number_format($invoice->total) }}</strong></td>

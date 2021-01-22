@@ -102,7 +102,7 @@
                                 <tbody>
                                     <div class="form-row">
                                         <?php $i = 1; ?>
-                                        @foreach ($proformas as $proforma)                                        
+                                        @foreach ($proformas as $proforma)
                                         <tr>
                                             <input type="hidden" value="{{ $proforma->id }}" name="proformasIds[]">
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="productsIds[]">
@@ -169,9 +169,9 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
-                                            
+
                                             <td>${{ number_format($proforma->total + $proforma->partial_payment) }}</td>
-                                            
+
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
                                             <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
                                             <input type="hidden" value="<?= $i; ?>" name="products[]" id="quantity_products">
@@ -233,7 +233,7 @@
                                                     <tr>
                                                         <th>Subtotal</th>
                                                         <th>Comisión en porcentaje</th>
-                                                        <th>Comisión</th>   
+                                                        <th>Comisión</th>
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
@@ -259,7 +259,7 @@
                                                     <tr>
                                                         <th>Subtotal</th>
                                                         <th>Comisión en porcentaje</th>
-                                                        <th>Comisión</th>                                           
+                                                        <th>Comisión</th>
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
@@ -305,14 +305,14 @@
     const modal_product_items = document.querySelector('#modal_product_items')
     const products = document.getElementsByName("products[]")
     const type_user = document.querySelector("#tu")
-    const commission = document.querySelector('#commission_percentage')    
+    const commission = document.querySelector('#commission_percentage')
     const modal_commission_v = document.querySelector('#modal_commission_value')
     const modal_subtotal = document.querySelector('#modal_subtotal')
     const modal_total = document.querySelector('#modal_total')
     let modal_commission = 0
-    let modal_commission_value = 0    
+    let modal_commission_value = 0
 
-    commission.addEventListener('keyup', (e) => {        
+    commission.addEventListener('keyup', (e) => {
         modal_commission = e.target.value
         modalData()
     })
@@ -320,15 +320,15 @@
     const modalData = (e) => {
         let inputs = ""
         let i = 0
-        let subtotal = 0        
+        let subtotal = 0
         let comision = 0
         let commPartialTotal = 0
-        let total = 0        
+        let total = 0
 
         while (i < products.length) {
             if (type_user.value == 'cliente') {
                 let is_checked = products[i].checked
-                if (is_checked) {                    
+                if (is_checked) {
                     inputs = inputs + '<tr>' +
                         '<td>' + products[i + 1].value + '</td>' +
                         '<td>' + products[i + 3].value + '</td>' +
@@ -336,20 +336,20 @@
                         '<td>' + products[i + 5].value + '</td>' +
                         '</tr>';
                     subtotal = parseFloat(subtotal) + parseFloat(products[i + 5].value)
-                    commPartialTotal += parseFloat(products[i + 3].value)                    
+                    commPartialTotal += parseFloat(products[i + 3].value)
                 }
-            } else {                
+            } else {
                 subtotal = parseFloat(subtotal) + parseFloat(products[i + 5].value)
-                commPartialTotal += parseFloat(products[i + 3].value)          
+                commPartialTotal += parseFloat(products[i + 3].value)
             }
             i = i + 6;
         }
 
         if (type_user.value == 'cliente') {
             modal_product_items.innerHTML = inputs
-        }        
+        }
 
-        modal_subtotal.innerHTML = "$" + subtotal        
+        modal_subtotal.innerHTML = "$" + subtotal
         if (modal_commission) {
             modal_commission_value = parseFloat(commPartialTotal) * (parseFloat(modal_commission) / 100)
             modal_commission_v.innerText = "$" + modal_commission_value

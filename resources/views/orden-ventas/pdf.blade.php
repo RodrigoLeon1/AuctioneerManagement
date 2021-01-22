@@ -79,13 +79,13 @@
             <tr>
                 <th>Código</th>
                 <th>Descripción</th>
-                <th>Cantidad total</th>                
+                <th>Cantidad total</th>
             </tr>
             @foreach ($order->products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
                 <td>{{ ucfirst($product->description) }}</td>
-                <td>{{ $product->pivot->quantity }}</td>                
+                <td>{{ $product->pivot->quantity }}</td>
             </tr>
             @endforeach
         </table>

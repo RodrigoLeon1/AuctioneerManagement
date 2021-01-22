@@ -16,6 +16,7 @@
         document.getElementById('dc-search').style.display = "flex";
         document.getElementById('prof-search').style.display = "none";
     }
+
     function show_prof() {
         document.getElementById('name-search').style.display = "none";
         document.getElementById('dc-search').style.display = "none";
@@ -56,7 +57,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Es necesario buscar al usuario deseado para poder crear la liquidación</h6>
             </div>
             <div class="card-body">
-                <form action="{{ route('liquidaciones.create') }}" autocomplete="off">                    
+                <form action="{{ route('liquidaciones.create') }}" autocomplete="off">
                     <input type="hidden" name="tu" value="{{ $tu }}">
                     <div class="form-row justify-content-center">
                         <div class="col-md-2">
@@ -84,16 +85,16 @@
                             </div>
                         </div>
                         @if ($tu == 'cliente')
-                            <div class="col-md-2">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search4" value="proforma_date" onclick="show_prof();">
-                                    <label class="form-check-label" for="type_search4">
-                                        Proforma
-                                    </label>
-                                </div>
-                            </div>    
+                        <div class="col-md-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input radio-cuit" type="radio" name="type_search" id="type_search4" value="proforma_date" onclick="show_prof();">
+                                <label class="form-check-label" for="type_search4">
+                                    Proforma
+                                </label>
+                            </div>
+                        </div>
                         @endif
-                        
+
                     </div>
 
                     <div class="form-row" id="prof-search" style="display:none;">
@@ -205,7 +206,8 @@
                         <th>Codigo producto</th>
                         <th>Seña</th>
                         <th>Total</th>
-                        <th>Acciones<th>
+                        <th>Acciones
+                        <th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -214,12 +216,12 @@
                         <th>Codigo producto</th>
                         <th>Seña</th>
                         <th>Total</th>
-                        <th>Acciones<th>
+                        <th>Acciones
+                        <th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    @for ($i = 0; $i < count($preproformas); $i++)
-                    <tr>
+                    @for ($i = 0; $i < count($preproformas); $i++) <tr>
                         <td> {{ $proformas_user[$i]->name }} {{ $proformas_user[$i]->lastname }} </td>
                         <td> {{ $preproformas[$i]->product->id }} </td>
                         <td> {{ $preproformas[$i]->partial_payment }} </td>
@@ -229,9 +231,9 @@
                                 <i class="fas fa-check"></i>
                             </a>
                         </td>
-                    </tr>
-                    @endfor
-                    
+                        </tr>
+                        @endfor
+
                 </tbody>
             </table>
         </div>

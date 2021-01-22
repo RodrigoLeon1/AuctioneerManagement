@@ -106,7 +106,7 @@
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->total) }}">
             </div>
-        </div>        
+        </div>
         @endif
 
         <hr>

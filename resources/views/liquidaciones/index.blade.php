@@ -66,11 +66,11 @@
                         </td>
                         <td>
                             @if ($invoice->is_price_modified)
-                                <del>${{ number_format($invoice->total) }}</del><br>
-                                ${{ number_format($invoice->price_modified) }}
+                            <del>${{ number_format($invoice->total) }}</del><br>
+                            ${{ number_format($invoice->price_modified) }}
                             @else
-                                ${{ number_format($invoice->total) }}
-                            @endif                        
+                            ${{ number_format($invoice->total) }}
+                            @endif
                         </td>
                         <td>
                             <ul>

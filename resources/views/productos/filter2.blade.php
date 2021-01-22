@@ -18,7 +18,7 @@
             </div>
 
             <div class="card-body">
-                @if (count($products) > 0 && $query == 'vendidas')
+                @if ($query == 'vendidas')
                 <div class="table-responsive">
                     <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                         <thead>
@@ -26,10 +26,10 @@
                                 <th>Fecha de creación</th>
                                 <th>Código</th>
                                 <th>Descripción</th>
-                                <th>Comprador</th>        
-                                <th>Remitente</th>                        
-                                <th>Importe final</th>                                
-                                <th>Liquidación</th>                                
+                                <th>Comprador</th>
+                                <th>Remitente</th>
+                                <th>Importe final</th>
+                                <th>Liquidación</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -37,16 +37,16 @@
                                 <th>Fecha de creación</th>
                                 <th>Código</th>
                                 <th>Descripción</th>
-                                <th>Comprador</th>                                
+                                <th>Comprador</th>
                                 <th>Remitente</th>
-                                <th>Importe final</th>                                
-                                <th>Liquidación</th>                            
+                                <th>Importe final</th>
+                                <th>Liquidación</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @forelse ($products as $product)      
+                            @forelse ($products as $product)
                             @foreach ($product->invoices as $invoice)
-                            @if ($invoice->type_invoice === 'cliente')                            
+                            @if ($invoice->type_invoice === 'cliente')
                             <tr>
                                 <td> {{ date("d/m/Y", strtotime($product->created_at)) }}</td>
                                 <td> {{ $product->id }} </td>
@@ -59,14 +59,14 @@
                                         @endforeach
                                     </ul>
                                 </td>
-                                <td>                                  
-                                      {{ $invoice->user ? ucwords($invoice->user->name . ' ' . $invoice->user->lastname) : 'Remitente eliminado' }}                                              
-                                </td>     
-                                <td>                                    
+                                <td>
+                                    {{ $invoice->user ? ucwords($invoice->user->name . ' ' . $invoice->user->lastname) : 'Remitente eliminado' }}
+                                </td>
+                                <td>
                                     @foreach ($product->saleorder as $saleorder)
-                                        {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
+                                    {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
                                     @endforeach
-                                </td>                           
+                                </td>
                                 <td>${{$invoice->total}}</td>
                                 <td>
                                     <a href="{{ route('liquidaciones.show', $invoice->id) }}" class="btn btn-info btn-circle">
@@ -75,17 +75,17 @@
                                 </td>
                             </tr>
                             @endif
-                            @endforeach                        
+                            @endforeach
                             @empty
                             <tr>
-                                <td colspan="5">No se encontraron usuarios eliminados.</td>
+                                <td colspan="7">No se han encontrado mercaderías vendidas.</td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                     {{ $products->links() }}
                 </div>
-                @elseif (count($products) > 0 && $query == 'no-vendidas')
+                @elseif ($query == 'no-vendidas')
                 <div class="table-responsive">
                     <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                         <thead>
@@ -109,7 +109,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @forelse ($products as $product)                            
+                            @forelse ($products as $product)
                             <tr>
                                 <td>{{ date('d/m/Y', strtotime($product->created_at)) }}</td>
                                 <td> {{ $product->id }} </td>
@@ -123,7 +123,7 @@
                                 </td>
                                 <td>
                                     @foreach ($product->saleorder as $saleorder)
-                                        {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
+                                    {{ $saleorder->user ? ucwords($saleorder->user->name . ' ' . $saleorder->user->lastname) : 'Remitente eliminado' }}
                                     @endforeach
                                 </td>
                                 <td>
@@ -137,12 +137,12 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4">No se encontraron mercaderías registradas.</td>
+                                <td colspan="6">No se han encontrado mercaderías no vendidas.</td>
                             </tr>
                             @endforelse
                         </tbody>
-                    </table>      
-                    {{ $products->links() }}              
+                    </table>
+                    {{ $products->links() }}
                 </div>
                 @endif
             </div>

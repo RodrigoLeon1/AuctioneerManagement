@@ -16,31 +16,31 @@
     </div>
     <div class="card-body">
 
-      @if ($errors->any())
-      <div class="alert alert-danger">
-          <ul>
-              @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-      @endif
-
-      <form action="{{ route('liquidaciones.update', $invoice->id) }}" method="post">    
-        @csrf
-        @method('PUT')    
-        <div class="form-row form-dinamic">
-          <div class="form-group col-md-12">
-              <label>Precio modificado</label>
-              <input type="number" class="form-control {{ $errors->has('price_modified') ? 'is-invalid' : '' }}" name="price_modified" id="price_modified" value="{{ old('price_modified') }}" required>
-          </div>
-          <div class="form-group col-md-12">
-              <label>Motivo por el cual se ha de modificar el precio</label>
-              <textarea class="form-control" id="description_modified" name="description_modified" rows="3" required></textarea>
-          </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <button type="submit" class="btn btn-primary mt-3">Editar liquidación</button>
-      </form>
+        @endif
+
+        <form action="{{ route('liquidaciones.update', $invoice->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="form-row form-dinamic">
+                <div class="form-group col-md-12">
+                    <label>Precio modificado</label>
+                    <input type="number" class="form-control {{ $errors->has('price_modified') ? 'is-invalid' : '' }}" name="price_modified" id="price_modified" value="{{ old('price_modified') }}" required>
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Motivo por el cual se ha de modificar el precio</label>
+                    <textarea class="form-control" id="description_modified" name="description_modified" rows="3" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Editar liquidación</button>
+        </form>
 
         <h4 class="mt-5">
             <strong>Datos generales</strong>

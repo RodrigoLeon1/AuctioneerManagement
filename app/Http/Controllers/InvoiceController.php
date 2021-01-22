@@ -34,8 +34,10 @@ class InvoiceController extends Controller
         if ($request->input('user_id') != null) {
             $user = User::where('id', $request->input('user_id'))->first();
         } else {
+
             $preproformas = null;
             $user = null;
+
             if (!$request->input('type_search')) {
                 return redirect()->back();
             }
@@ -43,14 +45,11 @@ class InvoiceController extends Controller
             if ($request->has('type_search')) {
                 if ($request->input('type_search') == 'name') {
                     if ($request->input('name') !== null xor $request->input('lastname') !== null) {
-
-                        $user = User::where('name', 'LIKE', '%' . $request->input('name') . '%')
-                            ->orWhere('lastname', 'LIKE', '%' . $request->input('lastname') . '%')
-                            ->get();
-
-                        /*$user = User::where('name', $request->input('name'))
-                            ->orWhere('lastname', $request->input('lastname'))
-                            ->get();*/
+                        if ($request->input('name') !== null && $request->input('lastname') == null) {
+                            $user = User::where('name', 'LIKE', '%' .  $request->input('name') . '%')->get();
+                        } elseif ($request->input('name') == null && $request->input('lastname') !== null) {
+                            $user = User::where('lastname', 'LIKE', '%' .  $request->input('lastname') . '%')->get();
+                        }
                     } elseif ($request->input('name') && $request->input('lastname')) {
                         $user = User::where('name', 'LIKE', '%' . $request->input('name') . '%')
                             ->where('lastname', 'LIKE', '%' . $request->input('lastname') . '%')
@@ -60,23 +59,23 @@ class InvoiceController extends Controller
                     $user = User::where('dni', $request->input('search'))->first();
                 } else if ($request->input('type_search') == 'cuit') {
                     $user = User::where('cuit', $request->input('search'))->first();
-                }else if ($request->input('type_search') == 'proforma_date'){
+                } else if ($request->input('type_search') == 'proforma_date') {
                     $preproformas = InvoiceProforma::where('date_remate', $request->input('date'))
-                                                    ->where('is_invoiced', false)
-                                                    ->get();
+                        ->where('is_invoiced', false)
+                        ->get();
                 }
             }
 
-            if($preproformas != null) {
+            if ($preproformas != null) {
                 $proformas_user = [];
-                foreach($preproformas as $prof){
+                foreach ($preproformas as $prof) {
                     $us = User::where('id', $prof->user_id)->first();
                     array_push($proformas_user, $us);
                 }
                 $tu = $request->input('tu');
                 return view('liquidaciones.pre-create', compact('preproformas', 'proformas_user', 'tu'));
             }
-            
+
             if ($user != null) {
                 if (get_class($user) != "App\Models\User") {
                     return redirect()
@@ -85,7 +84,6 @@ class InvoiceController extends Controller
                 }
             }
         }
-
 
         if ($user == null) {
             if ($request->input('type_search') == 'dni' || $request->input('type_search') == 'cuit') {
@@ -104,7 +102,7 @@ class InvoiceController extends Controller
                 ->get();
         } else {
 
-            $so = SaleOrder::where('user_id', $user->id)->get();            
+            $so = SaleOrder::where('user_id', $user->id)->get();
             $proformas = [];
 
             foreach ($so as $s) {
@@ -127,9 +125,9 @@ class InvoiceController extends Controller
                     ->with('error-search', 'El usuario no tiene proformas asociadas para poder crear la liquidación correspondiente.');
             }
 
-            $tu = $request->input('tu');            
+            $tu = $request->input('tu');
             return view('liquidaciones.create', compact('user', 'proformas', 'tu'));
-        }        
+        }
 
         if (sizeof($proformas) == 0) {
             return redirect()
@@ -142,23 +140,23 @@ class InvoiceController extends Controller
     }
 
     public function store(Request $request)
-    {        
+    {
         DB::beginTransaction();
 
         try {
-        
+
             $user = User::findOrFail($request->input('user_id'));
             $commissionPercentage = $request->input('commission_percentage') ? $request->input('commission_percentage') : 0;
             $partialPayment = 0;
             $subtotal = 0;
             $pricePartialTotal = 0;
             $priceTotal = 0;
-            
+
             if ($request->input('tu') == 'remitente') {
                 $isRemitente = true;
             } else {
                 $isRemitente = false;
-            }           
+            }
 
             // Create the invoice
             $invoice = Invoice::create([
@@ -172,7 +170,7 @@ class InvoiceController extends Controller
                 $proforma = InvoiceProforma::findOrFail($request->input('proformasIds')[$i]);
                 $product = Product::findOrFail($request->input('productsIds')[$i]);
                 $productQuantity = $request->input('productsQuantities')[$i];
-                $subtotal += ($productQuantity * $proforma->price_unit);                
+                $subtotal += ($productQuantity * $proforma->price_unit);
 
                 $invoice->products()->attach($invoice->id, [
                     'quantity' => $productQuantity,
@@ -191,10 +189,10 @@ class InvoiceController extends Controller
                     ]);
 
                 $partialPayment += $proforma->partial_payment;
-                $pricePartialTotal += $proforma->partial_total; 
-                if ($request->input('tu') == 'remitente') {              
-                    $priceTotal += $proforma->total + $proforma->partial_payment;           
-                }else{
+                $pricePartialTotal += $proforma->partial_total;
+                if ($request->input('tu') == 'remitente') {
+                    $priceTotal += $proforma->total + $proforma->partial_payment;
+                } else {
                     $priceTotal += $proforma->total;
                 }
             }
@@ -237,13 +235,13 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
-        $invoice = Invoice::find($id);        
+        $invoice = Invoice::find($id);
         return view('liquidaciones.edit', compact('invoice'));
     }
 
     public function update(Request $request, $id)
-    {                
-        $invoice = Invoice::find($id);        
+    {
+        $invoice = Invoice::find($id);
         $invoice->update([
             'is_price_modified' => true,
             'price_modified' => $request->input('price_modified'),
@@ -268,7 +266,6 @@ class InvoiceController extends Controller
         $invoices = [];
 
         if ($request->has('type_search')) {
-
             if ($request->input('type_search') == 'name') {
                 if ($request->input('name') !== null xor $request->input('lastname') !== null) {
                     if ($request->input('name') !== null && $request->input('lastname') == null) {

@@ -18,10 +18,10 @@
 @endif
 
 @php
-    foreach ($product->saleorder as $order) {
-        $orderHc = $order->pivot;
-        $quantity = $order->pivot->quantity;
-    }
+foreach ($product->saleorder as $order) {
+$orderHc = $order->pivot;
+$quantity = $order->pivot->quantity;
+}
 @endphp
 
 <!-- Content Row -->
@@ -108,7 +108,7 @@
                         <div class="form-group col-md-4">
                             <label for="total">Importe total</label>
                             <input type="text" class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" id="total" name="total" value="{{ old('total') }}" min=1 step=".01" readonly>
-                        </div>                        
+                        </div>
                     </div>
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between my-4">
@@ -181,7 +181,7 @@
     const partial_payment = document.querySelector('#partial_payment')
     const total = document.querySelector('#total')
 
-    quantity.addEventListener('keyup', () => {        
+    quantity.addEventListener('keyup', () => {
         renderTotal()
     })
     priceUnit.addEventListener('keyup', () => {
@@ -190,16 +190,16 @@
     partialTotal.addEventListener('keyup', () => {
         renderTotal()
     })
-    partial_payment.addEventListener('keyup', (e) => {             
+    partial_payment.addEventListener('keyup', (e) => {
         if (e.target.value && e.target.value > partialTotal.value) {
-            e.target.value = 0            
-        }        
+            e.target.value = 0
+        }
         renderTotal()
     })
 
-    function renderTotal() {        
+    function renderTotal() {
         partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
-        if (quantity.value && priceUnit.value) {            
+        if (quantity.value && priceUnit.value) {
             let pp = parseFloat(partial_payment.value) || 0
             total.value = parseFloat(partialTotal.value) - parseFloat(pp)
         }
