@@ -82,6 +82,9 @@
                                     <a href="{{ route('orden-ventas.pdf', $order->id) }}" target="_blank" class="btn btn-success btn-circle">
                                         <i class="fas fa-file-pdf"></i>
                                     </a>
+                                    <a href="{{ route('orden-ventas.etiqueta', $order->id) }}" target="_blank" class="btn btn-warning btn-circle">
+                                        <i class="fas fa-tag"></i>
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
