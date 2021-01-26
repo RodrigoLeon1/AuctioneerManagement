@@ -14,7 +14,10 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Seleccione el rango de fechas en las que desea consultar las ganancias</h6>
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Seleccione el rango de fechas en las que desea consultar las ganancias.
+                    <br>Si solo desea buscar las ganancias que se hicieron en determinada fecha, solo complete el primer campo, es decir, <strong>Fecha de inicio</strong>.
+                </h6>
             </div>
 
             <div class="card-body">

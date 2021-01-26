@@ -206,8 +206,7 @@
                         <th>Codigo producto</th>
                         <th>Seña</th>
                         <th>Total</th>
-                        <th>Acciones
-                        <th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -216,8 +215,7 @@
                         <th>Codigo producto</th>
                         <th>Seña</th>
                         <th>Total</th>
-                        <th>Acciones
-                        <th>
+                        <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -233,7 +231,6 @@
                         </td>
                         </tr>
                         @endfor
-
                 </tbody>
             </table>
         </div>
