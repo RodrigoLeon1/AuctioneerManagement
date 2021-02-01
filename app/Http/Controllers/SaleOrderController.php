@@ -105,7 +105,7 @@ class SaleOrderController extends Controller
                 'postal_code' => 'nullable|string',
                 'city' => 'nullable|string',
                 'phone' => 'nullable|string|unique:users,phone,' . $user->id,
-                'dni' => 'required|string|unique:users,dni,' . $user->id,
+                'dni' => 'nullable|string|unique:users,dni,' . $user->id,
                 'cuit' => 'nullable|string|unique:users,cuit,' . $user->id,
             ]);
         } else {
@@ -121,7 +121,7 @@ class SaleOrderController extends Controller
                 'postal_code' => 'nullable|string',
                 'city' => 'nullable|string',
                 'phone' => 'nullable|string|unique:users,phone',
-                'dni' => 'required|string|unique:users,dni',
+                'dni' => 'nullable|string|unique:users,dni',
                 'cuit' => 'nullable|string|unique:users,cuit'
             ]);
         }
