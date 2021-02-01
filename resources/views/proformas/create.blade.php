@@ -191,7 +191,7 @@ $quantity = $order->pivot->quantity;
         renderTotal()
     })
     partial_payment.addEventListener('keyup', (e) => {
-        if (e.target.value && e.target.value > partialTotal.value) {
+        if (e.target.value && parseFloat(e.target.value) > parseFloat(partialTotal.value)) {
             e.target.value = 0
         }
         renderTotal()

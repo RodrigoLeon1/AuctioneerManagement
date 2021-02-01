@@ -100,7 +100,20 @@
                     ${{ number_format($invoice->commission) }}
                 </td>
                 <td>${{ number_format($invoice->partial_payment) }} </td>
-                <td style="text-align: center;"> <strong style="font-size: 30px;"> ${{ number_format($invoice->total) }}</strong></td>
+                <td style="text-align: center;">
+                    <strong style="font-size: 30px;">
+                        @if ($invoice->is_price_modified)
+                        <del>${{ number_format($invoice->total) }}</del><br>
+                        ${{ number_format($invoice->price_modified) }}
+                        <span style="font-size: 20px;">
+                            <br><br>
+                            {{ $invoice->modified_description }}
+                        </span>
+                        @else
+                        ${{ number_format($invoice->total) }}
+                        @endif
+                    </strong>
+                </td>
             </tr>
         </table>
     </div>
