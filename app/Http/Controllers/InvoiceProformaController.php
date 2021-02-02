@@ -93,6 +93,10 @@ class InvoiceProformaController extends Controller
                 'price_unit' => $request->input('price_unit'),
                 'partial_total' => $request->input('partial_total'),
                 'partial_payment' => $request->input('partial_payment'),
+
+                'commission_percentage' => $request->input('commission'),
+                'commission_value' => $request->input('commission_value'),
+
                 'total' => $request->input('total'),
                 'user_id' => $user->id,
                 'sale_order_id' => $request->input('order_id'),
@@ -132,6 +136,8 @@ class InvoiceProformaController extends Controller
                 'price_unit' => 'required|numeric',
                 'partial_total' => 'required|numeric',
                 'partial_payment' => 'required|numeric',
+                'commission' => 'required|numeric',
+                'commission_value' => 'required|numeric',
                 'total' => 'required|numeric',
                 'name' => 'required|string',
                 'lastname' => 'required|string',
@@ -151,6 +157,8 @@ class InvoiceProformaController extends Controller
                 'price_unit' => 'required|numeric',
                 'partial_total' => 'required|numeric',
                 'partial_payment' => 'required|numeric',
+                'commission' => 'required|numeric',
+                'commission_value' => 'required|numeric',
                 'total' => 'required|numeric',
                 'name' => 'required|string',
                 'lastname' => 'required|string',

@@ -72,6 +72,12 @@
                 <input type="text" readonly class="form-control-plaintext" id="" value="${{ number_format($invoice->partial_total) }}">
             </div>
         </div>
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Comisión</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->commission_value) }} ({{ $invoice->commission_percentage }} %)">
+            </div>
+        </div>
         <hr>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Seña</label>

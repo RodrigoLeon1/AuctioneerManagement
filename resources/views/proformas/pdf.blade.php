@@ -80,6 +80,7 @@
                 <th>Cantidad</th>
                 <th>Precio por unidad</th>
                 <th>Importe</th>
+                <th>Comisión</th>
             </tr>
             <tr>
                 <td>{{ $invoice->product->id }}</td>
@@ -87,6 +88,9 @@
                 <td>{{ $invoice->quantity }}</td>
                 <td>${{ number_format($invoice->price_unit) }}</td>
                 <td>${{ number_format($invoice->partial_total) }}</td>
+                <td>
+                    ${{ number_format($invoice->commission_value) }} ({{ $invoice->commission_percentage }} %)
+                </td>
             </tr>
         </table>
         <br>

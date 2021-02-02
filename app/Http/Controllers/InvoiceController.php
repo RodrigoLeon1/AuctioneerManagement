@@ -151,6 +151,7 @@ class InvoiceController extends Controller
             $subtotal = 0;
             $pricePartialTotal = 0;
             $priceTotal = 0;
+            $commissionCliente = 0;
 
             if ($request->input('tu') == 'remitente') {
                 $isRemitente = true;
@@ -190,18 +191,20 @@ class InvoiceController extends Controller
 
                 $partialPayment += $proforma->partial_payment;
                 $pricePartialTotal += $proforma->partial_total;
+
                 if ($request->input('tu') == 'remitente') {
-                    $priceTotal += $proforma->total + $proforma->partial_payment;
+                    $priceTotal += $proforma->partial_total + $proforma->partial_payment;
                 } else {
                     $priceTotal += $proforma->total;
+                    $commissionCliente += $proforma->commission_value;
                 }
             }
 
-            $commission = ($pricePartialTotal * ($commissionPercentage / 100));
-
             if ($request->input('tu') == 'cliente') {
-                $finalPrice = $priceTotal + $commission;
+                $commission = $commissionCliente;
+                $finalPrice = $priceTotal;
             } else {
+                $commission = ($pricePartialTotal * ($commissionPercentage / 100));
                 $finalPrice = $priceTotal - $commission;
             }
 

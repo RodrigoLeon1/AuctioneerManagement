@@ -66,18 +66,32 @@
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->subtotal) }}">
             </div>
         </div>
+
+        @if ($invoice->type_invoice === 'cliente')
         <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Seña</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->partial_payment) }}">
             </div>
         </div>
+        @endif
+
+        @if ($invoice->type_invoice === 'cliente')
+        <div class="form-group row">
+            <label for="staticDate" class="col-sm-2 col-form-label">Comisión</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->commission) }}">
+            </div>
+        </div>
+        @else
         <div class="form-group row">
             <label for="staticDate" class="col-sm-2 col-form-label">Comisión</label>
             <div class="col-sm-10">
                 <input type="text" readonly class="form-control-plaintext" id="staticDate" value="${{ number_format($invoice->commission) }} ({{ $invoice->commission_percentage }} %)">
             </div>
         </div>
+        @endif
+
         <hr>
         @if ($invoice->is_price_modified)
         <div class="form-group row">

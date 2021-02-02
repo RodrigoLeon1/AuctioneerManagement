@@ -97,6 +97,20 @@ $quantity = $order->pivot->quantity;
                     </div>
 
                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="commission">Comisión porcentaje</label>
+                            <input type="number" class="form-control {{ $errors->has('commission') ? 'is-invalid' : '' }}" id="commission" name="commission" value="{{ old('commission', 10) }}" min=1 max=100 step=".01">
+                            <small class="form-text text-muted">
+                                La comisión se aplica al campo <strong> Importe.</strong>
+                            </small>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="commission_value">Comisión</label>
+                            <input type="number" class="form-control {{ $errors->has('commission_value') ? 'is-invalid' : '' }}" id="commission_value" name="commission_value" value="{{ old('commission_value') }}" step=".01" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="partial_total">Importe</label>
                             <input type="number" class="form-control {{ $errors->has('partial_total') ? 'is-invalid' : '' }}" id="partial_total" name="partial_total" value="{{ old('partial_total') }}" min=1 step=".01" readonly>
@@ -108,6 +122,9 @@ $quantity = $order->pivot->quantity;
                         <div class="form-group col-md-4">
                             <label for="total">Importe total</label>
                             <input type="text" class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" id="total" name="total" value="{{ old('total') }}" min=1 step=".01" readonly>
+                            <small class="form-text text-muted">
+                                El importe total se obtiene: <strong> Importe + Comisión - Seña</strong>
+                            </small>
                         </div>
                     </div>
 
@@ -177,6 +194,8 @@ $quantity = $order->pivot->quantity;
     const proformaForm = document.querySelector('#form-proforma')
     const quantity = document.querySelector('#quantity')
     const priceUnit = document.querySelector('#price_unit')
+    const commission = document.querySelector('#commission')
+    const commission_value = document.querySelector('#commission_value')
     const partialTotal = document.querySelector('#partial_total')
     const partial_payment = document.querySelector('#partial_payment')
     const total = document.querySelector('#total')
@@ -185,6 +204,12 @@ $quantity = $order->pivot->quantity;
         renderTotal()
     })
     priceUnit.addEventListener('keyup', () => {
+        renderTotal()
+    })
+    commission.addEventListener('keyup', (e) => {
+        if (!e.target.value) {
+            e.target.value = 0
+        }
         renderTotal()
     })
     partialTotal.addEventListener('keyup', () => {
@@ -199,9 +224,10 @@ $quantity = $order->pivot->quantity;
 
     function renderTotal() {
         partialTotal.value = parseFloat(quantity.value) * parseFloat(priceUnit.value)
-        if (quantity.value && priceUnit.value) {
+        if (quantity.value && priceUnit.value && commission.value) {
+            commission_value.value = parseFloat(partialTotal.value) * (parseFloat(commission.value) / 100)
             let pp = parseFloat(partial_payment.value) || 0
-            total.value = parseFloat(partialTotal.value) - parseFloat(pp)
+            total.value = parseFloat(partialTotal.value) + parseFloat(commission_value.value) - parseFloat(pp)
         }
     }
 

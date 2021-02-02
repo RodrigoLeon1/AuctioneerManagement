@@ -77,10 +77,10 @@
                                     <tr>
                                         <th>Código</th>
                                         <th>Descripción</th>
-                                        <th>Orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
+                                        <th>Comisión</th>
                                         <th>Seña</th>
                                         <th>Importe total</th>
                                         <th>Seleccionar</th>
@@ -90,10 +90,10 @@
                                     <tr>
                                         <th>Código</th>
                                         <th>Descripción</th>
-                                        <th>Orden de venta</th>
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
+                                        <th>Comisión</th>
                                         <th>Seña</th>
                                         <th>Importe total</th>
                                         <th>Seleccionar</th>
@@ -110,10 +110,10 @@
 
                                             <td>{{ $proforma->product->id }}</td>
                                             <td>{{ $proforma->product->description }}</td>
-                                            <td>{{ $proforma->saleorder->order_number }}</td>
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
+                                            <td>${{ number_format($proforma->commission_value) }}</td>
                                             <td>${{ number_format($proforma->partial_payment) }}</td>
                                             <td>${{ number_format($proforma->total) }}</td>
                                             <td>
@@ -139,7 +139,6 @@
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Importe total</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -150,7 +149,6 @@
                                         <th>Cantidad</th>
                                         <th>Precio por unidad</th>
                                         <th>Importe</th>
-                                        <th>Importe total</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -169,8 +167,6 @@
                                             <td>{{ $proforma->quantity }}</td>
                                             <td>${{ number_format($proforma->price_unit) }}</td>
                                             <td>${{ number_format($proforma->partial_total) }}</td>
-
-                                            <td>${{ number_format($proforma->total + $proforma->partial_payment) }}</td>
 
                                             <input type="hidden" value="{{ $proforma->product->id }}" name="products[]" id="user_products">
                                             <input type="hidden" value="{{ ucfirst($proforma->product->description) }} " name="products[]" id="description_products">
@@ -231,22 +227,14 @@
                                             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th>Subtotal</th>
-                                                        <th>Comisión en porcentaje</th>
-                                                        <th>Comisión</th>
                                                         <th>Importe final</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <h6 class="text-left">
-                                                        La comisión se obtiene del <strong>importe parcial</strong> de la venta, es decir, el valor al que todavía no se le ha debitado la seña especificada en la proforma.
-                                                    </h6>
                                                     <tr>
-                                                        <td id="modal_subtotal"></td>
-                                                        <td id="modal_commission">
+                                                        <td id="modal_commission" style="display: none">
                                                             <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
                                                         </td>
-                                                        <td id="modal_commission_value">0</td>
                                                         <td id="modal_total"></td>
                                                     </tr>
                                                 </tbody>
@@ -270,7 +258,7 @@
                                                     <tr>
                                                         <td id="modal_subtotal"></td>
                                                         <td id="modal_commission">
-                                                            <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="0">
+                                                            <input type="number" class="form-control " id="commission_percentage" name="commission_percentage" min="0" max="100" value="20">
                                                         </td>
                                                         <td id="modal_commission_value">$0</td>
                                                         <td id="modal_total"></td>
@@ -298,6 +286,7 @@
 <style>
     .form-check-input {
         margin-left: 0px;
+        position: relative !important;
     }
 </style>
 
@@ -311,6 +300,10 @@
     const modal_total = document.querySelector('#modal_total')
     let modal_commission = 0
     let modal_commission_value = 0
+
+    if (type_user.value !== 'cliente') {
+        modal_commission = 20
+    }
 
     commission.addEventListener('keyup', (e) => {
         modal_commission = e.target.value
@@ -339,7 +332,7 @@
                     commPartialTotal += parseFloat(products[i + 3].value)
                 }
             } else {
-                subtotal = parseFloat(subtotal) + parseFloat(products[i + 5].value)
+                subtotal = parseFloat(subtotal) + parseFloat(products[i + 3].value)
                 commPartialTotal += parseFloat(products[i + 3].value)
             }
             i = i + 6;
@@ -349,17 +342,19 @@
             modal_product_items.innerHTML = inputs
         }
 
-        modal_subtotal.innerHTML = "$" + subtotal
-        if (modal_commission) {
-            modal_commission_value = parseFloat(commPartialTotal) * (parseFloat(modal_commission) / 100)
-            modal_commission_v.innerText = "$" + modal_commission_value
-        } else {
-            modal_commission_value = parseFloat(commPartialTotal) * (0 / 100)
-            modal_commission_v.innerText = "$" + modal_commission_value
+        if (type_user.value !== 'cliente') {
+            modal_subtotal.innerHTML = "$" + subtotal
+            if (modal_commission) {
+                modal_commission_value = parseFloat(commPartialTotal) * (parseFloat(modal_commission) / 100)
+                modal_commission_v.innerText = "$" + modal_commission_value
+            } else {
+                modal_commission_value = parseFloat(commPartialTotal) * (0 / 100)
+                modal_commission_v.innerText = "$" + modal_commission_value
+            }
         }
 
         if (type_user.value == 'cliente') {
-            modal_total.innerHTML = "$" + (parseFloat(subtotal) + parseFloat(modal_commission_value))
+            modal_total.innerHTML = "$" + (parseFloat(subtotal))
         } else {
             modal_total.innerHTML = "$" + (parseFloat(subtotal) - parseFloat(modal_commission_value))
         }
