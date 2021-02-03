@@ -72,7 +72,8 @@ class SaleOrderController extends Controller
                         'quantity' => $request->input('productQuantity')[$i],
                         'quantity_sold' => 0,
                         'quantity_remaining' => $request->input('productQuantity')[$i],
-                        'quantity_tags' => $request->input('productTags')[$i]
+                        'quantity_tags' => $request->input('productTags')[$i],
+                        'tasac' => $request->input('productTasac')[$i],
                     ]);
                 }
             }

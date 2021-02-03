@@ -58,6 +58,7 @@ class StatisticsController extends Controller
 
 			if ($invoicesProforma) {
 				foreach ($invoicesProforma as $invoice) {
+					$commission += $invoice->commission_value;
 					$quantity += $invoice->quantity;
 					$total += $invoice->partial_total;
 				}

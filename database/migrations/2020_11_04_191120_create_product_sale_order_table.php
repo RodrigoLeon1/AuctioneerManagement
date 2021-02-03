@@ -14,7 +14,7 @@ class CreateProductSaleOrderTable extends Migration
             $table->smallInteger('quantity_sold')->nullable();
             $table->smallInteger('quantity_remaining')->nullable();
             $table->smallInteger('quantity_tags')->nullable();
-            // $table->boolean('is_invoiced')->default(false);
+            $table->smallInteger('tasac')->nullable();
 
             $table->foreignId('product_id')
                 ->constrained()

@@ -193,7 +193,7 @@ class InvoiceController extends Controller
                 $pricePartialTotal += $proforma->partial_total;
 
                 if ($request->input('tu') == 'remitente') {
-                    $priceTotal += $proforma->partial_total + $proforma->partial_payment;
+                    $priceTotal += $proforma->partial_total;
                 } else {
                     $priceTotal += $proforma->total;
                     $commissionCliente += $proforma->commission_value;

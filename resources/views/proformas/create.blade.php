@@ -21,6 +21,7 @@
 foreach ($product->saleorder as $order) {
 $orderHc = $order->pivot;
 $quantity = $order->pivot->quantity;
+$tasac = $order->pivot->tasac;
 }
 @endphp
 
@@ -93,6 +94,9 @@ $quantity = $order->pivot->quantity;
                         <div class="form-group col-md-6">
                             <label for="price_unit">Precio por unidad</label>
                             <input type="number" class="form-control {{ $errors->has('price_unit') ? 'is-invalid' : '' }}" id="price_unit" name="price_unit" value="{{ old('price_unit') }}" min=1 step=".01">
+                            <small class="form-text text-muted">
+                                La <strong>tasacion</strong> establecida en la orden de venta era de ${{ $tasac }}.
+                            </small>
                         </div>
                     </div>
 

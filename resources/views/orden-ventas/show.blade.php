@@ -67,14 +67,10 @@
                 <label for="staticProductQuantityRemaining">Cantidad disponible para vender</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantityRemaining" value="{{ $product->pivot->quantity_remaining }}">
             </div>
-            <!-- <div class="form-group col-md-2">
-                <label for="staticProductCategory">Categoría</label>
-                @forelse ($product->categories as $category)
-                <input type="text" readonly class="form-control" id="staticProductCategory" value="{{ $category->description }}">
-                @empty
-                <input type="text" readonly class="form-control" id="staticProductCategory" value="Sin categoría">
-                @endforelse
-            </div> -->
+            <div class="form-group col-md-12">
+                <label for="staticProductQuantity">Tasac</label>
+                <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->tasac }}">
+            </div>
             @endforeach
         </div>
 

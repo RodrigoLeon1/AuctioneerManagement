@@ -224,6 +224,26 @@
                     </div>
                 </div>
 
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ganancias por comisión</div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${{ number_format($commission) }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                         <thead>
@@ -232,6 +252,7 @@
                                 <th>Tipo de liquidación</th>
                                 <th>Usuario</th>
                                 <th>Importe final</th>
+                                <th>Comisión</th>
                                 <th>Mercadería</th>
                                 <th>Acciones</th>
                             </tr>
@@ -242,6 +263,7 @@
                                 <th>Tipo de liquidación</th>
                                 <th>Usuario</th>
                                 <th>Importe final</th>
+                                <th>Comisión</th>
                                 <th>Mercadería</th>
                                 <th>Acciones</th>
                             </tr>
@@ -255,6 +277,7 @@
                                     {{ $invoice->user ? $invoice->user->name . ' ' . $invoice->user->lastname : 'Usuario eliminado' }}
                                 </td>
                                 <td>${{ number_format($invoice->partial_total) }}</td>
+                                <td>${{ number_format($invoice->commission_value) }}</td>
                                 <td>{{ $invoice->product->description }}</td>
                                 <td>
                                     <a href="{{ route('proformas.show', $invoice->id) }}" class="btn btn-info btn-circle">
