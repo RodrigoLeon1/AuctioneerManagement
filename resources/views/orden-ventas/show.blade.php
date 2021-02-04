@@ -49,30 +49,33 @@
         <h4>
             <strong>Mercadería</strong>
         </h4>
+        @foreach ($order->products as $product)
         <div class="form-row">
-            @foreach ($order->products as $product)
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
                 <label for="staticProductTasac">Código</label>
                 <input type="text" readonly class="form-control" id="staticProductTasac" value="{{ $product->id }}">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-10">
                 <label for="staticProductName">Descripción</label>
                 <input type="text" readonly class="form-control" id="staticProductName" value="{{ ucfirst($product->description) }}">
             </div>
-            <div class="form-group col-md-2">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
                 <label for="staticProductQuantity">Cantidad total</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->quantity }}">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="staticProductQuantityRemaining">Cantidad disponible para vender</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantityRemaining" value="{{ $product->pivot->quantity_remaining }}">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-4">
                 <label for="staticProductQuantity">Tasac</label>
                 <input type="text" readonly class="form-control" id="staticProductQuantity" value="{{ $product->pivot->tasac }}">
             </div>
-            @endforeach
         </div>
+        <hr>
+        @endforeach
 
         <hr>
 

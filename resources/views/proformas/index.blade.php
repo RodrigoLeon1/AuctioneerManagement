@@ -42,6 +42,7 @@
                     <tr>
                         <th>Fecha remate</th>
                         <th>Importe total</th>
+                        <th>Código</th>
                         <th>Mercadería</th>
                         <th>Cantidad</th>
                         <th>Comprador</th>
@@ -52,6 +53,7 @@
                     <tr>
                         <th>Fecha remate</th>
                         <th>Importe total</th>
+                        <th>Código</th>
                         <th>Mercadería</th>
                         <th>Cantidad</th>
                         <th>Comprador</th>
@@ -63,6 +65,7 @@
                     <tr>
                         <td>{{ date('d/m/Y', strtotime($invoice->date_remate)) }}</td>
                         <td> ${{ number_format($invoice->total) }}</td>
+                        <td>{{ $invoice->product->id }}</td>
                         <td>{{ $invoice->product->description }}</td>
                         <td>{{ $invoice->quantity }}</td>
                         <td>

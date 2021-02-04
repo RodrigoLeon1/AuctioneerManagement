@@ -159,6 +159,13 @@ class SaleOrderController extends Controller
         return $pdf->stream($title);
     }
 
+    public function pdfCondiciones()
+    {
+        $title = 'condiciones-orden-ventas';
+        $pdf = PDF::loadView('orden-ventas.condiciones');
+        return $pdf->stream($title);
+    }
+
     public function tags($id)
     {
         $order = SaleOrder::find($id);

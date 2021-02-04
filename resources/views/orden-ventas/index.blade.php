@@ -28,6 +28,12 @@
                 <i class="fas fa-plus"></i>
             </span>
         </a>
+        <a href="{{ route('orden-ventas.pdfCondiciones') }}" target="_blank" class="btn btn-success btn-icon-split mb-4" style="background-color: #218c65;">
+            <span class="text">Condiciones orden de venta</span>
+            <span class="icon text-white-50">
+                <i class="fas fa-file-pdf"></i>
+            </span>
+        </a>
         <div class="table-responsive">
             <table class="table table-bordered" id="datatable-orders" width="100%" cellspacing="0">
                 <thead>
@@ -60,7 +66,7 @@
                             <ul>
                                 @foreach ($order->products as $product)
                                 <li>
-                                    {{ $product->description }} ( {{ $product->pivot->quantity}} unidades )
+                                    Código {{ $product->id }} - {{ $product->description }} ( {{ $product->pivot->quantity}} unidades )
                                 </li>
                                 @endforeach
                             </ul>
