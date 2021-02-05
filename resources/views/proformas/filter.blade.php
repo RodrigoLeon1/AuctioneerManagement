@@ -22,13 +22,17 @@
                 <form class="mb-5" action="{{ route('proformas.filter') }}" autocomplete="off">
 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="date-start">Fecha remate de inicio</label>
                             <input type="date" class="form-control" id="date-start" name="date_start" require>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="date-end">Fecha remate de fin</label>
                             <input type="date" class="form-control" id="date-end" name="date_end" require>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="date-end">Codigo de producto</label>
+                            <input type="number" class="form-control" id="product_code" name="product_code" require>
                         </div>
                     </div>
 
@@ -40,9 +44,11 @@
                 <div class="card-header py-3 mb-4 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">
                         Resultados de búsqueda -
-                        <strong>{{ date("d/m/Y", strtotime($from)) }}</strong>
-                        {{ $to ? 'al' : '' }}
-                        <strong>{{ $to ? date("d/m/Y", strtotime($to)) : '' }}</strong>
+                        @if ($from)                        
+                            <strong>{{ date("d/m/Y", strtotime($from)) }}</strong>
+                            {{ $to ? 'al' : '' }}
+                            <strong>{{ $to ? date("d/m/Y", strtotime($to)) : '' }}</strong>
+                        @endif
                     </h6>
                 </div>
 

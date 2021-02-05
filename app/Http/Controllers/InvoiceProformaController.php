@@ -224,7 +224,10 @@ class InvoiceProformaController extends Controller
         } else if ($request->input('date_start')) {
             $from = date($request->input('date_start'));
             $invoices = InvoiceProforma::where('date_remate', $from)->get();
+        }else if ($request->input('product_code')){
+            $invoices = InvoiceProforma::where('product_id', $request->input('product_code'))->get();
         }
+
 
         return view('proformas.filter', compact(['invoices', 'from', 'to']));
     }
